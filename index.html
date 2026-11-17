@@ -283,7 +283,6 @@
   <!-- 4. 본문 영역 -->
   <div class="content">
 
-    <!-- 🏆 핸디 순위 -->
     <div id="t-handi" class="tab-pane active">
       <div class="card">
         <div class="card-title"><span>🏆 시즌 누적 핸디 순위</span><span style="font-size:11px; color:var(--text-muted);">72타 기준 자동산출</span></div>
@@ -294,7 +293,6 @@
       </div>
     </div>
 
-    <!-- 📅 월별 성적 -->
     <div id="t-monthly" class="tab-pane">
       <div class="card">
         <div class="card-title"><span>📅 월례회 성적 조회</span></div>
@@ -306,90 +304,5 @@
       </div>
     </div>
 
-    <!-- ⛳ 라이브 -->
     <div id="t-live" class="tab-pane">
       <div class="card">
-
-  <!-- Firebase 연동 스크립트 -->
-  <script type="module">
-    import { initializeApp } from "https://gstatic.com";
-    import { getDatabase, ref, onValue, push, set } from "https://gstatic.com";
-
-    // ⚠️ [중요] 아래 firebaseConfig 부분을 본인의 Firebase 설정값으로 교체하세요!
-    const firebaseConfig = {
-      apiKey: "AIzaSyB10lgpcSe2B8gWyqaPUH6CdaTaTxlxjYM",
-      authDomain: "hanul-golf.firebaseapp.com",
-      databaseURL: "https://hanul-golf-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "hanul-golf",
-      storageBucket: "hanul-golf.firebasestorage.app",
-      messagingSenderId: "99869543437",
-      appId: "1:99869543437:web:8e65edb81676569d03d944"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // 기본 비밀번호 설정 (원하시는 번호로 변경 가능)
-    const MEMBER_PW = "1234"; // 회원 공용 비밀번호
-    const ADMIN_PW = "9999";  // 총무(관리자) 비밀번호
-
-    // 1. 30일 로그인 유지 확인
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedExpiry = localStorage.getItem('golf_auth_expiry');
-      if (savedExpiry && new Date().getTime() < Number(savedExpiry)) {
-        document.getElementById('login-screen').style.display = 'none';
-      }
-    });
-
-    window.checkMemberLogin = () => {
-      const input = document.getElementById('member-pw-input').value;
-      if (input === MEMBER_PW) {
-        const thirtyDays = 30 * 24 * 60 * 60 * 1000;
-        localStorage.setItem('golf_auth_expiry', new Date().getTime() + thirtyDays);
-        document.getElementById('login-screen').style.display = 'none';
-      } else {
-        alert("비밀번호가 일치하지 않습니다.");
-      }
-    };
-
-    // 2. 관리자 모드 전환
-    let isAdmin = false;
-    window.toggleAdminMode = () => {
-      if (!isAdmin) {
-        const pw = prompt("관리자 비밀번호를 입력하세요:");
-        if (pw === ADMIN_PW) {
-          isAdmin = true;
-          document.getElementById('admin-toggle-btn').innerText = "관리자 로그아웃";
-          document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'inline-block');
-          alert("관리자 모드가 활성화되었습니다.");
-        } else if (pw !== null) {
-          alert("관리자 비밀번호가 틀렸습니다.");
-        }
-      } else {
-        isAdmin = false;
-        document.getElementById('admin-toggle-btn').innerText = "관리자 로그인";
-        document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
-        openTab('tab-rank', document.querySelector('nav button'));
-      }
-    };
-
-    // 3. 탭 이동 기능
-    window.openTab = (tabId, btn) => {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      if(btn) btn.classList.add('active');
-    };
-
-    // 4. 스코어 저장 & 실시간 순위 계산
-    window.saveScore = () => {
-      const date = document.getElementById('in-date').value;
-      const course = document.getElementById('in-course').value.trim();
-      const player = document.getElementById('in-player').value.trim();
-      const score = Number(document.getElementById('in-score').value);
-
-      if (!date || !course || !player || !score) return alert("모든 항목을 입력하세요.");
-
-      push(ref(db, 'rounds'), { date, course, player, score })
-        .then(() => {
-          alert("스코어가 저장되었습니다!");
