@@ -16,168 +16,40 @@
       --green-accent: #10b981;
       --red-accent: #ef4444;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); max-width: 500px; margin: 0 auto; min-height: 100vh; padding-bottom: 50px; box-shadow: 0 0 30px rgba(0,0,0,0.6); }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      max-width: 500px;
-      margin: 0 auto;
-      min-height: 100vh;
-      padding-bottom: 50px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.6);
-    }
-
-    /* 1. 로그인 화면 (MEMBERS ONLY) */
-    #login-screen {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, #163329 0%, #09130f 100%);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 30px;
-      text-align: center;
-    }
-    .badge-members {
-      font-size: 11px;
-      letter-spacing: 3px;
-      color: var(--gold);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-    }
-    .login-title {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-    .login-sub {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 30px;
-    }
-    .login-box {
-      width: 100%;
-      max-width: 300px;
-    }
-    .login-box input {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      font-size: 16px;
-      text-align: center;
-      margin-bottom: 12px;
-      outline: none;
-    }
+    /* 로그인 화면 */
+    #login-screen { position: fixed; inset: 0; background: radial-gradient(circle at top, #163329 0%, #09130f 100%); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; text-align: center; }
+    .badge-members { font-size: 11px; letter-spacing: 3px; color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.4); padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; }
+    .login-title { font-size: 28px; font-weight: 800; letter-spacing: 2px; color: #fff; margin-bottom: 6px; }
+    .login-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; }
+    .login-box { width: 100%; max-width: 300px; }
+    .login-box input { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--card-border); background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 16px; text-align: center; margin-bottom: 12px; outline: none; }
     .login-box input:focus { border-color: var(--gold); }
-    .login-box button {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: none;
-      background: linear-gradient(135deg, #d4af37, #b59226);
-      color: #0b1914;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-    .login-hint {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 20px;
-      line-height: 1.5;
-    }
+    .login-box button { width: 100%; padding: 14px; border-radius: 10px; border: none; background: linear-gradient(135deg, #d4af37, #b59226); color: #0b1914; font-size: 16px; font-weight: 800; cursor: pointer; }
+    .login-hint { font-size: 12px; color: var(--text-muted); margin-top: 20px; line-height: 1.5; }
 
-    /* 2. 상단 헤더 & 10개 메뉴 네비게이션 */
-    header {
-      padding: 18px 16px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--card-border);
-      background: #0d1f18;
-    }
+    /* 헤더 및 메뉴 */
+    header { padding: 18px 16px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); background: #0d1f18; }
     .header-left span { font-size: 11px; color: var(--gold); display: block; letter-spacing: 1px; }
     .header-left h1 { font-size: 20px; font-weight: 800; letter-spacing: 1px; }
-    .btn-admin {
-      background: rgba(212, 175, 55, 0.15);
-      color: var(--gold);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .nav-grid {
-      display: flex;
-      overflow-x: auto;
-      gap: 6px;
-      padding: 10px 12px;
-      background: #0b1914;
-      border-bottom: 1px solid var(--card-border);
-      scrollbar-width: none;
-    }
+    .btn-admin { background: rgba(212, 175, 55, 0.15); color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.4); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .nav-grid { display: flex; overflow-x: auto; gap: 6px; padding: 10px 12px; background: #0b1914; border-bottom: 1px solid var(--card-border); scrollbar-width: none; }
     .nav-grid::-webkit-scrollbar { display: none; }
-    .nav-btn {
-      background: var(--card-dark);
-      color: var(--text-muted);
-      border: 1px solid var(--card-border);
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .nav-btn.active {
-      background: var(--gold);
-      color: #0b1914;
-      border-color: var(--gold);
-      font-weight: 800;
-    }
+    .nav-btn { background: var(--card-dark); color: var(--text-muted); border: 1px solid var(--card-border); padding: 8px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: 0.2s; }
+    .nav-btn.active { background: var(--gold); color: #0b1914; border-color: var(--gold); font-weight: 800; }
     .admin-only { display: none; }
 
-    /* 3. 메인 카드 & 테이블 스타일 */
+    /* 본문 및 카드 */
     .content { padding: 14px; }
     .tab-pane { display: none; }
     .tab-pane.active { display: block; animation: fadeIn 0.2s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: var(--card-dark); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--gold-light); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
 
-    .card {
-      background: var(--card-dark);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 14px;
-    }
-    .card-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--gold-light);
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
+    /* 테이블 및 폼 */
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th { color: var(--text-muted); font-weight: 600; padding: 8px 4px; border-bottom: 1px solid var(--card-border); text-align: center; }
     td { padding: 11px 4px; border-bottom: 1px solid rgba(30, 63, 51, 0.5); text-align: center; }
@@ -186,64 +58,24 @@
     .rank-1 { background: var(--gold); color: #000; }
     .rank-2 { background: #cbd5e1; color: #000; }
     .rank-3 { background: #b45309; color: #fff; }
-
-    /* 입력 폼 & 버튼 */
     .form-row { margin-bottom: 12px; }
     .form-row label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 5px; }
-    .form-row input, .form-row select, .form-row textarea {
-      width: 100%;
-      padding: 11px;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
-      background: #0b1914;
-      color: #fff;
-      font-size: 14px;
-    }
-    .btn-primary {
-      width: 100%;
-      padding: 12px;
-      background: var(--gold);
-      color: #0b1914;
-      border: none;
-      border-radius: 8px;
-      font-weight: 800;
-      font-size: 14px;
-      cursor: pointer;
-    }
+    .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 11px; border-radius: 8px; border: 1px solid var(--card-border); background: #0b1914; color: #fff; font-size: 14px; }
+    .btn-primary { width: 100%; padding: 12px; background: var(--gold); color: #0b1914; border: none; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; }
 
-    /* 라이브 스코어 & 개인 통계 뱃지 */
+    /* 기타 뱃지 및 팝업 */
     .live-badge { background: var(--red-accent); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
     .stat-box { background: #0b1914; padding: 12px 6px; border-radius: 10px; border: 1px solid var(--card-border); }
     .stat-box .val { font-size: 18px; font-weight: 800; color: var(--gold); margin-top: 4px; }
     .stat-box .lbl { font-size: 11px; color: var(--text-muted); }
-
-    /* 업적 달성 팝업 (ACHIEVEMENT UNLOCKED) */
-    #achievement-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      z-index: 10000;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-    .achieve-card {
-      background: linear-gradient(145deg, #18382c, #0d1f18);
-      border: 2px solid var(--gold);
-      border-radius: 16px;
-      padding: 24px;
-      text-align: center;
-      max-width: 320px;
-      width: 100%;
-    }
+    #achievement-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
+    .achieve-card { background: linear-gradient(145deg, #18382c, #0d1f18); border: 2px solid var(--gold); border-radius: 16px; padding: 24px; text-align: center; max-width: 320px; width: 100%; }
   </style>
 </head>
 <body>
 
-  <!-- 1. 입장 비밀번호 화면 -->
   <div id="login-screen">
     <div class="badge-members">MEMBERS ONLY</div>
     <div style="font-size: 13px; color: var(--gold); margin-bottom: 4px;">한울모임 골프동호회</div>
@@ -256,7 +88,6 @@
     <div class="login-hint">비밀번호는 총무에게 문의하세요<br>한 번 입장하면 이 기기에서 30일간 유지됩니다</div>
   </div>
 
-  <!-- 2. 상단 헤더 -->
   <header>
     <div class="header-left">
       <span>HANUL GOLF CLUB</span>
@@ -265,7 +96,6 @@
     <button class="btn-admin" id="admin-btn" onclick="toggleAdmin()">관리자 로그인</button>
   </header>
 
-  <!-- 3. 10개 전체 메뉴 탭 -->
   <nav class="nav-grid">
     <button class="nav-btn active" onclick="switchTab('t-handi', this)">🏆 핸디 순위</button>
     <button class="nav-btn" onclick="switchTab('t-monthly', this)">📅 월별 성적</button>
@@ -280,16 +110,12 @@
     <button class="nav-btn admin-only" onclick="switchTab('t-settings', this)">⚙ 설정</button>
   </nav>
 
-  <!-- 4. 본문 영역 -->
-  <div class="content">
-
+    <div class="content">
     <div id="t-handi" class="tab-pane active">
       <div class="card">
         <div class="card-title"><span>🏆 시즌 누적 핸디 순위</span><span style="font-size:11px; color:var(--text-muted);">72타 기준 자동산출</span></div>
-        <table>
-          <thead><tr><th>순위</th><th>회원명</th><th>평균타수</th><th>핸디캡</th><th>참여</th></tr></thead>
-          <tbody id="handi-tbody"><tr><td colspan="5">기록을 불러오는 중…</td></tr></tbody>
-        </table>
+        <table><thead><tr><th>순위</th><th>회원명</th><th>평균타수</th><th>핸디캡</th><th>참여</th></tr></thead>
+        <tbody id="handi-tbody"><tr><td colspan="5">기록을 불러오는 중…</td></tr></tbody></table>
       </div>
     </div>
 
@@ -297,12 +123,182 @@
       <div class="card">
         <div class="card-title"><span>📅 월례회 성적 조회</span></div>
         <div class="form-row"><input type="month" id="month-filter" onchange="renderAll()"></div>
-        <table>
-          <thead><tr><th>순위</th><th>회원명</th><th>골프장</th><th>스코어</th></tr></thead>
-          <tbody id="monthly-tbody"><tr><td colspan="4">월을 선택하거나 기록을 등록하세요.</td></tr></tbody>
-        </table>
+        <table><thead><tr><th>순위</th><th>회원명</th><th>골프장</th><th>스코어</th></tr></thead>
+        <tbody id="monthly-tbody"><tr><td colspan="4">월을 선택하거나 기록을 등록하세요.</td></tr></tbody></table>
       </div>
     </div>
 
     <div id="t-live" class="tab-pane">
       <div class="card">
+        <div class="card-title"><span>⛳ 실시간 라운드 현황</span><span class="live-badge">LIVE</span></div>
+        <div class="form-row" style="display:flex; gap:6px;">
+          <input type="text" id="live-name" placeholder="이름" style="flex:1;">
+          <select id="live-hole" style="width:85px;"><option value="1H">1홀</option><option value="3H">3홀</option><option value="6H">6홀</option><option value="9H">전반끝</option><option value="12H">12홀</option><option value="15H">15홀</option><option value="18H">18홀</option></select>
+          <input type="number" id="live-diff" placeholder="+/-타수" style="width:90px;">
+          <button class="btn-primary" style="width:70px;" onclick="addLiveScore()">입력</button>
+        </div>
+        <table><thead><tr><th>순위</th><th>플레이어</th><th>진행</th><th>현재 스코어</th></tr></thead>
+        <tbody id="live-tbody"><tr><td colspan="4">진행 중인 라이브 기록이 없습니다.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div id="t-rounds" class="tab-pane"><div id="rounds-container"><div class="card">기록을 불러오는 중…</div></div></div>
+
+    <div id="t-personal" class="tab-pane">
+      <div class="card">
+        <div class="card-title"><span>🎒 개인별 상세 성적</span></div>
+        <div class="form-row"><select id="personal-select" onchange="renderPersonal()"><option value="">회원을 선택하세요</option></select></div>
+        <div class="stat-grid" id="personal-stats">
+          <div class="stat-box"><div class="lbl">평균 타수</div><div class="val">-</div></div>
+          <div class="stat-box"><div class="lbl">베스트 스코어</div><div class="val">-</div></div>
+          <div class="stat-box"><div class="lbl">산출 핸디</div><div class="val">-</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="t-members" class="tab-pane">
+      <div class="card">
+        <div class="card-title"><span>👥 등록 회원 명단</span></div>
+        <table><thead><tr><th>이름</th><th>총 라운드</th><th>베스트</th><th>현재 핸디</th></tr></thead>
+        <tbody id="members-tbody"><tr><td colspan="4">기록이 등록되면 자동 집계됩니다.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div id="t-finance" class="tab-pane">
+      <div class="card" style="background: linear-gradient(135deg, #163329, #0e221b);">
+        <div style="font-size:12px; color:var(--gold);">한울모임 총 잔액</div>
+        <div style="font-size:26px; font-weight:800; margin-top:4px;"><span id="fin-balance">0</span> 원</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span>💰 최근 입출금 내역</span></div>
+        <table><thead><tr><th>날짜</th><th>내역</th><th>금액</th></tr></thead>
+        <tbody id="fin-tbody"><tr><td colspan="3">회비 내역이 없습니다.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div id="t-tourney" class="tab-pane">
+      <div class="card">
+        <div class="card-title"><span>🏆 신페리오 / 스트로크 대회 순위</span></div>
+        <table><thead><tr><th>순위</th><th>이름</th><th>그로스</th><th>핸디</th><th>네트(최종)</th></tr></thead>
+        <tbody id="tourney-tbody"><tr><td colspan="5">대회 데이터가 없습니다.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div id="t-news" class="tab-pane"><div id="news-container"><div class="card">등록된 동호회 소식이 없습니다.</div></div></div>
+
+    <div id="t-input" class="tab-pane">
+      <div class="card">
+        <div class="card-title"><span>✏ 라운딩 스코어 등록</span></div>
+        <div class="form-row"><label>날짜</label><input type="date" id="in-date"></div>
+        <div class="form-row"><label>골프장명</label><input type="text" id="in-course" placeholder="예: 남서울 CC"></div>
+        <div class="form-row"><label>회원명</label><input type="text" id="in-player" placeholder="예: 김한울"></div>
+        <div class="form-row"><label>최종 타수</label><input type="number" id="in-score" placeholder="예: 82"></div>
+        <button class="btn-primary" onclick="saveRound()">스코어 저장</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span>💰 회비 입출금 등록</span></div>
+        <div class="form-row"><label>날짜</label><input type="date" id="f-date"></div>
+        <div class="form-row"><label>내용</label><input type="text" id="f-desc" placeholder="예: 11월 월례회 회비 입금"></div>
+        <div class="form-row"><label>구분</label><select id="f-type"><option value="in">입금 (+)</option><option value="out">출금 (-)</option></select></div>
+        <div class="form-row"><label>금액</label><input type="number" id="f-amount" placeholder="예: 50000"></div>
+        <button class="btn-primary" onclick="saveFin()">회비 저장</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span>📣 공지사항 작성</span></div>
+        <div class="form-row"><label>제목</label><input type="text" id="n-title" placeholder="공지 제목"></div>
+        <div class="form-row"><label>내용</label><textarea id="n-body" rows="3" placeholder="공지 내용을 입력하세요"></textarea></div>
+        <button class="btn-primary" onclick="saveNews()">소식 등록</button>
+      </div>
+    </div>
+
+    <div id="t-settings" class="tab-pane">
+      <div class="card">
+        <div class="card-title"><span>⚙ 데이터 관리</span></div>
+        <button class="btn-primary" style="background:var(--red-accent); color:#fff;" onclick="clearLive()">라이브 스코어보드 초기화</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="achievement-modal">
+    <div class="achieve-card">
+      <div style="font-size:36px; margin-bottom:8px;">🏆</div>
+      <div style="font-size:12px; color:var(--gold); letter-spacing:2px; font-weight:800;">ACHIEVEMENT UNLOCKED</div>
+      <h3 id="achieve-text" style="margin:12px 0; font-size:18px;">싱글 플레이어 달성!</h3>
+      <button class="btn-primary" onclick="document.getElementById('achievement-modal').style.display='none'">확인</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://gstatic.com";
+    import { getDatabase, ref, onValue, push, remove } from "https://gstatic.com";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB10lgpcSe2B8gWyqaPUH6CdaTaTxlxjYM",
+      authDomain: "://firebaseapp.com",
+      databaseURL: "https://firebasedatabase.app",
+      projectId: "hanul-golf",
+      storageBucket: "hanul-golf.firebasestorage.app",
+      messagingSenderId: "99869543437",
+      appId: "1:99869543437:web:8e65edb81676569d03d944"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const MEMBER_PW = "1234", ADMIN_PW = "9999";
+    let allRounds = [], memberStats = {}, isAdmin = false;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const exp = localStorage.getItem('hanul_golf_exp');
+      if (exp && Date.now() < Number(exp)) document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('month-filter').value = new Date().toISOString().slice(0, 7);
+    });
+
+    window.loginMember = () => {
+      if (document.getElementById('pw-input').value === MEMBER_PW) {
+        localStorage.setItem('hanul_golf_exp', Date.now() + 2592000000);
+        document.getElementById('login-screen').style.display = 'none';
+      } else alert("비밀번호가 일치하지 않습니다.");
+    };
+
+    window.toggleAdmin = () => {
+      if (!isAdmin) {
+        const pw = prompt("관리자 비밀번호를 입력하세요");
+        if (pw === ADMIN_PW) {
+          isAdmin = true;
+          document.getElementById('admin-btn').innerText = "관리자 로그아웃";
+          document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'inline-block');
+        } else if (pw !== null) alert("비밀번호 오류");
+      } else {
+        isAdmin = false;
+        document.getElementById('admin-btn').innerText = "관리자 로그인";
+        document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+        switchTab('t-handi', document.querySelector('.nav-btn'));
+      }
+    };
+
+    window.switchTab = (id, btn) => {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (btn) btn.classList.add('active');
+    };
+
+    window.saveRound = () => {
+      const date = document.getElementById('in-date').value, course = document.getElementById('in-course').value.trim();
+      const player = document.getElementById('in-player').value.trim(), score = Number(document.getElementById('in-score').value);
+      if (!date || !course || !player || !score) return alert("모두 입력하세요.");
+      push(ref(db, 'rounds'), { date, course, player, score }).then(() => {
+        if (score <= 79) {
+          document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`;
+          document.getElementById('achievement-modal').style.display = 'flex';
+        } else alert("저장 완료!");
+        document.getElementById('in-player').value = ""; document.getElementById('in-score').value = "";
+      });
+    };
+
+    onValue(ref(db, 'rounds'), (snap) => {
+      const data = snap.val();
+      allRounds = data ? Object.values(data).reverse() : [];
+      window.renderAll();
+    });
+
