@@ -58,6 +58,8 @@
     .rank-1 { background: var(--gold); color: #000; }
     .rank-2 { background: #cbd5e1; color: #000; }
     .rank-3 { background: #b45309; color: #fff; }
+    .role-badge { font-size: 10px; background: rgba(212, 175, 55, 0.2); color: var(--gold); padding: 2px 5px; border-radius: 4px; margin-left: 4px; }
+    .btn-del { background: rgba(239, 68, 68, 0.2); color: var(--red-accent); border: 1px solid var(--red-accent); padding: 3px 7px; border-radius: 5px; font-size: 11px; cursor: pointer; }
     .form-row { margin-bottom: 12px; }
     .form-row label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 5px; }
     .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 11px; border-radius: 8px; border: 1px solid var(--card-border); background: #0b1914; color: #fff; font-size: 14px; }
@@ -106,11 +108,10 @@
     <button class="nav-btn" onclick="switchTab('t-finance', this)">💰 회비 내역</button>
     <button class="nav-btn" onclick="switchTab('t-tourney', this)">🏆 대회 모드</button>
     <button class="nav-btn" onclick="switchTab('t-news', this)">📣 소식</button>
-    <button class="nav-btn admin-only" onclick="switchTab('t-input', this)">✏ 스코어 입력</button>
+    <button class="nav-btn admin-only" onclick="switchTab('t-input', this)">✏ 관리/입력</button>
     <button class="nav-btn admin-only" onclick="switchTab('t-settings', this)">⚙ 설정</button>
   </nav>
-
-     <div class="content">
+  <div class="content">
     <div id="t-handi" class="tab-pane active">
       <div class="card">
         <div class="card-title"><span>🏆 시즌 누적 핸디 순위</span><span style="font-size:11px; color:var(--text-muted);">72타 기준 자동산출</span></div>
@@ -158,9 +159,9 @@
 
     <div id="t-members" class="tab-pane">
       <div class="card">
-        <div class="card-title"><span>👥 등록 회원 명단</span></div>
-        <table><thead><tr><th>이름</th><th>총 라운드</th><th>베스트</th><th>현재 핸디</th></tr></thead>
-        <tbody id="members-tbody"><tr><td colspan="4">기록이 등록되면 자동 집계됩니다.</td></tr></tbody></table>
+        <div class="card-title"><span>👥 등록 회원 명단</span><span style="font-size:11px; color:var(--text-muted);" id="member-count">총 0명</span></div>
+        <table><thead><tr><th>이름</th><th>라운드</th><th>베스트</th><th>핸디</th><th class="admin-only">관리</th></tr></thead>
+        <tbody id="members-tbody"><tr><td colspan="5">등록된 회원이 없습니다.</td></tr></tbody></table>
       </div>
     </div>
 
@@ -186,15 +187,32 @@
 
     <div id="t-news" class="tab-pane"><div id="news-container"><div class="card">등록된 동호회 소식이 없습니다.</div></div></div>
 
+    <!-- 관리자 전용: 회원 등록 + 스코어/회비/공지 입력 -->
     <div id="t-input" class="tab-pane">
+      <div class="card" style="border-color: var(--gold);">
+        <div class="card-title"><span>👥 신규 회원 등록</span></div>
+        <div class="form-row"><label>회원 이름</label><input type="text" id="m-name" placeholder="예: 김한울"></div>
+        <div class="form-row"><label>직책</label>
+          <select id="m-role"><option value="회원">일반 회원</option><option value="회장">회장</option><option value="총무">총무</option><option value="경기이사">경기이사</option></select>
+        </div>
+        <div class="form-row"><label>초기 핸디캡 (기록 없을 때 기본 적용)</label><input type="number" id="m-handi" placeholder="예: 15" value="18"></div>
+        <button class="btn-primary" onclick="saveMember()">회원 등록하기</button>
+      </div>
+
       <div class="card">
         <div class="card-title"><span>✏ 라운딩 스코어 등록</span></div>
         <div class="form-row"><label>날짜</label><input type="date" id="in-date"></div>
         <div class="form-row"><label>골프장명</label><input type="text" id="in-course" placeholder="예: 남서울 CC"></div>
-        <div class="form-row"><label>회원명</label><input type="text" id="in-player" placeholder="예: 김한울"></div>
+        <div class="form-row"><label>회원 선택 (또는 직접 입력)</label>
+          <select id="in-player-select" onchange="document.getElementById('in-player').value=this.value" style="margin-bottom:6px;">
+            <option value="">-- 등록된 회원 중 선택 --</option>
+          </select>
+          <input type="text" id="in-player" placeholder="직접 이름 입력 가능">
+        </div>
         <div class="form-row"><label>최종 타수</label><input type="number" id="in-score" placeholder="예: 82"></div>
         <button class="btn-primary" onclick="saveRound()">스코어 저장</button>
       </div>
+
       <div class="card">
         <div class="card-title"><span>💰 회비 입출금 등록</span></div>
         <div class="form-row"><label>날짜</label><input type="date" id="f-date"></div>
@@ -203,6 +221,7 @@
         <div class="form-row"><label>금액</label><input type="number" id="f-amount" placeholder="예: 50000"></div>
         <button class="btn-primary" onclick="saveFin()">회비 저장</button>
       </div>
+
       <div class="card">
         <div class="card-title"><span>📣 공지사항 작성</span></div>
         <div class="form-row"><label>제목</label><input type="text" id="n-title" placeholder="공지 제목"></div>
@@ -227,8 +246,6 @@
       <button class="btn-primary" onclick="document.getElementById('achievement-modal').style.display='none'">확인</button>
     </div>
   </div>
-
-  <!-- 1. 즉시 반응하는 로그인 및 메뉴 제어 스크립트 -->
   <script>
     const MEMBER_PW = "1234";
     const ADMIN_PW = "9999";
@@ -236,29 +253,18 @@
 
     window.addEventListener('DOMContentLoaded', function() {
       const exp = localStorage.getItem('hanul_golf_exp');
-      if (exp && Date.now() < Number(exp)) {
-        document.getElementById('login-screen').style.display = 'none';
-      }
+      if (exp && Date.now() < Number(exp)) document.getElementById('login-screen').style.display = 'none';
       const mf = document.getElementById('month-filter');
       if (mf) mf.value = new Date().toISOString().slice(0, 7);
-      
-      // 엔터키 입력 시에도 로그인 실행
       const pwInput = document.getElementById('pw-input');
-      if (pwInput) {
-        pwInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') loginMember();
-        });
-      }
+      if (pwInput) pwInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') loginMember(); });
     });
 
     function loginMember() {
-      const val = document.getElementById('pw-input').value.trim();
-      if (val === MEMBER_PW) {
+      if (document.getElementById('pw-input').value.trim() === MEMBER_PW) {
         localStorage.setItem('hanul_golf_exp', Date.now() + 2592000000);
         document.getElementById('login-screen').style.display = 'none';
-      } else {
-        alert("비밀번호가 일치하지 않습니다. (기본: 1234)");
-      }
+      } else alert("비밀번호가 일치하지 않습니다.");
     }
 
     function toggleAdmin() {
@@ -268,15 +274,14 @@
           isAdmin = true;
           document.getElementById('admin-btn').innerText = "관리자 로그아웃";
           document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'inline-block');
-          alert("관리자 모드가 켜졌습니다. 상단 메뉴 오른쪽을 확인하세요.");
-        } else if (pw !== null) {
-          alert("비밀번호가 틀렸습니다.");
-        }
+          if (window.renderAll) window.renderAll();
+        } else if (pw !== null) alert("비밀번호가 틀렸습니다.");
       } else {
         isAdmin = false;
         document.getElementById('admin-btn').innerText = "관리자 로그인";
         document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
         switchTab('t-handi', document.querySelector('.nav-btn'));
+        if (window.renderAll) window.renderAll();
       }
     }
 
@@ -288,7 +293,6 @@
     }
   </script>
 
-  <!-- 2. Firebase 실시간 DB 연동 스크립트 -->
   <script type="module">
     import { initializeApp } from "https://gstatic.com";
     import { getDatabase, ref, onValue, push, remove } from "https://gstatic.com";
@@ -305,8 +309,30 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    let allRounds = [], memberStats = {};
+    let allRounds = [], registeredMembers = {}, memberStats = {};
 
+    // 1. 신규 회원 등록 및 삭제
+    window.saveMember = () => {
+      const name = document.getElementById('m-name').value.trim();
+      const role = document.getElementById('m-role').value;
+      const initHandi = Number(document.getElementById('m-handi').value) || 0;
+      if (!name) return alert("회원 이름을 입력하세요.");
+      push(ref(db, 'members'), { name, role, initHandi }).then(() => {
+        alert(`${name} 회원이 등록되었습니다!`);
+        document.getElementById('m-name').value = "";
+      });
+    };
+
+    window.deleteMember = (key, name) => {
+      if (confirm(`${name} 회원을 명단에서 삭제할까요?`)) remove(ref(db, 'members/' + key));
+    };
+
+    onValue(ref(db, 'members'), (snap) => {
+      registeredMembers = snap.val() || {};
+      window.renderAll();
+    });
+
+    // 2. 라운딩 스코어 저장 및 수신
     window.saveRound = () => {
       const date = document.getElementById('in-date').value, course = document.getElementById('in-course').value.trim();
       const player = document.getElementById('in-player').value.trim(), score = Number(document.getElementById('in-score').value);
@@ -326,32 +352,71 @@
       window.renderAll();
     });
 
+    // 3. 전체 데이터 통합 렌더링 (사전 등록 회원 + 라운딩 기록 통합)
     window.renderAll = () => {
       memberStats = {};
+      Object.entries(registeredMembers).forEach(([key, m]) => {
+        memberStats[m.name] = { key, role: m.role || '회원', initHandi: m.initHandi || 0, scores: [], total: 0, best: '-' };
+      });
+
       allRounds.forEach(r => {
-        if (!memberStats[r.player]) memberStats[r.player] = { scores: [], total: 0, best: 999 };
-        memberStats[r.player].scores.push(r); memberStats[r.player].total += r.score;
+        if (!memberStats[r.player]) {
+          memberStats[r.player] = { key: null, role: '회원', initHandi: 0, scores: [], total: 0, best: 999 };
+        }
+        if (memberStats[r.player].best === '-') memberStats[r.player].best = 999;
+        memberStats[r.player].scores.push(r);
+        memberStats[r.player].total += r.score;
         if (r.score < memberStats[r.player].best) memberStats[r.player].best = r.score;
       });
-      const ranking = Object.entries(memberStats).map(([name, s]) => {
-        const avg = (s.total / s.scores.length).toFixed(1);
-        return { name, avg: Number(avg), handi: Math.max(0, Math.round(avg - 72)), count: s.scores.length, best: s.best };
-      }).sort((a, b) => a.avg - b.avg);
 
-      document.getElementById('handi-tbody').innerHTML = ranking.length ? ranking.map((m, i) => `<tr><td><span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span></td><td style="font-weight:700;">${m.name}</td><td>${m.avg}타</td><td style="color:var(--gold);font-weight:700;">${m.handi}</td><td>${m.count}회</td></tr>`).join('') : '<tr><td colspan="5">등록된 기록이 없습니다.</td></tr>';
+      const allMembersList = Object.entries(memberStats).map(([name, s]) => {
+        const hasRounds = s.scores.length > 0;
+        const avg = hasRounds ? Number((s.total / s.scores.length).toFixed(1)) : null;
+        const handi = hasRounds ? Math.max(0, Math.round(avg - 72)) : s.initHandi;
+        return { name, key: s.key, role: s.role, avg, handi, count: s.scores.length, best: s.best };
+      }).sort((a, b) => a.handi - b.handi);
+
+      // 핸디 순위표
+      document.getElementById('handi-tbody').innerHTML = allMembersList.length ? allMembersList.map((m, i) => `
+        <tr>
+          <td><span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span></td>
+          <td style="font-weight:700;">${m.name}</td>
+          <td>${m.avg !== null ? m.avg+'타' : '-'}</td>
+          <td style="color:var(--gold);font-weight:700;">${m.handi}</td>
+          <td>${m.count}회</td>
+        </tr>`).join('') : '<tr><td colspan="5">등록된 회원이 없습니다.</td></tr>';
+
+      // 회원 명단 탭
+      document.getElementById('member-count').innerText = `총 ${allMembersList.length}명`;
+      document.getElementById('members-tbody').innerHTML = allMembersList.length ? allMembersList.map(m => `
+        <tr>
+          <td><b>${m.name}</b>${m.role !== '회원' ? `<span class="role-badge">${m.role}</span>` : ''}</td>
+          <td>${m.count}회</td>
+          <td>${m.best !== '-' ? m.best+'타' : '-'}</td>
+          <td style="color:var(--gold);">${m.handi}</td>
+          <td style="display:${isAdmin ? 'table-cell' : 'none'};">${m.key ? `<button class="btn-del" onclick="deleteMember('${m.key}','${m.name}')">삭제</button>` : '-'}</td>
+        </tr>`).join('') : '<tr><td colspan="5">등록된 회원이 없습니다.</td></tr>';
+
+      // 셀렉트 박스(개인 성적 & 스코어 입력용) 업데이트
+      const optionsHtml = allMembersList.map(m => `<option value="${m.name}">${m.name}</option>`).join('');
+      const pSel = document.getElementById('personal-select'), curP = pSel.value;
+      pSel.innerHTML = '<option value="">회원을 선택하세요</option>' + optionsHtml;
+      pSel.value = curP;
+
+      const inSel = document.getElementById('in-player-select');
+      if (inSel) inSel.innerHTML = '<option value="">-- 등록된 회원 중 선택 --</option>' + optionsHtml;
+
+      // 월별 성적 & 라운딩 & 대회 모드
       const selMonth = document.getElementById('month-filter').value;
       const mRounds = allRounds.filter(r => r.date.startsWith(selMonth)).sort((a, b) => a.score - b.score);
       document.getElementById('monthly-tbody').innerHTML = mRounds.length ? mRounds.map((r, i) => `<tr><td>${i+1}위</td><td><b>${r.player}</b></td><td>${r.course}</td><td style="color:var(--gold);">${r.score}타</td></tr>`).join('') : '<tr><td colspan="4">해당 월의 기록이 없습니다.</td></tr>';
       document.getElementById('rounds-container').innerHTML = allRounds.length ? allRounds.map(r => `<div class="card"><div style="display:flex;justify-content:space-between;font-weight:700;"><span>⛳ ${r.course}</span><span style="color:var(--gold);">${r.score}타</span></div><div style="font-size:12px;color:var(--text-muted);margin-top:6px;">${r.date} · 플레이어: <b style="color:#fff;">${r.player}</b></div></div>`).join('') : '<div class="card">등록된 라운딩이 없습니다.</div>';
-      document.getElementById('members-tbody').innerHTML = ranking.map(m => `<tr><td><b>${m.name}</b></td><td>${m.count}회</td><td>${m.best}타</td><td style="color:var(--gold);">${m.handi}</td></tr>`).join('');
-      const pSel = document.getElementById('personal-select'), curVal = pSel.value;
-      pSel.innerHTML = '<option value="">회원을 선택하세요</option>' + ranking.map(m => `<option value="${m.name}">${m.name}</option>`).join('');
-      pSel.value = curVal;
 
       if (allRounds.length) {
         const latestDate = allRounds.date;
         const tourney = allRounds.filter(r => r.date === latestDate).map(r => {
-          const h = memberStats[r.player] ? Math.max(0, Math.round((memberStats[r.player].total / memberStats[r.player].scores.length) - 72)) : 0;
+          const found = allMembersList.find(m => m.name === r.player);
+          const h = found ? found.handi : 0;
           return { name: r.player, gross: r.score, handi: h, net: r.score - h };
         }).sort((a, b) => a.net - b.net);
         document.getElementById('tourney-tbody').innerHTML = tourney.map((t, i) => `<tr><td>${i+1}위</td><td><b>${t.name}</b></td><td>${t.gross}</td><td>-${t.handi}</td><td style="color:var(--gold);font-weight:800;">${t.net}</td></tr>`).join('');
@@ -361,36 +426,10 @@
     window.renderPersonal = () => {
       const s = memberStats[document.getElementById('personal-select').value];
       if (!s) return;
-      const avg = (s.total / s.scores.length).toFixed(1);
-      document.getElementById('personal-stats').innerHTML = `<div class="stat-box"><div class="lbl">평균 타수</div><div class="val">${avg}</div></div><div class="stat-box"><div class="lbl">베스트</div><div class="val">${s.best}</div></div><div class="stat-box"><div class="lbl">핸디캡</div><div class="val">${Math.max(0, Math.round(avg - 72))}</div></div>`;
+      const hasRounds = s.scores.length > 0;
+      const avg = hasRounds ? (s.total / s.scores.length).toFixed(1) : '-';
+      const handi = hasRounds ? Math.max(0, Math.round(Number(avg) - 72)) : s.initHandi;
+      document.getElementById('personal-stats').innerHTML = `<div class="stat-box"><div class="lbl">평균 타수</div><div class="val">${avg}</div></div><div class="stat-box"><div class="lbl">베스트</div><div class="val">${s.best}</div></div><div class="stat-box"><div class="lbl">핸디캡</div><div class="val">${handi}</div></div>`;
     };
 
     window.addLiveScore = () => {
-      const name = document.getElementById('live-name').value.trim(), hole = document.getElementById('live-hole').value, diff = Number(document.getElementById('live-diff').value);
-      if (!name) return alert("이름을 입력하세요.");
-      push(ref(db, 'live'), { name, hole, diff }); document.getElementById('live-name').value = "";
-    };
-
-    onValue(ref(db, 'live'), (snap) => {
-      const data = snap.val(), list = data ? Object.values(data).sort((a, b) => a.diff - b.diff) : [];
-      document.getElementById('live-tbody').innerHTML = list.length ? list.map((l, i) => `<tr><td>${i+1}</td><td><b>${l.name}</b></td><td>${l.hole}</td><td style="color:${l.diff<=0?'var(--green-accent)':'var(--gold)'};font-weight:700;">${l.diff>0?'+'+l.diff:l.diff}</td></tr>`).join('') : '<tr><td colspan="4">진행 중인 라이브 기록이 없습니다.</td></tr>';
-    });
-
-    window.clearLive = () => { if(confirm("라이브 기록을 모두 지울까요?")) remove(ref(db, 'live')); };
-
-    window.saveFin = () => {
-      const date = document.getElementById('f-date').value, desc = document.getElementById('f-desc').value.trim(), type = document.getElementById('f-type').value, amount = Number(document.getElementById('f-amount').value);
-      if (!date || !desc || !amount) return alert("모두 입력하세요.");
-      push(ref(db, 'finance'), { date, desc, type, amount }).then(() => alert("저장 완료!"));
-    };
-
-    onValue(ref(db, 'finance'), (snap) => {
-      const data = snap.val(), list = data ? Object.values(data) : [];
-      let bal = 0; list.forEach(item => bal += item.type === 'in' ? item.amount : -item.amount);
-      document.getElementById('fin-balance').innerText = bal.toLocaleString();
-      document.getElementById('fin-tbody').innerHTML = list.slice().reverse().map(item => `<tr><td>${item.date.slice(5)}</td><td style="text-align:left;">${item.desc}</td><td style="color:${item.type==='in'?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${item.type==='in'?'+':'-'}${item.amount.toLocaleString()}원</td></tr>`).join('') || '<tr><td colspan="3">회비 내역이 없습니다.</td></tr>';
-    });
-
-    window.saveNews = () => {
-      const title = document.getElementById('n-title').value.trim(), body = document.getElementById('n-body').value.trim();
-      if (!title || !body) return alert("제목과 내용을 입력하세요.");
