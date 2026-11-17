@@ -2,141 +2,313 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>골프 동호회 리더보드</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>한울모임 골프동호회</title>
   <style>
-    :root { --primary: #1b4332; --accent: #d4af37; --bg: #f4f6f5; --card: #ffffff; --text: #222; }
-    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif; }
-    body { margin: 0; background: var(--bg); color: var(--text); padding-bottom: 40px; }
-    
-    /* 로그인 화면 */
-    #login-screen { position: fixed; inset: 0; background: var(--primary); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; padding: 20px; text-align: center; }
-    #login-screen h1 { color: var(--accent); letter-spacing: 2px; margin-bottom: 5px; }
-    #login-screen input { padding: 12px; font-size: 16px; border-radius: 8px; border: none; width: 100%; max-width: 280px; margin: 15px 0; text-align: center; }
-    #login-screen button { padding: 12px 30px; font-size: 16px; font-weight: bold; background: var(--accent); color: #111; border: none; border-radius: 8px; cursor: pointer; width: 100%; max-width: 280px; }
+    :root {
+      --bg-dark: #0b1914;
+      --card-dark: #132820;
+      --card-border: #1e3f33;
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --green-accent: #10b981;
+      --red-accent: #ef4444;
+    }
 
-    /* 상단 헤더 및 메뉴 */
-    header { background: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-    header h2 { margin: 0; font-size: 18px; color: var(--accent); }
-    .admin-btn { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
-    
-    nav { display: flex; overflow-x: auto; background: #143326; padding: 8px; gap: 8px; }
-    nav button { background: transparent; color: #ccc; border: none; padding: 8px 14px; border-radius: 20px; font-size: 14px; white-space: nowrap; cursor: pointer; }
-    nav button.active { background: var(--accent); color: #111; font-weight: bold; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      max-width: 500px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding-bottom: 50px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    }
+
+    /* 1. 로그인 화면 (MEMBERS ONLY) */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #163329 0%, #09130f 100%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      text-align: center;
+    }
+    .badge-members {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .login-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .login-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+    }
+    .login-box {
+      width: 100%;
+      max-width: 300px;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 12px;
+      outline: none;
+    }
+    .login-box input:focus { border-color: var(--gold); }
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, #d4af37, #b59226);
+      color: #0b1914;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .login-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+
+    /* 2. 상단 헤더 & 10개 메뉴 네비게이션 */
+    header {
+      padding: 18px 16px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+      background: #0d1f18;
+    }
+    .header-left span { font-size: 11px; color: var(--gold); display: block; letter-spacing: 1px; }
+    .header-left h1 { font-size: 20px; font-weight: 800; letter-spacing: 1px; }
+    .btn-admin {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .nav-grid {
+      display: flex;
+      overflow-x: auto;
+      gap: 6px;
+      padding: 10px 12px;
+      background: #0b1914;
+      border-bottom: 1px solid var(--card-border);
+      scrollbar-width: none;
+    }
+    .nav-grid::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      background: var(--card-dark);
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .nav-btn.active {
+      background: var(--gold);
+      color: #0b1914;
+      border-color: var(--gold);
+      font-weight: 800;
+    }
     .admin-only { display: none; }
 
-    /* 본문 컨테이너 및 카드 */
-    .container { max-width: 600px; margin: 15px auto; padding: 0 15px; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .card { background: var(--card); border-radius: 12px; padding: 16px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .card h3 { margin-top: 0; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+    /* 3. 메인 카드 & 테이블 스타일 */
+    .content { padding: 14px; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* 테이블 스타일 */
-    table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: center; }
-    th, td { padding: 10px 6px; border-bottom: 1px solid #eee; }
-    th { color: #666; font-weight: 600; background: #fafafa; }
-    .rank-1 { color: #d4af37; font-weight: bold; }
+    .card {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-    /* 입력 폼 스타일 */
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 13px; color: #555; margin-bottom: 4px; }
-    .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
-    .submit-btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; }
-    .plus { color: #2b8a3e; font-weight: bold; }
-    .minus { color: #c92a2a; font-weight: bold; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { color: var(--text-muted); font-weight: 600; padding: 8px 4px; border-bottom: 1px solid var(--card-border); text-align: center; }
+    td { padding: 11px 4px; border-bottom: 1px solid rgba(30, 63, 51, 0.5); text-align: center; }
+    tr:last-child td { border-bottom: none; }
+    .rank-badge { display: inline-block; width: 22px; height: 22px; line-height: 22px; border-radius: 50%; font-weight: 800; font-size: 12px; }
+    .rank-1 { background: var(--gold); color: #000; }
+    .rank-2 { background: #cbd5e1; color: #000; }
+    .rank-3 { background: #b45309; color: #fff; }
+
+    /* 입력 폼 & 버튼 */
+    .form-row { margin-bottom: 12px; }
+    .form-row label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 5px; }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%;
+      padding: 11px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: #0b1914;
+      color: #fff;
+      font-size: 14px;
+    }
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: var(--gold);
+      color: #0b1914;
+      border: none;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* 라이브 스코어 & 개인 통계 뱃지 */
+    .live-badge { background: var(--red-accent); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+    .stat-box { background: #0b1914; padding: 12px 6px; border-radius: 10px; border: 1px solid var(--card-border); }
+    .stat-box .val { font-size: 18px; font-weight: 800; color: var(--gold); margin-top: 4px; }
+    .stat-box .lbl { font-size: 11px; color: var(--text-muted); }
+
+    /* 업적 달성 팝업 (ACHIEVEMENT UNLOCKED) */
+    #achievement-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .achieve-card {
+      background: linear-gradient(145deg, #18382c, #0d1f18);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      max-width: 320px;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
 
-  <!-- 1. 공용 비밀번호 입장 화면 -->
+  <!-- 1. 입장 비밀번호 화면 -->
   <div id="login-screen">
-    <p style="font-size: 12px; opacity: 0.8; margin: 0;">MEMBERS ONLY</p>
-    <h1>ROYAL GOLF CLUB</h1>
-    <p style="font-size: 14px; opacity: 0.9;">월례 라운드 · 스코어보드</p>
-    <input type="password" id="member-pw-input" placeholder="공용 비밀번호 입력">
-    <button onclick="checkMemberLogin()">입장하기</button>
-    <p style="font-size: 11px; opacity: 0.6; margin-top: 15px;">한 번 입장하면 이 기기에서 30일간 유지됩니다.</p>
+    <div class="badge-members">MEMBERS ONLY</div>
+    <div style="font-size: 13px; color: var(--gold); margin-bottom: 4px;">한울모임 골프동호회</div>
+    <div class="login-title">HANUL GOLF</div>
+    <div class="login-sub">월례 라운드 · 스코어보드</div>
+    <div class="login-box">
+      <input type="password" id="pw-input" placeholder="공용 비밀번호">
+      <button onclick="loginMember()">입장하기</button>
+    </div>
+    <div class="login-hint">비밀번호는 총무에게 문의하세요<br>한 번 입장하면 이 기기에서 30일간 유지됩니다</div>
   </div>
 
-  <!-- 2. 상단 헤더 & 네비게이션 -->
+  <!-- 2. 상단 헤더 -->
   <header>
-    <h2>🏆 LEADERBOARD</h2>
-    <button class="admin-btn" id="admin-toggle-btn" onclick="toggleAdminMode()">관리자 로그인</button>
+    <div class="header-left">
+      <span>HANUL GOLF CLUB</span>
+      <h1>LEADERBOARD</h1>
+    </div>
+    <button class="btn-admin" id="admin-btn" onclick="toggleAdmin()">관리자 로그인</button>
   </header>
 
-  <nav>
-    <button class="active" onclick="openTab('tab-rank', this)">🏆 핸디 순위</button>
-    <button onclick="openTab('tab-rounds', this)">📋 라운딩 기록</button>
-    <button onclick="openTab('tab-finance', this)">💰 회비 내역</button>
-    <button class="admin-only" onclick="openTab('tab-input', this)">✏ 스코어/회비 입력</button>
+  <!-- 3. 10개 전체 메뉴 탭 -->
+  <nav class="nav-grid">
+    <button class="nav-btn active" onclick="switchTab('t-handi', this)">🏆 핸디 순위</button>
+    <button class="nav-btn" onclick="switchTab('t-monthly', this)">📅 월별 성적</button>
+    <button class="nav-btn" onclick="switchTab('t-live', this)">⛳ 라이브</button>
+    <button class="nav-btn" onclick="switchTab('t-rounds', this)">📋 라운딩</button>
+    <button class="nav-btn" onclick="switchTab('t-personal', this)">🎒 개인</button>
+    <button class="nav-btn" onclick="switchTab('t-members', this)">👥 회원</button>
+    <button class="nav-btn" onclick="switchTab('t-finance', this)">💰 회비 내역</button>
+    <button class="nav-btn" onclick="switchTab('t-tourney', this)">🏆 대회 모드</button>
+    <button class="nav-btn" onclick="switchTab('t-news', this)">📣 소식</button>
+    <button class="nav-btn admin-only" onclick="switchTab('t-input', this)">✏ 스코어 입력</button>
+    <button class="nav-btn admin-only" onclick="switchTab('t-settings', this)">⚙ 설정</button>
   </nav>
 
-  <!-- 3. 메인 화면 콘텐츠 -->
-  <div class="container">
-    
-    <!-- 탭 1: 핸디 순위 -->
-    <div id="tab-rank" class="tab-content active">
+  <!-- 4. 본문 영역 -->
+  <div class="content">
+
+    <!-- 🏆 핸디 순위 -->
+    <div id="t-handi" class="tab-pane active">
       <div class="card">
-        <h3>📊 실시간 회원 핸디캡 & 평균 타수</h3>
+        <div class="card-title"><span>🏆 시즌 누적 핸디 순위</span><span style="font-size:11px; color:var(--text-muted);">72타 기준 자동산출</span></div>
         <table>
-          <thead>
-            <tr><th>순위</th><th>이름</th><th>평균타수</th><th>현재핸디</th><th>참여수</th></tr>
-          </thead>
-          <tbody id="rank-tbody">
-            <tr><td colspan="5">데이터를 불러오는 중...</td></tr>
-          </tbody>
+          <thead><tr><th>순위</th><th>회원명</th><th>평균타수</th><th>핸디캡</th><th>참여</th></tr></thead>
+          <tbody id="handi-tbody"><tr><td colspan="5">기록을 불러오는 중…</td></tr></tbody>
         </table>
       </div>
     </div>
 
-    <!-- 탭 2: 라운딩 기록 -->
-    <div id="tab-rounds" class="tab-content">
-      <div id="rounds-list">
-        <div class="card">기록을 불러오는 중...</div>
-      </div>
-    </div>
-
-    <!-- 탭 3: 회비 내역 -->
-    <div id="tab-finance" class="tab-content">
+    <!-- 📅 월별 성적 -->
+    <div id="t-monthly" class="tab-pane">
       <div class="card">
-        <h3>💳 현재 회비 잔액: <span id="total-balance" style="color:var(--primary);">0</span>원</h3>
+        <div class="card-title"><span>📅 월례회 성적 조회</span></div>
+        <div class="form-row"><input type="month" id="month-filter" onchange="renderAll()"></div>
         <table>
-          <thead>
-            <tr><th>날짜</th><th>내용</th><th>구분</th><th>금액</th></tr>
-          </thead>
-          <tbody id="finance-tbody">
-            <tr><td colspan="4">내역을 불러오는 중...</td></tr>
-          </tbody>
+          <thead><tr><th>순위</th><th>회원명</th><th>골프장</th><th>스코어</th></tr></thead>
+          <tbody id="monthly-tbody"><tr><td colspan="4">월을 선택하거나 기록을 등록하세요.</td></tr></tbody>
         </table>
       </div>
     </div>
 
-    <!-- 탭 4: 관리자 입력 화면 -->
-    <div id="tab-input" class="tab-content">
+    <!-- ⛳ 라이브 -->
+    <div id="t-live" class="tab-pane">
       <div class="card">
-        <h3>⛳ 새 라운딩 스코어 등록</h3>
-        <div class="form-group"><label>날짜</label><input type="date" id="in-date"></div>
-        <div class="form-group"><label>골프장명</label><input type="text" id="in-course" placeholder="예: 레이크사이드 CC"></div>
-        <div class="form-group"><label>회원 이름</label><input type="text" id="in-player" placeholder="예: 홍길동"></div>
-        <div class="form-group"><label>최종 타수 (Gross)</label><input type="number" id="in-score" placeholder="예: 84"></div>
-        <button class="submit-btn" onclick="saveScore()">스코어 저장하기</button>
-      </div>
-
-      <div class="card">
-        <h3>💰 회비 입출금 등록</h3>
-        <div class="form-group"><label>날짜</label><input type="date" id="fin-date"></div>
-        <div class="form-group"><label>내용</label><input type="text" id="fin-desc" placeholder="예: 11월 월회비 입금 / 그늘집 식대"></div>
-        <div class="form-group">
-          <label>구분</label>
-          <select id="fin-type"><option value="in">입금 (+)</option><option value="out">출금 (-)</option></select>
-        </div>
-        <div class="form-group"><label>금액 (원)</label><input type="number" id="fin-amount" placeholder="예: 50000"></div>
-        <button class="submit-btn" onclick="saveFinance()">회비 내역 저장</button>
-      </div>
-    </div>
-
-  </div>
 
   <!-- Firebase 연동 스크립트 -->
   <script type="module">
