@@ -2,190 +2,222 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>한울모임 골프동호회</title>
-  <script src="https://tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>골프 동호회 리더보드</title>
   <style>
-    @import url('https://jsdelivr.net');
-    body { font-family: 'Pretendard', sans-serif; background-color: #f4f7f5; color: #1e293b; }
-    .green-gradient { background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); }
-    .tab-active { border-bottom: 3px solid #2d6a4f; color: #1b4332; font-weight: 700; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
+    :root { --primary: #1b4332; --accent: #d4af37; --bg: #f4f6f5; --card: #ffffff; --text: #222; }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); padding-bottom: 40px; }
+    
+    /* 로그인 화면 */
+    #login-screen { position: fixed; inset: 0; background: var(--primary); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; padding: 20px; text-align: center; }
+    #login-screen h1 { color: var(--accent); letter-spacing: 2px; margin-bottom: 5px; }
+    #login-screen input { padding: 12px; font-size: 16px; border-radius: 8px; border: none; width: 100%; max-width: 280px; margin: 15px 0; text-align: center; }
+    #login-screen button { padding: 12px 30px; font-size: 16px; font-weight: bold; background: var(--accent); color: #111; border: none; border-radius: 8px; cursor: pointer; width: 100%; max-width: 280px; }
+
+    /* 상단 헤더 및 메뉴 */
+    header { background: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+    header h2 { margin: 0; font-size: 18px; color: var(--accent); }
+    .admin-btn { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+    
+    nav { display: flex; overflow-x: auto; background: #143326; padding: 8px; gap: 8px; }
+    nav button { background: transparent; color: #ccc; border: none; padding: 8px 14px; border-radius: 20px; font-size: 14px; white-space: nowrap; cursor: pointer; }
+    nav button.active { background: var(--accent); color: #111; font-weight: bold; }
+    .admin-only { display: none; }
+
+    /* 본문 컨테이너 및 카드 */
+    .container { max-width: 600px; margin: 15px auto; padding: 0 15px; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .card { background: var(--card); border-radius: 12px; padding: 16px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .card h3 { margin-top: 0; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+    /* 테이블 스타일 */
+    table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: center; }
+    th, td { padding: 10px 6px; border-bottom: 1px solid #eee; }
+    th { color: #666; font-weight: 600; background: #fafafa; }
+    .rank-1 { color: #d4af37; font-weight: bold; }
+
+    /* 입력 폼 스타일 */
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 13px; color: #555; margin-bottom: 4px; }
+    .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+    .submit-btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; }
+    .plus { color: #2b8a3e; font-weight: bold; }
+    .minus { color: #c92a2a; font-weight: bold; }
   </style>
 </head>
-<body class="max-w-md mx-auto min-h-screen bg-white shadow-lg relative pb-20">
+<body>
 
-  <!-- 1. 회원 인증 (로그인) 화면 -->
-  <div id="login-screen" class="fixed inset-0 max-w-md mx-auto green-gradient z-50 flex flex-col justify-center items-center p-8 text-white">
-    <div class="w-16 h-16 bg-white/15 rounded-2xl flex items-center justify-center mb-4 text-3xl">⛳</div>
-    <p class="text-emerald-200 text-xs tracking-widest uppercase mb-1">MEMBERS ONLY</p>
-    <h1 class="text-3xl font-extrabold tracking-tight mb-2">한울모임</h1>
-    <p class="text-sm text-emerald-100 mb-8">월례 라운드 · 실시간 스코어보드</p>
-    
-    <div class="w-full space-y-3">
-      <input type="password" id="club-pw" placeholder="동호회 공용 비밀번호 입력 (기본: 1234)" 
-        class="w-full px-4 py-3.5 rounded-xl bg-white/95 text-slate-800 placeholder-slate-400 text-center font-semibold focus:outline-none">
-      <button onclick="checkLogin()" 
-        class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-bold shadow-md transition">
-        입장하기
-      </button>
-    </div>
-    <p class="text-xs text-emerald-200/80 mt-6 text-center leading-relaxed">
-      비밀번호는 총무에게 문의하세요.<br>한 번 입장하면 이 기기에서 30일간 유지됩니다.
-    </p>
+  <!-- 1. 공용 비밀번호 입장 화면 -->
+  <div id="login-screen">
+    <p style="font-size: 12px; opacity: 0.8; margin: 0;">MEMBERS ONLY</p>
+    <h1>ROYAL GOLF CLUB</h1>
+    <p style="font-size: 14px; opacity: 0.9;">월례 라운드 · 스코어보드</p>
+    <input type="password" id="member-pw-input" placeholder="공용 비밀번호 입력">
+    <button onclick="checkMemberLogin()">입장하기</button>
+    <p style="font-size: 11px; opacity: 0.6; margin-top: 15px;">한 번 입장하면 이 기기에서 30일간 유지됩니다.</p>
   </div>
 
-  <!-- 2. 상단 헤더 -->
-  <header class="green-gradient text-white p-5 rounded-b-3xl shadow-md">
-    <div class="flex justify-between items-center mb-3">
-      <div>
-        <span class="text-[11px] bg-white/20 px-2 py-0.5 rounded-full text-emerald-100">HANUL GOLF CLUB</span>
-        <h2 class="text-xl font-bold mt-1">한울모임 리더보드</h2>
-      </div>
-      <button onclick="toggleAdmin()" id="admin-btn" class="text-xs bg-white/15 hover:bg-white/25 px-3 py-1.5 rounded-lg">
-        총무 모드
-      </button>
-    </div>
-    <div class="bg-white/10 rounded-xl p-3 flex justify-between items-center text-xs">
-      <span>📅 2026년 11월 정기 라운드</span>
-      <span class="flex items-center gap-1.5 text-emerald-300 font-semibold">
-        <span class="w-2 h-2 bg-emerald-400 rounded-full animate-ping"></span> LIVE 연동중
-      </span>
-    </div>
+  <!-- 2. 상단 헤더 & 네비게이션 -->
+  <header>
+    <h2>🏆 LEADERBOARD</h2>
+    <button class="admin-btn" id="admin-toggle-btn" onclick="toggleAdminMode()">관리자 로그인</button>
   </header>
 
-  <!-- 3. 네비게이션 탭 -->
-  <nav class="flex overflow-x-auto no-scrollbar border-b border-slate-200 bg-white sticky top-0 z-30 text-sm">
-    <button onclick="switchTab('live')" id="tab-live" class="flex-1 py-3.5 px-3 whitespace-nowrap tab-active">⛳ 라이브</button>
-    <button onclick="switchTab('rank')" id="tab-rank" class="flex-1 py-3.5 px-3 whitespace-nowrap text-slate-500">🏆 핸디순위</button>
-    <button onclick="switchTab('dues')" id="tab-dues" class="flex-1 py-3.5 px-3 whitespace-nowrap text-slate-500">💰 회비내역</button>
-    <button onclick="switchTab('notice')" id="tab-notice" class="flex-1 py-3.5 px-3 whitespace-nowrap text-slate-500">📣 소식</button>
+  <nav>
+    <button class="active" onclick="openTab('tab-rank', this)">🏆 핸디 순위</button>
+    <button onclick="openTab('tab-rounds', this)">📋 라운딩 기록</button>
+    <button onclick="openTab('tab-finance', this)">💰 회비 내역</button>
+    <button class="admin-only" onclick="openTab('tab-input', this)">✏ 스코어/회비 입력</button>
   </nav>
 
-  <!-- 4. 메인 콘텐츠 영역 -->
-  <main class="p-4 space-y-4">
+  <!-- 3. 메인 화면 콘텐츠 -->
+  <div class="container">
+    
+    <!-- 탭 1: 핸디 순위 -->
+    <div id="tab-rank" class="tab-content active">
+      <div class="card">
+        <h3>📊 실시간 회원 핸디캡 & 평균 타수</h3>
+        <table>
+          <thead>
+            <tr><th>순위</th><th>이름</th><th>평균타수</th><th>현재핸디</th><th>참여수</th></tr>
+          </thead>
+          <tbody id="rank-tbody">
+            <tr><td colspan="5">데이터를 불러오는 중...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <!-- [탭 1] 실시간 라이브 스코어 & 간편 입력 -->
-    <section id="view-live" class="space-y-4">
-      <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
-        <h3 class="text-sm font-bold text-emerald-900 mb-2 flex items-center justify-between">
-          <span>✏️ 실시간 홀 스코어 입력</span>
-          <span class="text-[11px] font-normal text-emerald-700">입력 즉시 전체 순위 반영</span>
-        </h3>
-        <div class="grid grid-cols-3 gap-2 mb-2">
-          <select id="input-player" class="col-span-2 bg-white border border-emerald-200 rounded-lg px-2.5 py-2 text-sm font-medium">
-            <option value="김한울">1조 김한울 (핸디 12)</option>
-            <option value="이준호">1조 이준호 (핸디 15)</option>
-            <option value="박성민">2조 박성민 (핸디 9)</option>
-            <option value="최지훈">2조 최지훈 (핸디 18)</option>
-          </select>
-          <select id="input-hole" class="bg-white border border-emerald-200 rounded-lg px-2 py-2 text-sm">
-            <option value="1">1홀</option><option value="2">2홀</option><option value="3">3홀</option>
-            <option value="4">4홀</option><option value="5">5홀</option><option value="6">6홀</option>
-            <option value="7">7홀</option><option value="8">8홀</option><option value="9">9홀</option>
-            <option value="10">10홀</option><option value="11">11홀</option><option value="12">12홀</option>
-            <option value="13">13홀</option><option value="14">14홀</option><option value="15">15홀</option>
-            <option value="16">16홀</option><option value="17">17홀</option><option value="18">18홀</option>
-          </select>
-        </div>
-        <div class="flex gap-2">
-          <select id="input-score" class="flex-1 bg-white border border-emerald-200 rounded-lg px-3 py-2 text-sm font-bold text-emerald-900">
-            <option value="-2">이글 (-2)</option>
-            <option value="-1">버디 (-1)</option>
-            <option value="0" selected>파 (0)</option>
-            <option value="1">보기 (+1)</option>
-            <option value="2">더블보기 (+2)</option>
-            <option value="3">트리플 (+3)</option>
-          </select>
-          <button onclick="submitLiveScore()" class="bg-emerald-700 hover:bg-emerald-800 text-white px-5 py-2 rounded-lg text-sm font-bold shadow-sm">
-            등록
-          </button>
-        </div>
+    <!-- 탭 2: 라운딩 기록 -->
+    <div id="tab-rounds" class="tab-content">
+      <div id="rounds-list">
+        <div class="card">기록을 불러오는 중...</div>
+      </div>
+    </div>
+
+    <!-- 탭 3: 회비 내역 -->
+    <div id="tab-finance" class="tab-content">
+      <div class="card">
+        <h3>💳 현재 회비 잔액: <span id="total-balance" style="color:var(--primary);">0</span>원</h3>
+        <table>
+          <thead>
+            <tr><th>날짜</th><th>내용</th><th>구분</th><th>금액</th></tr>
+          </thead>
+          <tbody id="finance-tbody">
+            <tr><td colspan="4">내역을 불러오는 중...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 탭 4: 관리자 입력 화면 -->
+    <div id="tab-input" class="tab-content">
+      <div class="card">
+        <h3>⛳ 새 라운딩 스코어 등록</h3>
+        <div class="form-group"><label>날짜</label><input type="date" id="in-date"></div>
+        <div class="form-group"><label>골프장명</label><input type="text" id="in-course" placeholder="예: 레이크사이드 CC"></div>
+        <div class="form-group"><label>회원 이름</label><input type="text" id="in-player" placeholder="예: 홍길동"></div>
+        <div class="form-group"><label>최종 타수 (Gross)</label><input type="number" id="in-score" placeholder="예: 84"></div>
+        <button class="submit-btn" onclick="saveScore()">스코어 저장하기</button>
       </div>
 
-      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-        <div class="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
-          <span class="text-sm font-bold text-slate-700">실시간 스트로크 순위</span>
-          <span class="text-xs text-slate-400">자동 동기화됨</span>
+      <div class="card">
+        <h3>💰 회비 입출금 등록</h3>
+        <div class="form-group"><label>날짜</label><input type="date" id="fin-date"></div>
+        <div class="form-group"><label>내용</label><input type="text" id="fin-desc" placeholder="예: 11월 월회비 입금 / 그늘집 식대"></div>
+        <div class="form-group">
+          <label>구분</label>
+          <select id="fin-type"><option value="in">입금 (+)</option><option value="out">출금 (-)</option></select>
         </div>
-        <div id="live-leaderboard" class="divide-y divide-slate-100">
-          <p class="p-6 text-center text-sm text-slate-400">실시간 기록을 불러오는 중...</p>
-        </div>
+        <div class="form-group"><label>금액 (원)</label><input type="number" id="fin-amount" placeholder="예: 50000"></div>
+        <button class="submit-btn" onclick="saveFinance()">회비 내역 저장</button>
       </div>
-    </section>
+    </div>
 
-    <!-- [탭 2] 핸디캡 순위 -->
-    <section id="view-rank" class="hidden space-y-3">
-      <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-        <h3 class="font-bold text-slate-800 mb-3">🏆 2026 시즌 누적 핸디 순위</h3>
-        <div class="space-y-2.5 text-sm">
-          <div class="flex justify-between items-center p-2.5 bg-emerald-50/70 rounded-xl">
-            <div class="flex items-center gap-3"><span class="font-bold text-emerald-700">1위</span><span class="font-semibold">박성민</span></div>
-            <span class="font-bold text-emerald-800">평균 81.2타 (핸디 9)</span>
-          </div>
-          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-xl">
-            <div class="flex items-center gap-3"><span class="font-bold text-slate-500">2위</span><span class="font-semibold">김한울</span></div>
-            <span class="font-bold text-slate-700">평균 84.5타 (핸디 12)</span>
-          </div>
-          <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-xl">
-            <div class="flex items-center gap-3"><span class="font-bold text-slate-500">3위</span><span class="font-semibold">이준호</span></div>
-            <span class="font-bold text-slate-700">평균 87.0타 (핸디 15)</span>
-          </div>
-        </div>
-      </div>
-    </section>
+  </div>
 
-    <!-- [탭 3] 회비 내역 -->
-    <section id="view-dues" class="hidden space-y-3">
-      <div class="green-gradient text-white rounded-2xl p-5 shadow-sm">
-        <p class="text-xs text-emerald-200">현재 한울모임 총 잔액</p>
-        <p class="text-2xl font-extrabold mt-1">3,450,000 원</p>
-      </div>
-      <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-3 text-sm">
-        <h3 class="font-bold text-slate-800">최근 입출금 내역</h3>
-        <div class="flex justify-between border-b pb-2">
-          <div><p class="font-medium">11월 월례회 회비 입금 (16명)</p><p class="text-xs text-slate-400">2026.11.10</p></div>
-          <span class="text-emerald-600 font-bold">+800,000원</span>
-        </div>
-        <div class="flex justify-between">
-          <div><p class="font-medium">10월 정기라운드 시상 및 만찬비</p><p class="text-xs text-slate-400">2026.10.25</p></div>
-          <span class="text-rose-500 font-bold">-620,000원</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- [탭 4] 동호회 소식 -->
-    <section id="view-notice" class="hidden space-y-3">
-      <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-2">
-        <span class="text-[11px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">공지</span>
-        <h3 class="font-bold text-slate-800">11월 정기 라운드 조편성 및 티오프 안내</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">
-          첫 팀 티오프는 오전 07:30입니다. 라운드 시작 30분 전까지 클럽하우스 로비로 집결 부탁드립니다.
-        </p>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Firebase SDK (Realtime Database 전용) -->
+  <!-- Firebase 연동 스크립트 -->
   <script type="module">
     import { initializeApp } from "https://gstatic.com";
-    import { getDatabase, ref, update, onValue } from "https://gstatic.com";
+    import { getDatabase, ref, onValue, push, set } from "https://gstatic.com";
 
-    // ★★★ 여기에 본인의 Firebase 설정값을 붙여넣으세요 ★★★
+    // ⚠️ [중요] 아래 firebaseConfig 부분을 본인의 Firebase 설정값으로 교체하세요!
     const firebaseConfig = {
-  apiKey: "AIzaSyB10lgpcSe2B8gWyqaPUH6CdaTaTxlxjYM",
-  authDomain: "hanul-golf.firebaseapp.com",
-  databaseURL: "https://hanul-golf-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "hanul-golf",
-  storageBucket: "hanul-golf.firebasestorage.app",
-  messagingSenderId: "99869543437",
-  appId: "1:99869543437:web:8e65edb81676569d03d944",
-  measurementId: "G-ZESDF5BDRD"
-};
+      apiKey: "AIzaSyB10lgpcSe2B8gWyqaPUH6CdaTaTxlxjYM",
+      authDomain: "hanul-golf.firebaseapp.com",
+      databaseURL: "https://hanul-golf-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "hanul-golf",
+      storageBucket: "hanul-golf.firebasestorage.app",
+      messagingSenderId: "99869543437",
+      appId: "1:99869543437:web:8e65edb81676569d03d944"
+    };
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    onValue(ref(db, "live_scores"), (snapshot) => {
-      const data = snapshot.val() || {};
+    // 기본 비밀번호 설정 (원하시는 번호로 변경 가능)
+    const MEMBER_PW = "1234"; // 회원 공용 비밀번호
+    const ADMIN_PW = "9999";  // 총무(관리자) 비밀번호
+
+    // 1. 30일 로그인 유지 확인
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedExpiry = localStorage.getItem('golf_auth_expiry');
+      if (savedExpiry && new Date().getTime() < Number(savedExpiry)) {
+        document.getElementById('login-screen').style.display = 'none';
+      }
+    });
+
+    window.checkMemberLogin = () => {
+      const input = document.getElementById('member-pw-input').value;
+      if (input === MEMBER_PW) {
+        const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+        localStorage.setItem('golf_auth_expiry', new Date().getTime() + thirtyDays);
+        document.getElementById('login-screen').style.display = 'none';
+      } else {
+        alert("비밀번호가 일치하지 않습니다.");
+      }
+    };
+
+    // 2. 관리자 모드 전환
+    let isAdmin = false;
+    window.toggleAdminMode = () => {
+      if (!isAdmin) {
+        const pw = prompt("관리자 비밀번호를 입력하세요:");
+        if (pw === ADMIN_PW) {
+          isAdmin = true;
+          document.getElementById('admin-toggle-btn').innerText = "관리자 로그아웃";
+          document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'inline-block');
+          alert("관리자 모드가 활성화되었습니다.");
+        } else if (pw !== null) {
+          alert("관리자 비밀번호가 틀렸습니다.");
+        }
+      } else {
+        isAdmin = false;
+        document.getElementById('admin-toggle-btn').innerText = "관리자 로그인";
+        document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+        openTab('tab-rank', document.querySelector('nav button'));
+      }
+    };
+
+    // 3. 탭 이동 기능
+    window.openTab = (tabId, btn) => {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      if(btn) btn.classList.add('active');
+    };
+
+    // 4. 스코어 저장 & 실시간 순위 계산
+    window.saveScore = () => {
+      const date = document.getElementById('in-date').value;
+      const course = document.getElementById('in-course').value.trim();
+      const player = document.getElementById('in-player').value.trim();
+      const score = Number(document.getElementById('in-score').value);
+
+      if (!date || !course || !player || !score) return alert("모든 항목을 입력하세요.");
+
+      push(ref(db, 'rounds'), { date, course, player, score })
+        .then(() => {
+          alert("스코어가 저장되었습니다!");
