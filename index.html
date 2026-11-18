@@ -310,23 +310,34 @@
   </nav>
 
   <div class="content">
-    <!-- 1. 핸디 순위 -->
+    <!-- 1. 핸디 순위 (전체 / 연도별 조회) -->
     <div id="t-handi" class="tab-pane active">
       <div class="card">
-        <div class="card-title"><span>🏆 시즌 누적 핸디 순위</span><span style="font-size:11px; color:var(--text-muted);">72타 기준 자동산출</span></div>
+        <div class="card-title">
+          <div>
+            <span>🏆 시즌 누적 핸디 순위</span>
+            <span id="handi-sub-label" style="font-size:11px; color:var(--text-muted); margin-left:6px;">72타 기준 자동산출</span>
+          </div>
+          <select id="handi-year-filter" onchange="renderHandiRank()" style="background:#0b1914;color:#fff;border:1px solid var(--card-border);border-radius:6px;padding:5px 8px;font-size:12px;">
+            <option value="all">전체 시즌</option>
+          </select>
+        </div>
         <div class="table-wrap">
-          <table><thead><tr><th>순위</th><th>회원명</th><th>평균타수</th><th>핸디캡</th><th>참여</th></tr></thead>
+          <table><thead><tr><th>순위</th><th>회원명</th><th>평균타수</th><th>산출 핸디캡</th><th>참여</th></tr></thead>
           <tbody id="handi-tbody"><tr><td colspan="5">기록을 불러오는 중…</td></tr></tbody></table>
         </div>
       </div>
     </div>
 
-    <!-- 2. 월별 성적 -->
+    <!-- 2. 월별 성적 (실제 타수 + 등록 핸디 기준) -->
     <div id="t-monthly" class="tab-pane">
       <div class="card">
         <div class="card-title">
-          <span>📅 월례회 성적 및 포인트</span>
-          <span style="font-size:11px; color:var(--text-muted);">100타↑ 고정 · 참가300 + 1/2/3위(300/200/100)</span>
+          <div>
+            <span>📅 월례회 성적 및 포인트</span>
+            <span style="font-size:11px; color:var(--text-muted); display:block; margin-top:2px;">실제 타수 · 등록 핸디 기준 · 참가300 + 1/2/3위(300/200/100)</span>
+          </div>
+          <button class="btn-sm admin-only" onclick="syncMonthHandi()">🔄 등록핸디로 재계산</button>
         </div>
         <div class="form-row"><input type="month" id="month-filter" onchange="renderAll()"></div>
         <div class="table-wrap">
@@ -454,7 +465,7 @@
     <!-- 4. 라운딩 목록 -->
     <div id="t-rounds" class="tab-pane"><div id="rounds-container"><div class="card">기록을 불러오는 중…</div></div></div>
 
-    <!-- 5. 개인별 성적 -->
+    <!-- 5. 개인별 성적 (등록 핸디 표시 + 연/월별 성적) -->
     <div id="t-personal" class="tab-pane">
       <div class="card">
         <div class="card-title"><span>🎒 개인별 성적 & 포인트 조회</span></div>
@@ -471,7 +482,7 @@
         <div class="stat-grid" id="personal-stats">
           <div class="stat-box"><div class="lbl">평균 타수</div><div class="val">-</div></div>
           <div class="stat-box"><div class="lbl">베스트</div><div class="val">-</div></div>
-          <div class="stat-box"><div class="lbl">현재 핸디</div><div class="val">-</div></div>
+          <div class="stat-box"><div class="lbl">등록 핸디</div><div class="val">-</div></div>
           <div class="stat-box"><div class="lbl">누적 포인트</div><div class="val">-</div></div>
         </div>
       </div>
@@ -497,12 +508,12 @@
       </div>
     </div>
 
-    <!-- 6. 회원 명단 -->
+    <!-- 6. 회원 명단 (등록 핸디 표시) -->
     <div id="t-members" class="tab-pane">
       <div class="card">
         <div class="card-title"><span>👥 등록 회원 명단</span><span style="font-size:11px; color:var(--text-muted);" id="member-count">총 0명</span></div>
         <div class="table-wrap">
-          <table><thead><tr><th>이름</th><th>라운드</th><th>베스트</th><th>핸디</th><th>누적 포인트</th><th class="admin-only">관리</th></tr></thead>
+          <table><thead><tr><th>이름</th><th>라운드</th><th>베스트</th><th>등록 핸디</th><th>누적 포인트</th><th class="admin-only">관리</th></tr></thead>
           <tbody id="members-tbody"><tr><td colspan="6">등록된 회원이 없습니다.</td></tr></tbody></table>
         </div>
       </div>
@@ -560,7 +571,7 @@
 
         <div class="seg-tabs">
           <button class="seg-btn active" id="btn-tmode-peoria" onclick="setTourneyMode('peoria')">신페리오 (18홀 기준)</button>
-          <button class="seg-btn" id="btn-tmode-stroke" onclick="setTourneyMode('stroke')">스트로크 (개인 핸디)</button>
+          <button class="seg-btn" id="btn-tmode-stroke" onclick="setTourneyMode('stroke')">스트로크 (등록 핸디)</button>
         </div>
 
         <div id="peoria-admin-bar" class="admin-block admin-only" style="background:#0b1914;border:1px solid var(--card-border);border-radius:10px;padding:10px;margin-bottom:12px;">
@@ -618,7 +629,7 @@
               </select>
               <input type="text" id="in-player" placeholder="직접 이름 입력 가능">
             </div>
-            <div class="form-row"><label>최종 타수 (저장 시 핸디초과 벌금 자동반영)</label><input type="number" id="in-score" placeholder="예: 82"></div>
+            <div class="form-row"><label>최종 타수 (등록 핸디 기준 벌금 자동반영)</label><input type="number" id="in-score" placeholder="예: 82"></div>
             <button class="btn-primary" onclick="saveRound()">스코어 저장</button>
           </div>
         </div>
@@ -633,7 +644,7 @@
             <div class="form-row"><label>직책</label>
               <select id="m-role"><option value="회원">일반 회원</option><option value="회장">회장</option><option value="총무">총무</option><option value="경기이사">경기이사</option></select>
             </div>
-            <div class="form-row"><label>초기 핸디캡 (기록 없을 때 기본 적용)</label><input type="number" id="m-handi" placeholder="예: 15" value="18"></div>
+            <div class="form-row"><label>등록 핸디 (모든 게임 핸디대비 기준)</label><input type="number" id="m-handi" placeholder="예: 15" value="18"></div>
             <button class="btn-primary" onclick="saveMember()">회원 등록하기</button>
           </div>
         </div>
@@ -879,7 +890,6 @@
 
     const safeKey = (s) => encodeURIComponent(String(s).trim()).replace(/\./g, '%2E');
 
-    // 기존 18홀 골프장 데이터와 신규(18~54홀, 코스명 포함) 데이터 모두 호환 처리
     const normalizeSubCourses = (c) => {
       if (!c) return [
         { name: '전반 (OUT)', pars: [...DEFAULT_9_PARS] },
@@ -911,26 +921,25 @@
       return { text: `+${diff}`, cls: 'term-double' };
     };
 
-    const getHandiBeforeRound = (playerName, roundDate, excludeKey = null) => {
+    // 관리자가 회원 탭에 등록한 공식 핸디 가져오기
+    const getRegisteredHandi = (playerName) => {
       const mEntry = Object.values(registeredMembers).find(m => m.name === playerName);
-      const initH = mEntry ? Number(mEntry.initHandi ?? 18) : 18;
-      const prior = allRounds.filter(r => r.player === playerName && r.date && r.date < roundDate && r.key !== excludeKey);
-      if (!prior.length) return initH;
-      const sum = prior.reduce((a, b) => a + Number(b.score), 0);
-      return Math.max(0, Math.round((sum / prior.length) - 72));
+      return mEntry ? Number(mEntry.initHandi ?? 18) : 18;
     };
 
+    // 해당 라운드에 적용할 핸디 (저장된 appliedHandi가 있으면 사용, 없으면 등록 핸디)
     const getEffectiveRoundHandi = (r) => {
       if (r.appliedHandi !== undefined && r.appliedHandi !== null && r.appliedHandi !== '') {
         return Number(r.appliedHandi);
       }
-      return getHandiBeforeRound(r.player, r.date, r.key);
+      return getRegisteredHandi(r.player);
     };
 
+    // 벌금 계산 (실제 타수 기준, 등록 핸디 초과 타당 10만동, 최대 50만동)
     const calcFineAmount = (r) => {
-      const effScore = Math.min(Number(r.score), 100);
+      const actualScore = Number(r.score);
       const handi = getEffectiveRoundHandi(r);
-      const over = effScore - (72 + handi);
+      const over = actualScore - (72 + handi);
       if (over <= 0) return { over: 0, amount: 0, handi };
       return { over, amount: Math.min(over * 100000, 500000), handi };
     };
@@ -961,17 +970,38 @@
         .catch(err => alert("동기화 실패: " + err.message));
     };
 
+    // 선택된 월의 기존 라운드들을 현재 '등록 핸디'로 일괄 재계산
+    window.syncMonthHandi = () => {
+      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      const selMonth = document.getElementById('month-filter').value;
+      const targets = allRounds.filter(r => r.date && r.date.startsWith(selMonth));
+      if (!targets.length) return alert("해당 월에 라운딩 기록이 없습니다.");
+      if (!confirm(`${selMonth}월 기록 ${targets.length}건의 적용 핸디를\n현재 회원 '등록 핸디' 기준으로 재계산(벌금 포함) 할까요?`)) return;
+
+      const promises = targets.map(r => {
+        const regHandi = getRegisteredHandi(r.player);
+        const updatedObj = { ...r, appliedHandi: regHandi };
+        delete updatedObj.key;
+        return update(ref(db, 'rounds/' + r.key), { appliedHandi: regHandi })
+          .then(() => syncRoundFine(r.key, updatedObj));
+      });
+
+      Promise.all(promises)
+        .then(() => alert(`${selMonth}월 성적 및 벌금이 등록 핸디 기준으로 재계산되었습니다.`))
+        .catch(err => alert("재계산 실패: " + err.message));
+    };
+
     // ==========================================
-    // 월별 성적 및 포인트 계산 엔진
+    // 월별 성적 및 포인트 계산 엔진 (실제 타수 + 등록 핸디)
     // ==========================================
     const computeMonthResults = (monthStr) => {
       const mRounds = allRounds.filter(r => r.date && r.date.startsWith(monthStr));
       const enriched = mRounds.map(r => {
-        const effScore = Math.min(Number(r.score), 100);
+        const actualScore = Number(r.score);
         const handi = getEffectiveRoundHandi(r);
-        const vsHandi = effScore - (72 + handi);
-        return { ...r, effScore, handi, vsHandi };
-      }).sort((a, b) => (a.vsHandi - b.vsHandi) || (a.effScore - b.effScore));
+        const vsHandi = actualScore - (72 + handi);
+        return { ...r, actualScore, handi, vsHandi };
+      }).sort((a, b) => (a.vsHandi - b.vsHandi) || (a.actualScore - b.actualScore));
 
       const bonusPrizes = [300, 200, 100];
       const rankedPlayers = [];
@@ -1030,7 +1060,6 @@
       const container = document.getElementById(containerId);
       if (!container) return;
 
-      // 현재 입력된 값을 보존
       const currentSnapshot = existingSubCourses || readBuilderSubCourses(containerId);
 
       container.innerHTML = Array.from({length: numCourses}, (_, cIdx) => {
@@ -1076,7 +1105,6 @@
       updateSums();
     };
 
-    // 초기 18홀(2코스) 빌더 렌더
     window.renderCourseBuilder('c-courses-container', 2, [
       { name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS] },
       { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS] }
@@ -1151,7 +1179,6 @@
       }
     };
 
-    // 스코어 등록 탭: 골프장 선택 시 전반/후반 코스 선택 지원
     window.onInCourseSelectChange = () => {
       const key = document.getElementById('in-course-select').value;
       const wrap = document.getElementById('in-subcourse-wrap');
@@ -1184,10 +1211,8 @@
       document.getElementById('in-course').value = `${found.name} (${fName}→${bName})`;
     };
 
-    // 라운딩 코스 문자열로 18홀 파 배열 추론
     const findCourseParsByName = (courseStr) => {
       if (!courseStr) return DEFAULT_PARS;
-      // 1) "골프장명 (전반→후반)" 형식 매칭
       const match = courseStr.match(/^(.+?)\s*\((.+?)→(.+?)\)$/);
       if (match) {
         const [, clubName, fName, bName] = match;
@@ -1199,7 +1224,6 @@
           return [...fSub.pars, ...bSub.pars];
         }
       }
-      // 2) 단순 골프장명 매칭
       const foundExact = allCourses.find(c => c.name === courseStr.trim());
       if (foundExact) {
         const subs = normalizeSubCourses(foundExact);
@@ -1383,7 +1407,7 @@
             const existRound = allRounds.find(r => r.key === rKey);
             const appliedHandi = existRound && existRound.appliedHandi !== undefined
               ? Number(existRound.appliedHandi)
-              : getHandiBeforeRound(playerName, payload.date, rKey);
+              : getRegisteredHandi(playerName);
 
             const roundObj = {
               date: payload.date,
@@ -1582,7 +1606,6 @@
       }
     };
 
-    // 18홀 스코어카드 상세 보기 & 수정 모달
     window.openScorecardModal = (sourceType, key) => {
       let record, pars, holes, title, readOnly = false;
       if (sourceType === 'live') {
@@ -1691,7 +1714,7 @@
               <option value="총무">총무</option><option value="경기이사">경기이사</option>
             </select>
           </div>
-          <div class="form-row"><label>초기 핸디캡</label><input type="number" id="ed-m-handi"></div>
+          <div class="form-row"><label>등록 핸디 (관리자 지정)</label><input type="number" id="ed-m-handi"></div>
         `;
         document.getElementById('ed-m-name').value = m.name || '';
         document.getElementById('ed-m-role').value = m.role || '회원';
@@ -1997,7 +2020,8 @@
       const score = Number(document.getElementById('in-score').value);
       if (!date || !course || !player || !score) return alert("모두 입력하세요.");
 
-      const appliedHandi = getHandiBeforeRound(player, date);
+      // 모든 게임은 관리자가 입력한 등록 핸디를 기준으로 저장
+      const appliedHandi = getRegisteredHandi(player);
       const pars = findCourseParsByName(course);
       const roundObj = { date, course, player, score, appliedHandi, pars };
 
@@ -2008,7 +2032,7 @@
             document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`;
             document.getElementById('achievement-modal').style.display = 'flex';
           } else {
-            alert("저장 완료! (벌금 해당 시 회비 내역에 자동 반영됨)");
+            alert("저장 완료! (등록 핸디 기준 벌금 자동 반영)");
           }
           document.getElementById('in-player').value = "";
           document.getElementById('in-score').value = "";
@@ -2036,17 +2060,66 @@
     });
 
     // ==========================================
-    // 4. 전체 통합 렌더링
+    // 4. 핸디 순위 (전체 / 연도별) 렌더링
+    // ==========================================
+    window.renderHandiRank = () => {
+      const selYear = document.getElementById('handi-year-filter')?.value || 'all';
+      const subLbl = document.getElementById('handi-sub-label');
+      if (subLbl) subLbl.innerText = `72타 기준 자동산출 (${selYear === 'all' ? '전체 시즌' : selYear + '년'})`;
+
+      const periodMap = {};
+      Object.entries(registeredMembers).forEach(([key, m]) => {
+        periodMap[m.name] = { regHandi: Number(m.initHandi ?? 18), count: 0, total: 0 };
+      });
+
+      allRounds.forEach(r => {
+        if (selYear !== 'all' && !(r.date && r.date.startsWith(selYear))) return;
+        if (!periodMap[r.player]) {
+          periodMap[r.player] = { regHandi: 18, count: 0, total: 0 };
+        }
+        periodMap[r.player].count += 1;
+        periodMap[r.player].total += Number(r.score);
+      });
+
+      const list = Object.entries(periodMap).map(([name, s]) => {
+        const has = s.count > 0;
+        const avg = has ? Number((s.total / s.count).toFixed(1)) : null;
+        const handi = has ? Math.max(0, Math.round(avg - 72)) : null;
+        return { name, avg, handi, count: s.count, regHandi: s.regHandi };
+      }).sort((a, b) => {
+        // 참여 기록이 있는 회원을 산출 핸디순으로 먼저 표시, 미참여자는 뒤로
+        if (a.count > 0 && b.count === 0) return -1;
+        if (a.count === 0 && b.count > 0) return 1;
+        if (a.count > 0 && b.count > 0) return (a.handi - b.handi) || (a.avg - b.avg);
+        return a.regHandi - b.regHandi;
+      });
+
+      let rankNum = 0;
+      document.getElementById('handi-tbody').innerHTML = list.length ? list.map(m => {
+        if (m.count > 0) rankNum++;
+        return `
+          <tr>
+            <td>${m.count > 0 ? `<span class="rank-badge ${rankNum<=3?'rank-'+rankNum:''}">${rankNum}</span>` : '-'}</td>
+            <td style="font-weight:700;">${esc(m.name)}</td>
+            <td>${m.avg !== null ? m.avg + '타' : '-'}</td>
+            <td style="color:var(--gold);font-weight:700;">${m.handi !== null ? m.handi : `<span style="color:var(--text-muted);font-size:11px;">-</span>`}</td>
+            <td>${m.count}회</td>
+          </tr>`;
+      }).join('') : '<tr><td colspan="5">등록된 회원이 없습니다.</td></tr>';
+    };
+
+    // ==========================================
+    // 5. 전체 통합 렌더링
     // ==========================================
     window.renderAll = () => {
       memberStats = {};
       Object.entries(registeredMembers).forEach(([key, m]) => {
-        memberStats[m.name] = { key, role: m.role || '회원', initHandi: m.initHandi ?? 18, scores: [], total: 0, best: '-' };
+        memberStats[m.name] = { key, role: m.role || '회원', regHandi: Number(m.initHandi ?? 18), scores: [], total: 0, best: '-' };
       });
 
       allRounds.forEach(r => {
         if (!memberStats[r.player]) {
-          memberStats[r.player] = { key: null, role: '회원', initHandi: 18, scores: [], total: 0, best: 999 };
+          memberStats[r.player] = { key: null, role: '회원', regHandi: 18, scores: [], total: 0, best: 999 };
         }
         if (memberStats[r.player].best === '-') memberStats[r.player].best = 999;
         memberStats[r.player].scores.push(r);
@@ -2056,22 +2129,26 @@
 
       memberTotalPoints = computeAllMemberPoints();
 
-      const allMembersList = Object.entries(memberStats).map(([name, s]) => {
-        const hasRounds = s.scores.length > 0;
-        const avg = hasRounds ? Number((s.total / s.scores.length).toFixed(1)) : null;
-        const handi = hasRounds ? Math.max(0, Math.round(avg - 72)) : Number(s.initHandi);
-        const pts = memberTotalPoints[name] || 0;
-        return { name, key: s.key, role: s.role, avg, handi, count: s.scores.length, best: s.best, points: pts };
-      }).sort((a, b) => a.handi - b.handi);
+      const years = new Set([new Date().toISOString().slice(0, 4)]);
+      allRounds.forEach(r => { if (r.date) years.add(r.date.slice(0, 4)); });
+      allPoints.forEach(p => { if (p.date) years.add(p.date.slice(0, 4)); });
+      const sortedYears = Array.from(years).sort((a, b) => b.localeCompare(a));
 
-      document.getElementById('handi-tbody').innerHTML = allMembersList.length ? allMembersList.map((m, i) => `
-        <tr>
-          <td><span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span></td>
-          <td style="font-weight:700;">${esc(m.name)}</td>
-          <td>${m.avg !== null ? m.avg+'타' : '-'}</td>
-          <td style="color:var(--gold);font-weight:700;">${m.handi}</td>
-          <td>${m.count}회</td>
-        </tr>`).join('') : '<tr><td colspan="5">등록된 회원이 없습니다.</td></tr>';
+      // 핸디 순위 연도 필터 갱신
+      const hyEl = document.getElementById('handi-year-filter');
+      if (hyEl) {
+        const curHY = hyEl.value || 'all';
+        hyEl.innerHTML = '<option value="all">전체 시즌</option>' +
+          sortedYears.map(y => `<option value="${y}">${y}년</option>`).join('');
+        hyEl.value = (curHY === 'all' || sortedYears.includes(curHY)) ? curHY : 'all';
+      }
+      window.renderHandiRank();
+
+      // 회원 명단 (관리자 입력 '등록 핸디' 표시 + 포인트 합계)
+      const allMembersList = Object.entries(memberStats).map(([name, s]) => {
+        const pts = memberTotalPoints[name] || 0;
+        return { name, key: s.key, role: s.role, regHandi: s.regHandi, count: s.scores.length, best: s.best, points: pts };
+      }).sort((a, b) => a.regHandi - b.regHandi);
 
       document.getElementById('member-count').innerText = `총 ${allMembersList.length}명`;
       document.getElementById('members-tbody').innerHTML = allMembersList.length ? allMembersList.map(m => `
@@ -2079,7 +2156,7 @@
           <td><b>${esc(m.name)}</b>${m.role !== '회원' ? `<span class="role-badge">${esc(m.role)}</span>` : ''}</td>
           <td>${m.count}회</td>
           <td>${m.best !== '-' ? m.best+'타' : '-'}</td>
-          <td style="color:var(--gold);">${m.handi}</td>
+          <td style="color:var(--gold);font-weight:700;">${m.regHandi}</td>
           <td style="color:var(--green-accent);font-weight:800;">${m.points.toLocaleString()} P</td>
           <td class="admin-only">
             ${m.key ? `<div class="action-btns"><button class="btn-edit" onclick="openEdit('member','${m.key}')">수정</button><button class="btn-del" onclick="deleteMember('${m.key}')">삭제</button></div>` : '-'}
@@ -2102,6 +2179,7 @@
       [1,2,3,4].forEach(i => updateSelect('gp-' + i, `조원 ${i} 선택`));
       loadGroupSetup();
 
+      // 월별 성적 (실제 타수 + 등록 핸디 기준 + 지급 포인트)
       const selMonth = document.getElementById('month-filter').value;
       const { enriched, playerAutoPoints, playerManualPoints } = computeMonthResults(selMonth);
       document.getElementById('monthly-tbody').innerHTML = enriched.length ? enriched.map((r, i) => {
@@ -2120,10 +2198,7 @@
           <tr>
             <td><span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span></td>
             <td><b>${esc(r.player)}</b><span class="sub-note">${esc(r.course)}</span></td>
-            <td>
-              <b>${r.effScore}타</b>
-              ${r.score > 100 ? `<span class="sub-note">(원 ${r.score}타)</span>` : ''}
-            </td>
+            <td><b>${r.actualScore}타</b></td>
             <td style="color:${r.vsHandi <= 0 ? 'var(--green-accent)' : 'var(--red-accent)'};font-weight:700;">
               ${vsStr}
               <span class="sub-note">(H${r.handi})</span>
@@ -2141,6 +2216,7 @@
           </tr>`;
       }).join('') : '<tr><td colspan="6">해당 월의 기록이 없습니다.</td></tr>';
 
+      // 라운딩 카드 목록
       document.getElementById('rounds-container').innerHTML = allRounds.length ? allRounds.map(r => `
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;gap:8px;">
@@ -2157,17 +2233,16 @@
           </div>
         </div>`).join('') : '<div class="card">등록된 라운딩이 없습니다.</div>';
 
-      const years = new Set([new Date().toISOString().slice(0, 4)]);
-      allRounds.forEach(r => { if (r.date) years.add(r.date.slice(0, 4)); });
-      allPoints.forEach(p => { if (p.date) years.add(p.date.slice(0, 4)); });
+      // 개인 탭 연도 필터
       const pyEl = document.getElementById('personal-year');
       if (pyEl) {
         const curY = pyEl.value || 'all';
         pyEl.innerHTML = '<option value="all">전체 연도</option>' +
-          Array.from(years).sort((a, b) => b.localeCompare(a)).map(y => `<option value="${y}">${y}년</option>`).join('');
-        pyEl.value = curY;
+          sortedYears.map(y => `<option value="${y}">${y}년</option>`).join('');
+        pyEl.value = (curY === 'all' || sortedYears.includes(curY)) ? curY : 'all';
       }
 
+      // 대회 모드 날짜 필터 (최신 날짜 자동 선택)
       const tDates = Array.from(new Set(allRounds.map(r => r.date).filter(Boolean))).sort((a, b) => b.localeCompare(a));
       const tSel = document.getElementById('tourney-date-select');
       if (tSel) {
@@ -2189,7 +2264,7 @@
     };
 
     // ==========================================
-    // 5. 개인별 성적 & 연도/월별 성적 렌더링
+    // 6. 개인별 성적 & 연도/월별 성적 (등록 핸디 표시 + 실제 타수)
     // ==========================================
     window.renderPersonal = () => {
       const name = document.getElementById('personal-select').value;
@@ -2200,7 +2275,7 @@
         document.getElementById('personal-stats').innerHTML = `
           <div class="stat-box"><div class="lbl">평균 타수</div><div class="val">-</div></div>
           <div class="stat-box"><div class="lbl">베스트</div><div class="val">-</div></div>
-          <div class="stat-box"><div class="lbl">현재 핸디</div><div class="val">-</div></div>
+          <div class="stat-box"><div class="lbl">등록 핸디</div><div class="val">-</div></div>
           <div class="stat-box"><div class="lbl">누적 포인트</div><div class="val">-</div></div>`;
         document.getElementById('personal-monthly-tbody').innerHTML = '<tr><td colspan="6">회원을 선택하세요.</td></tr>';
         document.getElementById('personal-points-tbody').innerHTML = '<tr><td colspan="3">회원을 선택하세요.</td></tr>';
@@ -2212,8 +2287,8 @@
       const avg = hasFiltered ? (filteredRounds.reduce((a, r) => a + Number(r.score), 0) / filteredRounds.length).toFixed(1) : '-';
       const best = hasFiltered ? Math.min(...filteredRounds.map(r => Number(r.score))) : '-';
 
-      const overallHas = s.scores.length > 0;
-      const curHandi = overallHas ? Math.max(0, Math.round((s.total / s.scores.length) - 72)) : s.initHandi;
+      // 개인 탭의 핸디는 관리자가 등록한 '등록 핸디'로 표시
+      const regHandi = s.regHandi;
 
       const monthsInRounds = new Set(filteredRounds.map(r => r.date.slice(0, 7)));
       let autoPtsSum = 0;
@@ -2231,13 +2306,13 @@
       document.getElementById('personal-stats').innerHTML = `
         <div class="stat-box"><div class="lbl">평균 타수</div><div class="val">${avg}</div></div>
         <div class="stat-box"><div class="lbl">베스트</div><div class="val">${best}</div></div>
-        <div class="stat-box"><div class="lbl">현재 핸디</div><div class="val">${curHandi}</div></div>
+        <div class="stat-box"><div class="lbl">등록 핸디</div><div class="val">${regHandi}</div></div>
         <div class="stat-box"><div class="lbl">${year==='all'?'누적':year+'년'} 포인트</div><div class="val" style="color:var(--green-accent);">${totalPts.toLocaleString()}P</div></div>`;
 
       document.getElementById('personal-monthly-tbody').innerHTML = filteredRounds.length ? filteredRounds.map(r => {
-        const effScore = Math.min(Number(r.score), 100);
+        const actualScore = Number(r.score);
         const handi = getEffectiveRoundHandi(r);
-        const vsHandi = effScore - (72 + handi);
+        const vsHandi = actualScore - (72 + handi);
         const vsStr = vsHandi === 0 ? 'E' : (vsHandi > 0 ? `+${vsHandi}` : `${vsHandi}`);
         const mStr = r.date.slice(0, 7);
         const ap = monthPointCache[mStr]?.playerAutoPoints[name];
@@ -2247,7 +2322,7 @@
           <tr>
             <td>${esc(r.date)}</td>
             <td>${esc(r.course)}</td>
-            <td><b>${effScore}타</b>${r.score>100?`<span class="sub-note">(원 ${r.score})</span>`:''}</td>
+            <td><b>${actualScore}타</b></td>
             <td style="color:${vsHandi<=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${vsStr}<span class="sub-note">(H${handi})</span></td>
             <td style="color:var(--gold);font-weight:700;">+${mPts}P</td>
             <td style="color:${fineAmt>0?'var(--red-accent)':'var(--text-muted)'};">${fineAmt > 0 ? (fineAmt/10000)+'만동' : '-'}</td>
@@ -2263,7 +2338,7 @@
     };
 
     // ==========================================
-    // 6. 회비 내역 & 개인별 년회비 현황
+    // 7. 회비 내역 & 개인별 년회비 현황
     // ==========================================
     window.toggleFinFields = () => {
       const cat = document.getElementById('f-category').value;
@@ -2388,7 +2463,7 @@
     };
 
     // ==========================================
-    // 7. 대회 모드 (날짜 선택 + 진짜 신페리오)
+    // 8. 대회 모드 (날짜 선택 + 진짜 신페리오)
     // ==========================================
     onValue(ref(db, 'tourneyConfig'), (snap) => {
       tourneyConfigs = snap.val() || {};
@@ -2535,7 +2610,7 @@
     };
 
     // ==========================================
-    // 8. 동호회 소식
+    // 9. 동호회 소식
     // ==========================================
     window.saveNews = () => {
       const title = document.getElementById('n-title').value.trim();
