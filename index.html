@@ -51,7 +51,7 @@
     body.is-admin .admin-block.admin-only { display: block !important; }
     body.is-admin .admin-flex.admin-only { display: flex !important; }
 
-    /* 관리/입력 서브 메뉴 (세분화) */
+    /* 관리/입력 서브 메뉴 */
     .admin-sub-nav {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -120,10 +120,43 @@
     .seg-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--card-border); background: #0b1914; color: var(--text-muted); font-weight: 700; font-size: 13px; cursor: pointer; }
     .seg-btn.active { background: var(--gold); color: #0b1914; border-color: var(--gold); }
 
-    /* 골프장 18홀 파 입력 그리드 */
-    .hole-par-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; margin-top: 6px; }
-    .hole-par-cell { background: #0b1914; border: 1px solid var(--card-border); border-radius: 6px; padding: 4px 2px; text-align: center; }
-    .hole-par-cell span { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
+    /* 골프장 9홀 코스별 파 입력 블록 (최대 54홀 / 6코스) */
+    .sub-course-box {
+      background: rgba(11, 25, 20, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .sub-course-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .sub-course-header input {
+      flex: 1;
+      padding: 7px 9px;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      background: #0b1914;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .sub-course-par-badge {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold);
+      white-space: nowrap;
+      padding: 4px 8px;
+      background: rgba(212, 175, 55, 0.12);
+      border-radius: 6px;
+    }
+    .hole-par-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; }
+    .hole-par-cell { background: #0b1914; border: 1px solid var(--card-border); border-radius: 6px; padding: 4px 1px; text-align: center; }
+    .hole-par-cell span { display: block; font-size: 9px; color: var(--text-muted); margin-bottom: 2px; }
     .hole-par-cell select { width: 100%; background: transparent; border: none; color: var(--gold); font-weight: 800; font-size: 13px; text-align: center; padding: 2px 0; outline: none; }
 
     /* 라이브 홀 바 & 스코어 용어 색상 */
@@ -174,7 +207,7 @@
 
     /* 공용 모달 */
     #edit-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.82); z-index: 10001; justify-content: center; align-items: center; padding: 16px; }
-    .edit-card { background: var(--card-dark); border: 1.5px solid var(--gold); border-radius: 16px; padding: 20px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+    .edit-card { background: var(--card-dark); border: 1.5px solid var(--gold); border-radius: 16px; padding: 20px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
     .edit-card-title { font-size: 16px; font-weight: 800; color: var(--gold-light); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
     .edit-actions { display: flex; gap: 8px; margin-top: 16px; }
 
@@ -223,7 +256,6 @@
       #rounds-container .card, #news-container .card { margin-bottom: 0; }
       #rounds-container .card:only-child, #news-container .card:only-child { grid-column: 1 / -1; }
 
-      /* 관리/입력 서브 메뉴 PC 배치 */
       .admin-sub-nav {
         grid-template-columns: repeat(6, 1fr);
         gap: 8px;
@@ -316,15 +348,25 @@
           <span class="live-badge">LIVE AUTO SAVE</span>
         </div>
         <div class="form-row-2">
-          <div class="form-row" style="margin-bottom:0;">
+          <div class="form-row" style="margin-bottom:8px;">
             <label>라운드 날짜</label>
-            <input type="date" id="live-date-input" onchange="updateLiveConfig()">
+            <input type="date" id="live-date-input" onchange="updateLiveConfig(true)">
           </div>
-          <div class="form-row" style="margin-bottom:0;">
+          <div class="form-row" style="margin-bottom:8px;">
             <label>골프장 선택</label>
-            <select id="live-course-select" onchange="updateLiveConfig()">
+            <select id="live-course-select" onchange="updateLiveConfig(true)">
               <option value="">기본 코스 (Par 72)</option>
             </select>
+          </div>
+        </div>
+        <div id="live-subcourse-wrap" class="form-row-2" style="display:none; margin-bottom:4px;">
+          <div class="form-row" style="margin-bottom:0;">
+            <label>전반 코스 (1~9H)</label>
+            <select id="live-front-course" onchange="updateLiveConfig(false)"></select>
+          </div>
+          <div class="form-row" style="margin-bottom:0;">
+            <label>후반 코스 (10~18H)</label>
+            <select id="live-back-course" onchange="updateLiveConfig(false)"></select>
           </div>
         </div>
         <div id="live-course-par-info" style="font-size:12px; color:var(--gold); margin-top:8px;"></div>
@@ -545,7 +587,6 @@
 
     <!-- 10. 관리자 전용: 세분화된 관리/입력 탭 -->
     <div id="t-input" class="tab-pane">
-      <!-- 6개 세분화 서브 메뉴 -->
       <div class="admin-sub-nav">
         <button class="admin-sub-btn active" onclick="switchAdminSub('sub-score', this)">✏ 스코어</button>
         <button class="admin-sub-btn" onclick="switchAdminSub('sub-member', this)">👥 회원</button>
@@ -562,9 +603,13 @@
             <div class="card-title"><span>✏ 라운딩 스코어 등록</span></div>
             <div class="form-row"><label>날짜</label><input type="date" id="in-date"></div>
             <div class="form-row"><label>골프장명</label>
-              <select id="in-course-select" onchange="if(this.value) document.getElementById('in-course').value=this.value" style="margin-bottom:6px;">
+              <select id="in-course-select" onchange="onInCourseSelectChange()" style="margin-bottom:6px;">
                 <option value="">-- 등록된 골프장 선택 --</option>
               </select>
+              <div id="in-subcourse-wrap" class="form-row-2" style="display:none; margin-bottom:6px;">
+                <select id="in-front-course" onchange="syncInCourseText()"></select>
+                <select id="in-back-course" onchange="syncInCourseText()"></select>
+              </div>
               <input type="text" id="in-course" placeholder="예: 트윈도브스 CC (직접 입력 가능)">
             </div>
             <div class="form-row"><label>회원 선택 (또는 직접 입력)</label>
@@ -615,20 +660,28 @@
         </div>
       </div>
 
-      <!-- (4) 골프장 등록/목록 -->
+      <!-- (4) 골프장 등록/목록 (최대 54홀 / 코스별 이름 지원) -->
       <div id="sub-course" class="admin-sub-pane">
         <div class="admin-split-2">
           <div class="card" style="border-color: var(--gold);">
             <div class="card-title">
-              <span>⛳ 골프장 등록 (1~18홀 파)</span>
-              <span id="course-par-sum" style="font-size:12px; color:var(--gold);">총 Par 72 (전반 36 / 후반 36)</span>
+              <span>⛳ 골프장 등록 (최대 54홀)</span>
+              <span id="course-par-sum" style="font-size:12px; color:var(--gold);">총 18홀 · Par 72</span>
             </div>
-            <div class="form-row"><label>골프장 이름</label><input type="text" id="c-name" placeholder="예: 트윈도브스 CC"></div>
-            <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">전반 (1H ~ 9H)</div>
-            <div class="hole-par-grid" id="c-pars-front"></div>
-            <div style="font-size:12px; color:var(--text-muted); margin-top:8px;">후반 (10H ~ 18H)</div>
-            <div class="hole-par-grid" id="c-pars-back"></div>
-            <button class="btn-primary" style="margin-top:12px;" onclick="saveCourse()">골프장 저장하기</button>
+            <div class="form-row-2">
+              <div class="form-row"><label>골프장 이름</label><input type="text" id="c-name" placeholder="예: 트윈도브스 CC"></div>
+              <div class="form-row"><label>총 홀 수 (9홀 코스 단위)</label>
+                <select id="c-hole-count" onchange="renderCourseBuilder('c-courses-container', Number(this.value)/9, null, 'course-par-sum')">
+                  <option value="18">18홀 (2개 코스)</option>
+                  <option value="27">27홀 (3개 코스)</option>
+                  <option value="36">36홀 (4개 코스)</option>
+                  <option value="45">45홀 (5개 코스)</option>
+                  <option value="54">54홀 (6개 코스)</option>
+                </select>
+              </div>
+            </div>
+            <div id="c-courses-container"></div>
+            <button class="btn-primary" style="margin-top:6px;" onclick="saveCourse()">골프장 저장하기</button>
           </div>
 
           <div class="card">
@@ -789,7 +842,9 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const DEFAULT_PARS = [4,4,3,4,5,4,3,4,5, 4,4,3,4,5,4,3,4,5];
+    const DEFAULT_9_PARS = [4,4,3,4,5,4,3,4,5];
+    const DEFAULT_PARS = [...DEFAULT_9_PARS, ...DEFAULT_9_PARS];
+    const DEFAULT_COURSE_LABELS = ['A코스', 'B코스', 'C코스', 'D코스', 'E코스', 'F코스'];
 
     let allRounds = [];
     let allLive = [];
@@ -797,7 +852,14 @@
     let allNews = [];
     let allPoints = [];
     let allCourses = [];
-    let liveConfig = { date: new Date().toISOString().slice(0, 10), courseKey: '', courseName: '기본 코스', pars: [...DEFAULT_PARS] };
+    let liveConfig = {
+      date: new Date().toISOString().slice(0, 10),
+      courseKey: '',
+      courseName: '기본 코스',
+      frontIdx: 0,
+      backIdx: 1,
+      pars: [...DEFAULT_PARS]
+    };
     let tourneyConfigs = {};
     let registeredMembers = {};
     let memberStats = {};
@@ -816,6 +878,25 @@
       .replace(/'/g, '&#39;');
 
     const safeKey = (s) => encodeURIComponent(String(s).trim()).replace(/\./g, '%2E');
+
+    // 기존 18홀 골프장 데이터와 신규(18~54홀, 코스명 포함) 데이터 모두 호환 처리
+    const normalizeSubCourses = (c) => {
+      if (!c) return [
+        { name: '전반 (OUT)', pars: [...DEFAULT_9_PARS] },
+        { name: '후반 (IN)', pars: [...DEFAULT_9_PARS] }
+      ];
+      if (Array.isArray(c.subCourses) && c.subCourses.length >= 2) {
+        return c.subCourses.map((sc, idx) => ({
+          name: sc.name || DEFAULT_COURSE_LABELS[idx] || `${idx + 1}코스`,
+          pars: Array.isArray(sc.pars) && sc.pars.length === 9 ? sc.pars.map(Number) : [...DEFAULT_9_PARS]
+        }));
+      }
+      const p = Array.isArray(c.pars) && c.pars.length >= 18 ? c.pars.map(Number) : [...DEFAULT_PARS];
+      return [
+        { name: '전반 (OUT)', pars: p.slice(0, 9) },
+        { name: '후반 (IN)', pars: p.slice(9, 18) }
+      ];
+    };
 
     const getGolfTerm = (score, par) => {
       const diff = Number(score) - Number(par);
@@ -933,47 +1014,91 @@
     };
 
     // ==========================================
-    // 골프장 파(Par) 입력 폼 초기화 & CRUD
+    // 골프장 빌더 (18~54홀, 2~6코스 동적 생성) & CRUD
     // ==========================================
-    const initCourseParInputs = (frontId = 'c-pars-front', backId = 'c-pars-back', pars = DEFAULT_PARS, sumId = 'course-par-sum') => {
-      const fEl = document.getElementById(frontId);
-      const bEl = document.getElementById(backId);
-      if (!fEl || !bEl) return;
-      const makeCell = (idx) => `
-        <div class="hole-par-cell">
-          <span>${idx + 1}H</span>
-          <select class="c-par-sel" data-idx="${idx}">
-            <option value="3" ${pars[idx]===3?'selected':''}>3</option>
-            <option value="4" ${pars[idx]===4?'selected':''}>4</option>
-            <option value="5" ${pars[idx]===5?'selected':''}>5</option>
-          </select>
-        </div>`;
-      fEl.innerHTML = Array.from({length: 9}, (_, i) => makeCell(i)).join('');
-      bEl.innerHTML = Array.from({length: 9}, (_, i) => makeCell(i + 9)).join('');
-
-      const updateSum = () => {
-        const fSum = Array.from(fEl.querySelectorAll('select')).reduce((a, s) => a + Number(s.value), 0);
-        const bSum = Array.from(bEl.querySelectorAll('select')).reduce((a, s) => a + Number(s.value), 0);
-        const sumEl = document.getElementById(sumId);
-        if (sumEl) sumEl.innerText = `총 Par ${fSum + bSum} (전반 ${fSum} / 후반 ${bSum})`;
-      };
-      fEl.querySelectorAll('select').forEach(s => s.addEventListener('change', updateSum));
-      bEl.querySelectorAll('select').forEach(s => s.addEventListener('change', updateSum));
-      updateSum();
+    const readBuilderSubCourses = (containerId) => {
+      const container = document.getElementById(containerId);
+      if (!container) return [];
+      return Array.from(container.querySelectorAll('.sub-course-box')).map((box, idx) => {
+        const name = box.querySelector('.sc-name-inp').value.trim() || DEFAULT_COURSE_LABELS[idx] || `${idx + 1}코스`;
+        const pars = Array.from(box.querySelectorAll('.sc-par-sel')).map(s => Number(s.value));
+        return { name, pars };
+      });
     };
-    initCourseParInputs();
+
+    window.renderCourseBuilder = (containerId, numCourses, existingSubCourses = null, sumId = 'course-par-sum') => {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      // 현재 입력된 값을 보존
+      const currentSnapshot = existingSubCourses || readBuilderSubCourses(containerId);
+
+      container.innerHTML = Array.from({length: numCourses}, (_, cIdx) => {
+        const prev = currentSnapshot[cIdx];
+        const cName = prev ? prev.name : (DEFAULT_COURSE_LABELS[cIdx] || `${cIdx + 1}코스`);
+        const cPars = prev && Array.isArray(prev.pars) && prev.pars.length === 9 ? prev.pars : [...DEFAULT_9_PARS];
+        const cSum = cPars.reduce((a, b) => a + Number(b), 0);
+
+        return `
+          <div class="sub-course-box" data-cidx="${cIdx}">
+            <div class="sub-course-header">
+              <span style="font-size:11px;color:var(--text-muted);white-space:nowrap;">${cIdx + 1}번 코스</span>
+              <input type="text" class="sc-name-inp" value="${esc(cName)}" placeholder="예: A코스 / 루나">
+              <span class="sub-course-par-badge">Par ${cSum}</span>
+            </div>
+            <div class="hole-par-grid">
+              ${Array.from({length: 9}, (_, hIdx) => `
+                <div class="hole-par-cell">
+                  <span>${hIdx + 1}H</span>
+                  <select class="sc-par-sel">
+                    <option value="3" ${cPars[hIdx]===3?'selected':''}>3</option>
+                    <option value="4" ${cPars[hIdx]===4?'selected':''}>4</option>
+                    <option value="5" ${cPars[hIdx]===5?'selected':''}>5</option>
+                  </select>
+                </div>`).join('')}
+            </div>
+          </div>`;
+      }).join('');
+
+      const updateSums = () => {
+        let totalHoles = 0, totalPar = 0;
+        container.querySelectorAll('.sub-course-box').forEach(box => {
+          const sum = Array.from(box.querySelectorAll('.sc-par-sel')).reduce((a, s) => a + Number(s.value), 0);
+          box.querySelector('.sub-course-par-badge').innerText = `Par ${sum}`;
+          totalHoles += 9;
+          totalPar += sum;
+        });
+        const sumEl = document.getElementById(sumId);
+        if (sumEl) sumEl.innerText = `총 ${totalHoles}홀 · Par ${totalPar}`;
+      };
+
+      container.querySelectorAll('.sc-par-sel').forEach(s => s.addEventListener('change', updateSums));
+      updateSums();
+    };
+
+    // 초기 18홀(2코스) 빌더 렌더
+    window.renderCourseBuilder('c-courses-container', 2, [
+      { name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS] },
+      { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS] }
+    ], 'course-par-sum');
 
     window.saveCourse = () => {
       const name = document.getElementById('c-name').value.trim();
       if (!name) return alert("골프장 이름을 입력하세요.");
-      const fPars = Array.from(document.querySelectorAll('#c-pars-front select')).map(s => Number(s.value));
-      const bPars = Array.from(document.querySelectorAll('#c-pars-back select')).map(s => Number(s.value));
-      const pars = [...fPars, ...bPars];
-      push(ref(db, 'courses'), { name, pars })
+      const subCourses = readBuilderSubCourses('c-courses-container');
+      if (subCourses.length < 2) return alert("최소 2개 코스(18홀) 이상 필요합니다.");
+      const holeCount = subCourses.length * 9;
+      const pars = subCourses.flatMap(sc => sc.pars);
+
+      push(ref(db, 'courses'), { name, holeCount, subCourses, pars })
         .then(() => {
-          alert(`'${name}' 골프장 정보가 저장되었습니다!`);
+          alert(`'${name}' (${holeCount}홀) 골프장 정보가 저장되었습니다!`);
           document.getElementById('c-name').value = "";
-          initCourseParInputs();
+          document.getElementById('c-hole-count').value = "18";
+          window.renderCourseBuilder('c-courses-container', 2, [
+            { name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS] },
+            { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS] }
+          ], 'course-par-sum');
         })
         .catch(err => alert("골프장 저장 실패: " + err.message));
     };
@@ -998,10 +1123,17 @@
       const listEl = document.getElementById('courses-list');
       if (listEl) {
         listEl.innerHTML = allCourses.length ? allCourses.map(c => {
-          const totalPar = (c.pars || DEFAULT_PARS).reduce((a, b) => a + Number(b), 0);
+          const subs = normalizeSubCourses(c);
+          const holes = subs.length * 9;
+          const totalPar = subs.reduce((a, sc) => a + sc.pars.reduce((x, y) => x + Number(y), 0), 0);
+          const namesStr = subs.map(sc => `${sc.name}(P${sc.pars.reduce((x,y)=>x+Number(y),0)})`).join(' · ');
           return `
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(30,63,51,0.5);">
-              <div><b>⛳ ${esc(c.name)}</b> <span style="font-size:11px;color:var(--gold);">Par ${totalPar}</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(30,63,51,0.5);gap:8px;">
+              <div>
+                <b>⛳ ${esc(c.name)}</b>
+                <span style="font-size:11px;color:var(--gold);margin-left:4px;">${holes}홀 · Par ${totalPar}</span>
+                <span class="sub-note">${esc(namesStr)}</span>
+              </div>
               <div class="action-btns">
                 <button class="btn-edit" onclick="openEdit('course','${c.key}')">수정</button>
                 <button class="btn-del" onclick="deleteCourse('${c.key}')">삭제</button>
@@ -1014,9 +1146,66 @@
       if (inCSel) {
         const cur = inCSel.value;
         inCSel.innerHTML = '<option value="">-- 등록된 골프장 선택 --</option>' +
-          allCourses.map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join('');
+          allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
         inCSel.value = cur;
       }
+    };
+
+    // 스코어 등록 탭: 골프장 선택 시 전반/후반 코스 선택 지원
+    window.onInCourseSelectChange = () => {
+      const key = document.getElementById('in-course-select').value;
+      const wrap = document.getElementById('in-subcourse-wrap');
+      const found = allCourses.find(c => c.key === key);
+      if (!found) {
+        wrap.style.display = 'none';
+        return;
+      }
+      const subs = normalizeSubCourses(found);
+      const fSel = document.getElementById('in-front-course');
+      const bSel = document.getElementById('in-back-course');
+      const opts = subs.map((sc, i) => `<option value="${i}">${esc(sc.name)}</option>`).join('');
+      fSel.innerHTML = opts;
+      bSel.innerHTML = opts;
+      fSel.value = '0';
+      bSel.value = subs.length > 1 ? '1' : '0';
+      wrap.style.display = 'grid';
+      window.syncInCourseText();
+    };
+
+    window.syncInCourseText = () => {
+      const key = document.getElementById('in-course-select').value;
+      const found = allCourses.find(c => c.key === key);
+      if (!found) return;
+      const subs = normalizeSubCourses(found);
+      const fIdx = Number(document.getElementById('in-front-course').value || 0);
+      const bIdx = Number(document.getElementById('in-back-course').value || 0);
+      const fName = subs[fIdx]?.name || '';
+      const bName = subs[bIdx]?.name || '';
+      document.getElementById('in-course').value = `${found.name} (${fName}→${bName})`;
+    };
+
+    // 라운딩 코스 문자열로 18홀 파 배열 추론
+    const findCourseParsByName = (courseStr) => {
+      if (!courseStr) return DEFAULT_PARS;
+      // 1) "골프장명 (전반→후반)" 형식 매칭
+      const match = courseStr.match(/^(.+?)\s*\((.+?)→(.+?)\)$/);
+      if (match) {
+        const [, clubName, fName, bName] = match;
+        const found = allCourses.find(c => c.name === clubName.trim());
+        if (found) {
+          const subs = normalizeSubCourses(found);
+          const fSub = subs.find(s => s.name === fName.trim()) || subs[0];
+          const bSub = subs.find(s => s.name === bName.trim()) || subs[1] || subs[0];
+          return [...fSub.pars, ...bSub.pars];
+        }
+      }
+      // 2) 단순 골프장명 매칭
+      const foundExact = allCourses.find(c => c.name === courseStr.trim());
+      if (foundExact) {
+        const subs = normalizeSubCourses(foundExact);
+        return [...subs[0].pars, ...(subs[1] || subs[0]).pars];
+      }
+      return DEFAULT_PARS;
     };
 
     // ==========================================
@@ -1029,6 +1218,8 @@
           date: val.date || new Date().toISOString().slice(0, 10),
           courseKey: val.courseKey || '',
           courseName: val.courseName || '기본 코스',
+          frontIdx: Number(val.frontIdx ?? 0),
+          backIdx: Number(val.backIdx ?? 1),
           pars: val.pars || [...DEFAULT_PARS]
         };
       }
@@ -1040,12 +1231,33 @@
     const renderLiveCourseSelector = () => {
       const dateEl = document.getElementById('live-date-input');
       const selEl = document.getElementById('live-course-select');
+      const subWrap = document.getElementById('live-subcourse-wrap');
+      const fSel = document.getElementById('live-front-course');
+      const bSel = document.getElementById('live-back-course');
+
       if (dateEl && liveConfig.date) dateEl.value = liveConfig.date;
       if (selEl) {
         selEl.innerHTML = '<option value="">기본 코스 (Par 72)</option>' +
-          allCourses.map(c => `<option value="${c.key}">${esc(c.name)}</option>`).join('');
+          allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
         selEl.value = liveConfig.courseKey || '';
       }
+
+      const found = allCourses.find(c => c.key === liveConfig.courseKey);
+      if (found && subWrap && fSel && bSel) {
+        const subs = normalizeSubCourses(found);
+        const opts = subs.map((sc, idx) => {
+          const pSum = sc.pars.reduce((a, b) => a + Number(b), 0);
+          return `<option value="${idx}">${esc(sc.name)} (Par ${pSum})</option>`;
+        }).join('');
+        fSel.innerHTML = opts;
+        bSel.innerHTML = opts;
+        fSel.value = String(Math.min(liveConfig.frontIdx ?? 0, subs.length - 1));
+        bSel.value = String(Math.min(liveConfig.backIdx ?? (subs.length > 1 ? 1 : 0), subs.length - 1));
+        subWrap.style.display = 'grid';
+      } else if (subWrap) {
+        subWrap.style.display = 'none';
+      }
+
       const pars = liveConfig.pars || DEFAULT_PARS;
       const f = pars.slice(0, 9).reduce((a, b) => a + Number(b), 0);
       const b = pars.slice(9, 18).reduce((a, b) => a + Number(b), 0);
@@ -1053,13 +1265,32 @@
       if (infoEl) infoEl.innerText = `선택 코스: ${liveConfig.courseName} · 총 Par ${f + b} (전반 ${f} / 후반 ${b})`;
     };
 
-    window.updateLiveConfig = () => {
+    window.updateLiveConfig = (resetSubIdx = false) => {
       const date = document.getElementById('live-date-input').value || new Date().toISOString().slice(0, 10);
       const courseKey = document.getElementById('live-course-select').value;
       const found = allCourses.find(c => c.key === courseKey);
-      const courseName = found ? found.name : '기본 코스';
-      const pars = found ? found.pars : [...DEFAULT_PARS];
-      set(ref(db, 'liveConfig'), { date, courseKey, courseName, pars })
+
+      let courseName = '기본 코스';
+      let frontIdx = 0;
+      let backIdx = 1;
+      let pars = [...DEFAULT_PARS];
+
+      if (found) {
+        const subs = normalizeSubCourses(found);
+        if (resetSubIdx) {
+          frontIdx = 0;
+          backIdx = subs.length > 1 ? 1 : 0;
+        } else {
+          frontIdx = Math.min(Number(document.getElementById('live-front-course').value || 0), subs.length - 1);
+          backIdx = Math.min(Number(document.getElementById('live-back-course').value || 0), subs.length - 1);
+        }
+        const fSub = subs[frontIdx];
+        const bSub = subs[backIdx];
+        courseName = `${found.name} (${fSub.name}→${bSub.name})`;
+        pars = [...fSub.pars, ...bSub.pars];
+      }
+
+      set(ref(db, 'liveConfig'), { date, courseKey, courseName, frontIdx, backIdx, pars })
         .catch(err => alert("코스 설정 실패: " + err.message));
     };
 
@@ -1170,16 +1401,26 @@
         .catch(err => alert("라이브 저장 실패: " + err.message));
     };
 
+    const getCurrentSubCourseLabel = (holeNum) => {
+      const found = allCourses.find(c => c.key === liveConfig.courseKey);
+      if (!found) return holeNum <= 9 ? '전반' : '후반';
+      const subs = normalizeSubCourses(found);
+      return holeNum <= 9
+        ? (subs[liveConfig.frontIdx]?.name || '전반')
+        : (subs[liveConfig.backIdx]?.name || '후반');
+    };
+
     window.renderLiveInputUI = () => {
       const pars = liveConfig.pars || DEFAULT_PARS;
       const par = Number(pars[currentLiveHole - 1] || 4);
+      const subLabel = getCurrentSubCourseLabel(currentLiveHole);
 
       const singleName = document.getElementById('live-single-player')?.value || '';
       const singleRec = allLive.find(l => l.key === safeKey(singleName));
       const curSingleScore = singleRec && singleRec.holes ? Number(singleRec.holes[String(currentLiveHole)] || 0) : 0;
 
       const sLabel = document.getElementById('live-single-hole-label');
-      if (sLabel) sLabel.innerText = `${currentLiveHole}홀 · Par ${par}`;
+      if (sLabel) sLabel.innerText = `${subLabel} ${currentLiveHole}홀 · Par ${par}`;
       const sCur = document.getElementById('live-single-cur-score');
       if (sCur) {
         if (curSingleScore > 0) {
@@ -1211,7 +1452,7 @@
       }
 
       const gLabel = document.getElementById('live-group-hole-label');
-      if (gLabel) gLabel.innerText = `${currentLiveHole}홀 · Par ${par}`;
+      if (gLabel) gLabel.innerText = `${subLabel} ${currentLiveHole}홀 · Par ${par}`;
       const gList = document.getElementById('live-group-players-list');
       if (gList) {
         const groupName = document.getElementById('live-group-name')?.value || '1조';
@@ -1354,8 +1595,7 @@
       } else {
         record = allRounds.find(x => x.key === key);
         if (!record) return;
-        const foundCourse = allCourses.find(c => c.name === record.course);
-        pars = record.pars || (foundCourse ? foundCourse.pars : DEFAULT_PARS);
+        pars = record.pars || findCourseParsByName(record.course);
         holes = record.holes || {};
         title = `🏆 ${record.player} · 18홀 스코어 입력/수정`;
         readOnly = !isAdmin;
@@ -1519,17 +1759,28 @@
       else if (type === 'course') {
         const c = allCourses.find(x => x.key === key);
         if (!c) return;
-        titleEl.innerText = "⛳ 골프장 정보 수정";
+        const subs = normalizeSubCourses(c);
+        const holeCnt = subs.length * 9;
+        titleEl.innerText = "⛳ 골프장 정보 수정 (최대 54홀)";
         bodyEl.innerHTML = `
-          <div class="form-row"><label>골프장 이름</label><input type="text" id="ed-c-name"></div>
-          <div style="font-size:12px;color:var(--gold);margin-bottom:4px;">전반 (1H ~ 9H)</div>
-          <div class="hole-par-grid" id="ed-c-front"></div>
-          <div style="font-size:12px;color:var(--gold);margin:8px 0 4px;">후반 (10H ~ 18H)</div>
-          <div class="hole-par-grid" id="ed-c-back"></div>
-          <div id="ed-c-sum" style="font-size:12px;color:var(--gold-light);margin-top:8px;text-align:right;"></div>
+          <div class="form-row-2">
+            <div class="form-row"><label>골프장 이름</label><input type="text" id="ed-c-name"></div>
+            <div class="form-row"><label>총 홀 수</label>
+              <select id="ed-c-hole-count" onchange="renderCourseBuilder('ed-c-container', Number(this.value)/9, null, 'ed-c-sum')">
+                <option value="18">18홀 (2개 코스)</option>
+                <option value="27">27홀 (3개 코스)</option>
+                <option value="36">36홀 (4개 코스)</option>
+                <option value="45">45홀 (5개 코스)</option>
+                <option value="54">54홀 (6개 코스)</option>
+              </select>
+            </div>
+          </div>
+          <div id="ed-c-container"></div>
+          <div id="ed-c-sum" style="font-size:12px;color:var(--gold-light);margin-top:6px;text-align:right;font-weight:700;"></div>
         `;
         document.getElementById('ed-c-name').value = c.name || '';
-        initCourseParInputs('ed-c-front', 'ed-c-back', c.pars || DEFAULT_PARS, 'ed-c-sum');
+        document.getElementById('ed-c-hole-count').value = String(holeCnt);
+        window.renderCourseBuilder('ed-c-container', subs.length, subs, 'ed-c-sum');
       }
       else if (type === 'news') {
         const n = allNews.find(x => x.key === key);
@@ -1596,8 +1847,7 @@
           if (v > 0) { holes[inp.dataset.hole] = v; sum += v; cnt++; }
         });
         if (cnt > 0 && cnt < 18) return alert(`현재 ${cnt}개 홀만 입력되었습니다. 18홀을 모두 입력하세요.`);
-        const foundCourse = allCourses.find(c => c.name === rec.course);
-        const pars = rec.pars || (foundCourse ? foundCourse.pars : DEFAULT_PARS);
+        const pars = rec.pars || findCourseParsByName(rec.course);
         const newScore = cnt === 18 ? sum : rec.score;
         const updated = { ...rec, holes, pars, score: newScore };
         delete updated.key;
@@ -1632,9 +1882,10 @@
       else if (type === 'course') {
         const name = document.getElementById('ed-c-name').value.trim();
         if (!name) return alert("골프장 이름을 입력하세요.");
-        const fPars = Array.from(document.querySelectorAll('#ed-c-front select')).map(s => Number(s.value));
-        const bPars = Array.from(document.querySelectorAll('#ed-c-back select')).map(s => Number(s.value));
-        update(ref(db, 'courses/' + key), { name, pars: [...fPars, ...bPars] })
+        const subCourses = readBuilderSubCourses('ed-c-container');
+        const holeCount = subCourses.length * 9;
+        const pars = subCourses.flatMap(sc => sc.pars);
+        update(ref(db, 'courses/' + key), { name, holeCount, subCourses, pars })
           .then(() => window.closeEditModal())
           .catch(err => alert("수정 실패: " + err.message));
       }
@@ -1747,9 +1998,8 @@
       if (!date || !course || !player || !score) return alert("모두 입력하세요.");
 
       const appliedHandi = getHandiBeforeRound(player, date);
-      const foundCourse = allCourses.find(c => c.name === course);
-      const roundObj = { date, course, player, score, appliedHandi };
-      if (foundCourse) roundObj.pars = foundCourse.pars;
+      const pars = findCourseParsByName(course);
+      const roundObj = { date, course, player, score, appliedHandi, pars };
 
       push(ref(db, 'rounds'), roundObj)
         .then((newRef) => syncRoundFine(newRef.key, roundObj))
@@ -2179,8 +2429,9 @@
       const date = document.getElementById('tourney-date-select').value;
       if (!date) return alert("대회 날짜가 없습니다.");
       const dayRounds = allRounds.filter(r => r.date === date);
-      const sampleCourse = dayRounds.find(r => r.pars)?.pars || DEFAULT_PARS;
-      const hiddenHoles = pickBalancedHiddenHoles(sampleCourse);
+      const sampleRound = dayRounds[0];
+      const samplePars = sampleRound?.pars || findCourseParsByName(sampleRound?.course) || DEFAULT_PARS;
+      const hiddenHoles = pickBalancedHiddenHoles(samplePars);
       set(ref(db, 'tourneyConfig/' + date), { hiddenHoles })
         .catch(err => alert("저장 실패: " + err.message));
     };
@@ -2240,8 +2491,7 @@
 
       if (tourneyMode === 'peoria') {
         const rows = dayRounds.map(r => {
-          const foundCourse = allCourses.find(c => c.name === r.course);
-          const pars = r.pars || (foundCourse ? foundCourse.pars : DEFAULT_PARS);
+          const pars = r.pars || findCourseParsByName(r.course);
           const totalPar = pars.reduce((a, b) => a + Number(b), 0);
           const has18 = r.holes && Array.from({length: 18}, (_, i) => Number(r.holes[String(i+1)] || 0)).every(v => v > 0);
           if (has18) {
