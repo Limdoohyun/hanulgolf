@@ -272,7 +272,18 @@
       .admin-split-2 .card { margin-bottom: 0; }
     }
   </style>
+
+<!-- PWA 설정 -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1b5e20">
+
+<!-- 아이폰(iOS) 앱 설치 대응 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="한울골프">
+<link rel="apple-touch-icon" href="icon-192.png">
 </head>
+
 <body>
 
   <div id="login-screen">
@@ -2652,5 +2663,15 @@
         </div>`).join('') : '<div class="card">등록된 동호회 소식이 없습니다.</div>';
     });
   </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then((reg) => console.log('앱 등록 성공:', reg.scope))
+        .catch((err) => console.log('앱 등록 실패:', err));
+    });
+  }
+</script>
+
 </body>
 </html>
