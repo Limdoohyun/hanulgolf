@@ -293,19 +293,22 @@
     }
   </script>
 
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
   <script type="module">
-    import { initializeApp } from "https://gstatic.com";
-    import { getDatabase, ref, onValue, push, remove } from "https://gstatic.com";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+    import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-database.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB10lgpcSe2B8gWyqaPUH6CdaTaTxlxjYM",
-      authDomain: "://firebaseapp.com",
-      databaseURL: "https://firebasedatabase.app",
-      projectId: "hanul-golf",
-      storageBucket: "hanul-golf.firebasestorage.app",
-      messagingSenderId: "99869543437",
-      appId: "1:99869543437:web:8e65edb81676569d03d944"
-    };
+    // ⚠️ authDomain과 databaseURL을 Firebase 콘솔에서 복사한 정확한 주소로 입력하세요!
+  const firebaseConfig = {
+    apiKey: "AIzaSyB10lgpcSe2B8gWyqaPUH6CdaTaTxlxjYM",
+    authDomain: "hanul-golf.firebaseapp.com",
+    databaseURL: "https://hanul-golf-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "hanul-golf",
+    storageBucket: "hanul-golf.firebasestorage.app",
+    messagingSenderId: "99869543437",
+    appId: "1:99869543437:web:8e65edb81676569d03d944",
+  };
+
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
@@ -317,14 +320,20 @@
       const role = document.getElementById('m-role').value;
       const initHandi = Number(document.getElementById('m-handi').value) || 0;
       if (!name) return alert("회원 이름을 입력하세요.");
-      push(ref(db, 'members'), { name, role, initHandi }).then(() => {
-        alert(`${name} 회원이 등록되었습니다!`);
-        document.getElementById('m-name').value = "";
-      });
+
+      push(ref(db, 'members'), { name, role, initHandi })
+        .then(() => {
+          alert(`${name} 회원이 등록되었습니다!`);
+          document.getElementById('m-name').value = "";
+        })
+        .catch((err) => alert("회원 저장 실패: " + err.message));
     };
 
     window.deleteMember = (key, name) => {
-      if (confirm(`${name} 회원을 명단에서 삭제할까요?`)) remove(ref(db, 'members/' + key));
+      if (confirm(`${name} 회원을 명단에서 삭제할까요?`)) {
+        remove(ref(db, 'members/' + key))
+          .catch((err) => alert("삭제 실패: " + err.message));
+      }
     };
 
     onValue(ref(db, 'members'), (snap) => {
@@ -334,16 +343,24 @@
 
     // 2. 라운딩 스코어 저장 및 수신
     window.saveRound = () => {
-      const date = document.getElementById('in-date').value, course = document.getElementById('in-course').value.trim();
-      const player = document.getElementById('in-player').value.trim(), score = Number(document.getElementById('in-score').value);
+      const date = document.getElementById('in-date').value;
+      const course = document.getElementById('in-course').value.trim();
+      const player = document.getElementById('in-player').value.trim();
+      const score = Number(document.getElementById('in-score').value);
       if (!date || !course || !player || !score) return alert("모두 입력하세요.");
-      push(ref(db, 'rounds'), { date, course, player, score }).then(() => {
-        if (score <= 79) {
-          document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`;
-          document.getElementById('achievement-modal').style.display = 'flex';
-        } else alert("저장 완료!");
-        document.getElementById('in-player').value = ""; document.getElementById('in-score').value = "";
-      });
+
+      push(ref(db, 'rounds'), { date, course, player, score })
+        .then(() => {
+          if (score <= 79) {
+            document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`;
+            document.getElementById('achievement-modal').style.display = 'flex';
+          } else {
+            alert("저장 완료!");
+          }
+          document.getElementById('in-player').value = "";
+          document.getElementById('in-score').value = "";
+        })
+        .catch((err) => alert("스코어 저장 실패: " + err.message));
     };
 
     onValue(ref(db, 'rounds'), (snap) => {
@@ -352,7 +369,7 @@
       window.renderAll();
     });
 
-    // 3. 전체 데이터 통합 렌더링 (사전 등록 회원 + 라운딩 기록 통합)
+    // 3. 전체 데이터 통합 렌더링
     window.renderAll = () => {
       memberStats = {};
       Object.entries(registeredMembers).forEach(([key, m]) => {
@@ -397,7 +414,7 @@
           <td style="display:${isAdmin ? 'table-cell' : 'none'};">${m.key ? `<button class="btn-del" onclick="deleteMember('${m.key}','${m.name}')">삭제</button>` : '-'}</td>
         </tr>`).join('') : '<tr><td colspan="5">등록된 회원이 없습니다.</td></tr>';
 
-      // 셀렉트 박스(개인 성적 & 스코어 입력용) 업데이트
+      // 셀렉트 박스 업데이트
       const optionsHtml = allMembersList.map(m => `<option value="${m.name}">${m.name}</option>`).join('');
       const pSel = document.getElementById('personal-select'), curP = pSel.value;
       pSel.innerHTML = '<option value="">회원을 선택하세요</option>' + optionsHtml;
@@ -406,14 +423,15 @@
       const inSel = document.getElementById('in-player-select');
       if (inSel) inSel.innerHTML = '<option value="">-- 등록된 회원 중 선택 --</option>' + optionsHtml;
 
-      // 월별 성적 & 라운딩 & 대회 모드
+      // 월별 성적 & 라운딩
       const selMonth = document.getElementById('month-filter').value;
       const mRounds = allRounds.filter(r => r.date.startsWith(selMonth)).sort((a, b) => a.score - b.score);
       document.getElementById('monthly-tbody').innerHTML = mRounds.length ? mRounds.map((r, i) => `<tr><td>${i+1}위</td><td><b>${r.player}</b></td><td>${r.course}</td><td style="color:var(--gold);">${r.score}타</td></tr>`).join('') : '<tr><td colspan="4">해당 월의 기록이 없습니다.</td></tr>';
       document.getElementById('rounds-container').innerHTML = allRounds.length ? allRounds.map(r => `<div class="card"><div style="display:flex;justify-content:space-between;font-weight:700;"><span>⛳ ${r.course}</span><span style="color:var(--gold);">${r.score}타</span></div><div style="font-size:12px;color:var(--text-muted);margin-top:6px;">${r.date} · 플레이어: <b style="color:#fff;">${r.player}</b></div></div>`).join('') : '<div class="card">등록된 라운딩이 없습니다.</div>';
 
+      // 대회 모드 (allRounds[0].date 로 수정됨)
       if (allRounds.length) {
-        const latestDate = allRounds.date;
+        const latestDate = allRounds[0].date;
         const tourney = allRounds.filter(r => r.date === latestDate).map(r => {
           const found = allMembersList.find(m => m.name === r.player);
           const h = found ? found.handi : 0;
@@ -425,11 +443,105 @@
 
     window.renderPersonal = () => {
       const s = memberStats[document.getElementById('personal-select').value];
-      if (!s) return;
+      if (!s) {
+        document.getElementById('personal-stats').innerHTML = `<div class="stat-box"><div class="lbl">평균 타수</div><div class="val">-</div></div><div class="stat-box"><div class="lbl">베스트</div><div class="val">-</div></div><div class="stat-box"><div class="lbl">핸디캡</div><div class="val">-</div></div>`;
+        return;
+      }
       const hasRounds = s.scores.length > 0;
       const avg = hasRounds ? (s.total / s.scores.length).toFixed(1) : '-';
       const handi = hasRounds ? Math.max(0, Math.round(Number(avg) - 72)) : s.initHandi;
       document.getElementById('personal-stats').innerHTML = `<div class="stat-box"><div class="lbl">평균 타수</div><div class="val">${avg}</div></div><div class="stat-box"><div class="lbl">베스트</div><div class="val">${s.best}</div></div><div class="stat-box"><div class="lbl">핸디캡</div><div class="val">${handi}</div></div>`;
     };
 
+    // 4. 라이브 스코어
     window.addLiveScore = () => {
+      const name = document.getElementById('live-name').value.trim();
+      const hole = document.getElementById('live-hole').value;
+      const diffRaw = document.getElementById('live-diff').value.trim();
+      if (!name || diffRaw === "") return alert("이름과 타수(+/-)를 입력하세요.");
+
+      push(ref(db, 'live'), { name, hole, diff: Number(diffRaw) })
+        .then(() => {
+          document.getElementById('live-name').value = "";
+          document.getElementById('live-diff').value = "";
+        })
+        .catch((err) => alert("라이브 입력 실패: " + err.message));
+    };
+
+    onValue(ref(db, 'live'), (snap) => {
+      const data = snap.val();
+      const list = data ? Object.values(data).sort((a, b) => a.diff - b.diff) : [];
+      document.getElementById('live-tbody').innerHTML = list.length ? list.map((l, i) => {
+        const diffStr = l.diff === 0 ? 'E' : (l.diff > 0 ? `+${l.diff}` : l.diff);
+        return `<tr><td>${i+1}</td><td><b>${l.name}</b></td><td>${l.hole}</td><td style="color:var(--gold);font-weight:700;">${diffStr}</td></tr>`;
+      }).join('') : '<tr><td colspan="4">진행 중인 라이브 기록이 없습니다.</td></tr>';
+    });
+
+    window.clearLive = () => {
+      if (confirm("라이브 스코어보드를 초기화할까요?")) {
+        remove(ref(db, 'live'))
+          .then(() => alert("초기화되었습니다."))
+          .catch((err) => alert("초기화 실패: " + err.message));
+      }
+    };
+
+    // 5. 회비 내역
+    window.saveFin = () => {
+      const date = document.getElementById('f-date').value;
+      const desc = document.getElementById('f-desc').value.trim();
+      const type = document.getElementById('f-type').value;
+      const amount = Number(document.getElementById('f-amount').value);
+      if (!date || !desc || !amount) return alert("모두 입력하세요.");
+
+      push(ref(db, 'finance'), { date, desc, type, amount })
+        .then(() => {
+          alert("회비 내역이 저장되었습니다!");
+          document.getElementById('f-desc').value = "";
+          document.getElementById('f-amount').value = "";
+        })
+        .catch((err) => alert("회비 저장 실패: " + err.message));
+    };
+
+    onValue(ref(db, 'finance'), (snap) => {
+      const data = snap.val();
+      const list = data ? Object.values(data).reverse() : [];
+      let balance = 0;
+      list.forEach(f => { balance += (f.type === 'in' ? f.amount : -f.amount); });
+      document.getElementById('fin-balance').innerText = balance.toLocaleString();
+      document.getElementById('fin-tbody').innerHTML = list.length ? list.map(f => `
+        <tr>
+          <td>${f.date}</td>
+          <td>${f.desc}</td>
+          <td style="color:${f.type==='in'?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">
+            ${f.type==='in'?'+':'-'}${f.amount.toLocaleString()}원
+          </td>
+        </tr>`).join('') : '<tr><td colspan="3">회비 내역이 없습니다.</td></tr>';
+    });
+
+    // 6. 동호회 소식
+    window.saveNews = () => {
+      const title = document.getElementById('n-title').value.trim();
+      const body = document.getElementById('n-body').value.trim();
+      if (!title || !body) return alert("제목과 내용을 입력하세요.");
+
+      push(ref(db, 'news'), { title, body, date: new Date().toISOString().slice(0, 10) })
+        .then(() => {
+          alert("소식이 등록되었습니다!");
+          document.getElementById('n-title').value = "";
+          document.getElementById('n-body').value = "";
+        })
+        .catch((err) => alert("소식 등록 실패: " + err.message));
+    };
+
+    onValue(ref(db, 'news'), (snap) => {
+      const data = snap.val();
+      const list = data ? Object.values(data).reverse() : [];
+      document.getElementById('news-container').innerHTML = list.length ? list.map(n => `
+        <div class="card">
+          <div class="card-title"><span>📣 ${n.title}</span><span style="font-size:11px;color:var(--text-muted);">${n.date || ''}</span></div>
+          <div style="font-size:13px;line-height:1.6;white-space:pre-wrap;">${n.body}</div>
+        </div>`).join('') : '<div class="card">등록된 동호회 소식이 없습니다.</div>';
+    });
+  </script>
+</body>
+</html>
