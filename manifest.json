@@ -1,12 +1,12 @@
 {
   "name": "한울모임 골프동호회",
   "short_name": "한울골프",
-  "start_url": "/hanulgolf/",
-  "scope": "/hanulgolf/",
+  "description": "한울모임 골프동호회 스코어보드",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1b5e20",
-  "orientation": "portrait",
+  "background_color": "#0b1914",
+  "theme_color": "#0b1914",
   "icons": [
     {
       "src": "icon-192.png",
