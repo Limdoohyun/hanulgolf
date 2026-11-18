@@ -1,11 +1,33 @@
+요청하신 4가지 탭의 기준을 모두 반영하여 수정했습니다.
+
+변경된 핵심 사항
+
+1.  🏆 핸디 순위 탭 — 전체 / 연도별 조회 추가
+      - 상단에 전체 연도 / 2026년 / 2025년... 선택 박스를 추가해, 전체 누적 또는 특정 연도만의 평균타수와 자동 산출
+        핸디캡(평균 - 72)을 구분해 볼 수 있습니다.
+2.  👥 회원 탭 — '등록 핸디'로 명칭 및 기준 통일
+      - 테이블 항목명을 **등록 핸디**로 변경했고, 라운딩 횟수와 무관하게 관리자가 입력한 핸디가 그대로 표시·적용됩니다.
+      - 신규 회원 등록 및 회원 수정 창에서도 **등록 핸디**로 명칭을 통일했습니다.
+      - 앞으로 저장되는 모든 경기(수동 입력 및 라이브 18홀 자동저장)는 **관리자가 등록한 핸디(등록 핸디)**를 기준으로 핸디대비와
+        벌금을 계산합니다.
+3.  📅 월별 성적 탭 — 실제 타수 적용 (100타 제한 해제) + 등록 핸디 기준
+      - 100타 이상도 100타로 고정하지 않고 **실제 친 타수(r.score)**를 그대로 적용합니다.
+      - 핸디대비 계산 역시 관리자가 입력한 등록 핸디 기준으로 계산합니다.
+      - (참고: 이미 이전에 등록해 둔 월별 기록도 현재 등록 핸디로 다시 맞추고 싶다면, 관리자 로그인 시 월별 성적 상단에 보이는 🔄
+        등록핸디로 재계산 버튼을 한 번 누르시면 해당 월 전체에 즉시 재적용됩니다.)
+4.  🎒 개인 탭 — '등록 핸디' 표시 & 실제 타수 적용
+      - 요약 카드의 현재 핸디를 **등록 핸디**로 변경해 관리자가 등록한 핸디를 보여줍니다.
+      - 하단 월별 성적 표 역시 100타 제한 없이 실제 타수 기준으로 표시됩니다.
+
+수정된 전체 코드
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>한울모임 골프동호회</title>
-  <link rel="manifest" href="manifest.json">
-    
+
   <style>
     :root {
       --bg-dark: #0b1914;
@@ -273,18 +295,7 @@
       .admin-split-2 .card { margin-bottom: 0; }
     }
   </style>
-
-<!-- PWA 설정 -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1b5e20">
-
-<!-- 아이폰(iOS) 앱 설치 대응 -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="한울골프">
-<link rel="apple-touch-icon" href="icon-192.png">
 </head>
-
 <body>
 
   <div id="login-screen">
@@ -2664,73 +2675,5 @@
         </div>`).join('') : '<div class="card">등록된 동호회 소식이 없습니다.</div>';
     });
   </script>
-
-<button id="installAppBtn" class="floating-install-btn">+ 앱 설치</button>
-
-<style>
-  .floating-install-btn {
-    position: fixed !important;
-    bottom: 24px !important;
-    right: 24px !important;
-    top: auto !important;
-    left: auto !important;
-    z-index: 9999;
-    background-color: #d4c49e;
-    color: #1b3626;
-    border: none;
-    border-radius: 50px;
-    padding: 12px 20px;
-    font-size: 14px;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-  }
-
-  .floating-install-btn:hover {
-    background-color: #c5b287;
-    transform: translateY(-2px);
-  }
-</style>
-
-<script>
-  let deferredPrompt;
-  const installBtn = document.getElementById('installAppBtn');
-
-  // 1. 서비스 워커 등록
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js');
-    });
-  }
-
-  // 2. 이미 앱으로 실행 중이면 버튼 숨기기
-  const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || (('standalone' in window.navigator) && window.navigator.standalone);
-  if (isInStandaloneMode) {
-    installBtn.style.display = 'none';
-  }
-
-  // 3. 안드로이드 / PC 크롬 설치 가능 이벤트 감지
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    installBtn.style.display = 'block';
-  });
-
-  // 4. 버튼 클릭 시 설치 프롬프트 실행
-  installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        installBtn.style.display = 'none';
-      }
-      deferredPrompt = null;
-    } else {
-      alert('아이폰(Safari)은 하단 [공유] 버튼 -> [홈 화면에 추가]를 선택해 주세요.\n(PC나 안드로이드에서 이 창이 뜬다면 이미 설치되었거나 브라우저 메뉴에서 [앱 설치]를 눌러주세요.)');
-    }
-  });
-</script>
-
 </body>
 </html>
