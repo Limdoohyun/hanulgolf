@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>한울모임 골프동호회</title>
+  <link rel="manifest" href="manifest.json">
+  <!-- 설치 버튼 (기본은 숨김 처리 후 설치 가능 시 노출) -->
+  <button id="installAppBtn" class="floating-install-btn" style="display: none;">
+    + 앱 설치
+  </button>
 
   <style>
     :root {
@@ -2670,6 +2675,46 @@
         .then((reg) => console.log('앱 등록 성공:', reg.scope))
         .catch((err) => console.log('앱 등록 실패:', err));
     });
+  }
+</script>
+<script>
+  let deferredPrompt;
+  const installBtn = document.getElementById('installAppBtn');
+
+  // 1. 서비스 워커 등록
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js');
+    });
+  }
+
+  // 2. 안드로이드 / PC 크롬 설치 가능 이벤트 감지
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'block'; // 설치 가능할 때만 버튼 표시
+  });
+
+  // 3. 버튼 클릭 시 설치 프롬프트 실행
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        installBtn.style.display = 'none';
+      }
+      deferredPrompt = null;
+    } else {
+      // iOS 사파리 등 수동 설치 안내
+      alert('아이폰(Safari)에서는 하단 [공유] 버튼을 누른 후 [홈 화면에 추가]를 선택해주세요.');
+    }
+  });
+
+  // 4. iOS 기기 접속 시(앱 모드가 아닐 때) 버튼 강제 노출
+  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+  const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+  if (isIos && !isInStandaloneMode) {
+    installBtn.style.display = 'block';
   }
 </script>
 
