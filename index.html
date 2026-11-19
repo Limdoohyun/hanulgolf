@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>한울모임 골프동호회</title>
 
-  <!-- PWA 메타 태그 -->
   <meta name="theme-color" content="#0b1914">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,13 +24,11 @@
       --text-muted: #94a3b8;
       --green-accent: #10b981;
       --red-accent: #ef4444;
-      --blue-accent: #38bdf8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
     html { background-color: #060f0c; }
     body { background-color: var(--bg-dark); color: var(--text-main); max-width: 500px; margin: 0 auto; min-height: 100vh; padding-bottom: 84px; box-shadow: 0 0 30px rgba(0,0,0,0.6); }
 
-    /* 로그인 화면 */
     #login-screen { position: fixed; inset: 0; background: radial-gradient(circle at top, #163329 0%, #09130f 100%); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; text-align: center; }
     .badge-members { font-size: 11px; letter-spacing: 3px; color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.4); padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; }
     .login-title { font-size: 28px; font-weight: 800; letter-spacing: 2px; color: #fff; margin-bottom: 6px; }
@@ -44,7 +41,6 @@
     .login-hint { font-size: 12px; color: var(--text-muted); margin-top: 18px; line-height: 1.5; }
     #login-err { font-size: 12px; color: #fca5a5; margin-top: 10px; min-height: 18px; }
 
-    /* 헤더 및 메뉴 */
     header { padding: 18px 16px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); background: #0d1f18; gap: 8px; }
     .header-left span { font-size: 11px; color: var(--gold); display: block; letter-spacing: 1px; }
     .header-left h1 { font-size: 20px; font-weight: 800; letter-spacing: 1px; }
@@ -56,14 +52,12 @@
     .nav-btn:hover { border-color: rgba(212, 175, 55, 0.5); color: #fff; }
     .nav-btn.active { background: var(--gold); color: #0b1914; border-color: var(--gold); font-weight: 800; }
 
-    /* 관리자 전용 요소 표시 제어 */
     .admin-only { display: none !important; }
     body.is-admin .admin-only { display: inline-block !important; }
     body.is-admin th.admin-only, body.is-admin td.admin-only { display: table-cell !important; }
     body.is-admin .action-btns.admin-only { display: inline-flex !important; }
     body.is-admin .admin-block.admin-only { display: block !important; }
 
-    /* 관리/입력 서브 메뉴 */
     .admin-sub-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 14px; background: #0d1f18; padding: 8px; border-radius: 12px; border: 1px solid var(--card-border); }
     .admin-sub-btn { background: var(--card-dark); color: var(--text-muted); border: 1px solid var(--card-border); padding: 10px 6px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.15s; text-align: center; white-space: nowrap; }
     .admin-sub-btn:hover { color: #fff; border-color: rgba(212, 175, 55, 0.5); }
@@ -71,7 +65,6 @@
     .admin-sub-pane { display: none; }
     .admin-sub-pane.active { display: block; animation: fadeIn 0.2s ease; }
 
-    /* 본문 및 카드 */
     .content { padding: 14px; }
     .tab-pane { display: none; }
     .tab-pane.active { display: block; animation: fadeIn 0.2s ease; }
@@ -79,7 +72,6 @@
     .card { background: var(--card-dark); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
     .card-title { font-size: 15px; font-weight: 700; color: var(--gold-light); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
 
-    /* 테이블 및 폼 */
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th { color: var(--text-muted); font-weight: 600; padding: 8px 4px; border-bottom: 1px solid var(--card-border); text-align: center; white-space: nowrap; }
@@ -92,7 +84,6 @@
     .role-badge { font-size: 10px; background: rgba(212, 175, 55, 0.2); color: var(--gold); padding: 2px 5px; border-radius: 4px; margin-left: 4px; }
     .sub-note { font-size: 10px; color: var(--text-muted); display: block; margin-top: 2px; }
 
-    /* 수정 및 삭제 버튼 */
     .action-btns { display: inline-flex; gap: 4px; align-items: center; justify-content: center; }
     .btn-edit { background: rgba(212, 175, 55, 0.15); color: var(--gold); border: 1px solid var(--gold); padding: 3px 7px; border-radius: 5px; font-size: 11px; cursor: pointer; white-space: nowrap; }
     .btn-del { background: rgba(239, 68, 68, 0.2); color: var(--red-accent); border: 1px solid var(--red-accent); padding: 3px 7px; border-radius: 5px; font-size: 11px; cursor: pointer; white-space: nowrap; }
@@ -106,20 +97,40 @@
     .btn-primary { width: 100%; padding: 12px; background: var(--gold); color: #0b1914; border: none; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; }
     .btn-secondary { width: 100%; padding: 12px; background: transparent; color: var(--text-muted); border: 1px solid var(--card-border); border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
 
-    /* 서브 탭/필터 버튼 */
     .seg-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
     .seg-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--card-border); background: #0b1914; color: var(--text-muted); font-weight: 700; font-size: 13px; cursor: pointer; }
     .seg-btn.active { background: var(--gold); color: #0b1914; border-color: var(--gold); }
 
-    /* 골프장 9홀 코스별 파 입력 블록 */
+    /* 골프장 9홀 코스 & 사진 URL 입력 */
     .sub-course-box { background: rgba(11, 25, 20, 0.7); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px; margin-bottom: 10px; }
-    .sub-course-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
-    .sub-course-header input { flex: 1; padding: 7px 9px; border-radius: 6px; border: 1px solid var(--card-border); background: #0b1914; color: #fff; font-size: 13px; font-weight: 700; }
+    .sub-course-header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
+    .sub-course-header input { flex: 1; min-width: 110px; padding: 7px 9px; border-radius: 6px; border: 1px solid var(--card-border); background: #0b1914; color: #fff; font-size: 13px; font-weight: 700; }
     .sub-course-par-badge { font-size: 11px; font-weight: 800; color: var(--gold); white-space: nowrap; padding: 4px 8px; background: rgba(212, 175, 55, 0.12); border-radius: 6px; }
     .hole-par-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; }
     .hole-par-cell { background: #0b1914; border: 1px solid var(--card-border); border-radius: 6px; padding: 4px 1px; text-align: center; }
     .hole-par-cell span { display: block; font-size: 9px; color: var(--text-muted); margin-bottom: 2px; }
     .hole-par-cell select { width: 100%; background: transparent; border: none; color: var(--gold); font-weight: 800; font-size: 13px; text-align: center; padding: 2px 0; outline: none; }
+
+    .sc-img-toggle-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; gap: 6px; flex-wrap: wrap; }
+    .sc-imgs-wrap { display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--card-border); }
+    .sc-imgs-wrap.open { display: block; }
+    .hole-img-row { display: flex; gap: 6px; align-items: center; margin-bottom: 5px; }
+    .hole-img-row span { font-size: 11px; font-weight: 800; color: var(--gold); min-width: 28px; }
+    .hole-img-row input { flex: 1; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--card-border); background: #0b1914; color: #fff; font-size: 12px; }
+
+    /* 코스 안내 탭 카드 */
+    .guide-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .guide-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .guide-hole-card { background: #0b1914; border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .guide-hole-head { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: rgba(212, 175, 55, 0.08); border-bottom: 1px solid var(--card-border); font-size: 13px; font-weight: 700; }
+    .guide-hole-img { width: 100%; max-height: 230px; object-fit: contain; display: block; cursor: zoom-in; background: #07120e; padding: 4px; }
+    .guide-img-fallback { padding: 14px; text-align: center; font-size: 12px; color: var(--text-muted); }
+    .guide-img-fallback a { color: var(--gold); font-weight: 700; }
+
+    /* 라이브 내 현재 홀 사진 박스 */
+    #live-hole-photo-box { margin-top: 12px; background: #0b1914; border: 1px solid rgba(212, 175, 55, 0.45); border-radius: 10px; padding: 10px 12px; display: none; }
+    .live-photo-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .live-photo-img { width: 100%; max-height: 220px; object-fit: contain; margin-top: 8px; border-radius: 8px; cursor: zoom-in; background: #07120e; display: block; }
 
     /* 라이브 홀 바 & 스코어 용어 색상 */
     .live-course-strip { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; margin: 10px 0; }
@@ -145,14 +156,12 @@
     .term-bogey { color: #38bdf8; }
     .term-double { color: #94a3b8; }
 
-    /* 스코어카드 상세 */
     .sc-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; font-size: 11px; text-align: center; margin-bottom: 8px; }
     .sc-cell { background: #0b1914; border: 1px solid var(--card-border); border-radius: 5px; padding: 4px 2px; }
     .sc-cell .h { font-size: 9px; color: var(--text-muted); }
     .sc-cell .p { font-size: 9px; color: var(--gold); }
     .sc-cell .s { font-size: 13px; font-weight: 800; margin-top: 2px; }
 
-    /* 기타 뱃지 및 팝업 */
     .live-badge { background: var(--red-accent); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; text-align: center; }
@@ -168,23 +177,19 @@
     .achieve-card { background: linear-gradient(145deg, #18382c, #0d1f18); border: 2px solid var(--gold); border-radius: 16px; padding: 24px; text-align: center; max-width: 320px; width: 100%; }
 
     #edit-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.82); z-index: 10001; justify-content: center; align-items: center; padding: 16px; }
-    .edit-card { background: var(--card-dark); border: 1.5px solid var(--gold); border-radius: 16px; padding: 20px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+    .edit-card { background: var(--card-dark); border: 1.5px solid var(--gold); border-radius: 16px; padding: 20px; max-width: 540px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
     .edit-card-title { font-size: 16px; font-weight: 800; color: var(--gold-light); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
     .edit-actions { display: flex; gap: 8px; margin-top: 16px; }
+
+    #img-lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 10005; flex-direction: column; justify-content: center; align-items: center; padding: 16px; }
+    #img-lightbox img { max-width: 96%; max-height: 78vh; border-radius: 10px; border: 1.5px solid var(--gold); object-fit: contain; background: #07120e; }
+    #img-lightbox-caption { color: var(--gold-light); font-size: 14px; font-weight: 700; margin-top: 10px; text-align: center; }
 
     .hidden-hole-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 10px 0; }
     .hh-btn { padding: 8px 4px; border-radius: 6px; border: 1px solid var(--card-border); background: #0b1914; color: var(--text-muted); font-size: 12px; font-weight: 700; cursor: pointer; }
     .hh-btn.selected { background: rgba(212, 175, 55, 0.25); color: var(--gold); border-color: var(--gold); }
 
-    /* 오른쪽 하단 PWA 앱 설치 버튼 */
-    #pwa-install-btn {
-      position: fixed; right: 18px; bottom: 18px; z-index: 9000;
-      display: inline-flex; align-items: center; gap: 6px;
-      background: linear-gradient(135deg, #f3e5ab, #d4af37); color: #0b1914;
-      border: 1.5px solid rgba(255, 255, 255, 0.35);
-      padding: 11px 18px; border-radius: 999px; font-size: 13px; font-weight: 900;
-      cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55); transition: 0.15s;
-    }
+    #pwa-install-btn { position: fixed; right: 18px; bottom: 18px; z-index: 9000; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #f3e5ab, #d4af37); color: #0b1914; border: 1.5px solid rgba(255, 255, 255, 0.35); padding: 11px 18px; border-radius: 999px; font-size: 13px; font-weight: 900; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55); transition: 0.15s; }
     #pwa-install-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65); }
 
     #pwa-guide-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.82); z-index: 10002; justify-content: center; align-items: center; padding: 18px; }
@@ -192,7 +197,6 @@
     .pwa-guide-step { background: #0b1914; border: 1px solid var(--card-border); border-radius: 10px; padding: 11px 12px; margin-bottom: 10px; font-size: 13px; line-height: 1.55; }
     .pwa-guide-step b { color: var(--gold); display: block; margin-bottom: 3px; }
 
-    /* PC / 태블릿 반응형 */
     @media (min-width: 768px) {
       body { max-width: 1140px; border-left: 1px solid var(--card-border); border-right: 1px solid var(--card-border); }
       header { padding: 22px 28px; }
@@ -216,6 +220,7 @@
       #rounds-container, #news-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
       #rounds-container .card, #news-container .card { margin-bottom: 0; }
       #rounds-container .card:only-child, #news-container .card:only-child { grid-column: 1 / -1; }
+      .guide-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
       .admin-sub-nav { grid-template-columns: repeat(6, 1fr); gap: 8px; padding: 10px; }
       .admin-sub-btn { font-size: 13px; padding: 11px 8px; }
       .admin-single-wrap { max-width: 640px; margin: 0 auto; }
@@ -227,17 +232,12 @@
 </head>
 <body>
 
-  <!-- Firebase Auth 기반 보안 로그인 화면 -->
   <div id="login-screen">
     <div class="badge-members">MEMBERS ONLY</div>
     <div style="font-size: 13px; color: var(--gold); margin-bottom: 4px;">한울모임 골프동호회</div>
     <div class="login-title">HANUL GOLF</div>
     <div class="login-sub">월례 라운드 · 스코어보드</div>
-
-    <div id="auth-loading" style="font-size:14px; color:var(--gold-light); padding:20px;">
-      인증 상태를 확인하는 중…
-    </div>
-
+    <div id="auth-loading" style="font-size:14px; color:var(--gold-light); padding:20px;">인증 상태를 확인하는 중…</div>
     <div class="login-box" id="login-form-wrap" style="display:none;">
       <input type="password" id="pw-input" placeholder="비밀번호 입력 (6자리 이상)">
       <button onclick="loginMember()">회원 입장하기</button>
@@ -262,6 +262,7 @@
     <button class="nav-btn active" onclick="switchTab('t-handi', this)">🏆 핸디 순위</button>
     <button class="nav-btn" onclick="switchTab('t-monthly', this)">📅 월별 성적</button>
     <button class="nav-btn" onclick="switchTab('t-live', this)">⛳ 라이브</button>
+    <button class="nav-btn" onclick="switchTab('t-guide', this)">🗺 코스 안내</button>
     <button class="nav-btn" onclick="switchTab('t-rounds', this)">📋 라운딩</button>
     <button class="nav-btn" onclick="switchTab('t-personal', this)">🎒 개인</button>
     <button class="nav-btn" onclick="switchTab('t-members', this)">👥 회원</button>
@@ -305,9 +306,7 @@
         <div class="form-row"><input type="month" id="month-filter" onchange="renderAll()"></div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr><th>순위</th><th>회원명</th><th>스코어</th><th>핸디대비</th><th>지급 포인트</th><th class="admin-only">관리</th></tr>
-            </thead>
+            <thead><tr><th>순위</th><th>회원명</th><th>스코어</th><th>핸디대비</th><th>지급 포인트</th><th class="admin-only">관리</th></tr></thead>
             <tbody id="monthly-tbody"><tr><td colspan="6">월을 선택하거나 기록을 등록하세요.</td></tr></tbody>
           </table>
         </div>
@@ -322,26 +321,12 @@
           <span class="live-badge">LIVE AUTO SAVE</span>
         </div>
         <div class="form-row-2">
-          <div class="form-row" style="margin-bottom:8px;">
-            <label>라운드 날짜</label>
-            <input type="date" id="live-date-input" onchange="updateLiveConfig(true)">
-          </div>
-          <div class="form-row" style="margin-bottom:8px;">
-            <label>골프장 선택</label>
-            <select id="live-course-select" onchange="updateLiveConfig(true)">
-              <option value="">기본 코스 (Par 72)</option>
-            </select>
-          </div>
+          <div class="form-row" style="margin-bottom:8px;"><label>라운드 날짜</label><input type="date" id="live-date-input" onchange="updateLiveConfig(true)"></div>
+          <div class="form-row" style="margin-bottom:8px;"><label>골프장 선택</label><select id="live-course-select" onchange="updateLiveConfig(true)"><option value="">기본 코스 (Par 72)</option></select></div>
         </div>
         <div id="live-subcourse-wrap" class="form-row-2" style="display:none; margin-bottom:4px;">
-          <div class="form-row" style="margin-bottom:0;">
-            <label>전반 코스 (1~9H)</label>
-            <select id="live-front-course" onchange="updateLiveConfig(false)"></select>
-          </div>
-          <div class="form-row" style="margin-bottom:0;">
-            <label>후반 코스 (10~18H)</label>
-            <select id="live-back-course" onchange="updateLiveConfig(false)"></select>
-          </div>
+          <div class="form-row" style="margin-bottom:0;"><label>전반 코스 (1~9H)</label><select id="live-front-course" onchange="updateLiveConfig(false)"></select></div>
+          <div class="form-row" style="margin-bottom:0;"><label>후반 코스 (10~18H)</label><select id="live-back-course" onchange="updateLiveConfig(false)"></select></div>
         </div>
         <div id="live-course-par-info" style="font-size:12px; color:var(--gold); margin-top:8px;"></div>
         <div class="live-course-strip" id="live-par-strip"></div>
@@ -359,21 +344,11 @@
 
         <div id="live-single-panel">
           <div class="form-row-2">
-            <div class="form-row">
-              <label>회원 선택</label>
-              <select id="live-single-player" onchange="renderLiveInputUI()">
-                <option value="">-- 회원 선택 --</option>
-              </select>
-            </div>
-            <div class="form-row">
-              <label>조 (선택)</label>
-              <select id="live-single-group">
-                <option value="1조">1조</option><option value="2조">2조</option><option value="3조">3조</option>
-                <option value="4조">4조</option><option value="5조">5조</option><option value="6조">6조</option>
-              </select>
+            <div class="form-row"><label>회원 선택</label><select id="live-single-player" onchange="renderLiveInputUI()"><option value="">-- 회원 선택 --</option></select></div>
+            <div class="form-row"><label>조 (선택)</label>
+              <select id="live-single-group"><option value="1조">1조</option><option value="2조">2조</option><option value="3조">3조</option><option value="4조">4조</option><option value="5조">5조</option><option value="6조">6조</option></select>
             </div>
           </div>
-
           <div style="display:flex; justify-content:space-between; align-items:center; background:#0b1914; padding:10px 12px; border-radius:10px; border:1px solid var(--card-border); margin-bottom:8px;">
             <button class="btn-sm" onclick="stepLiveHole(-1)">◀ 이전홀</button>
             <div style="text-align:center;">
@@ -382,17 +357,12 @@
             </div>
             <button class="btn-sm" onclick="stepLiveHole(1)">다음홀 ▶</button>
           </div>
-
           <div class="quick-score-grid" id="live-single-quick-btns"></div>
         </div>
 
         <div id="live-group-panel" style="display:none;">
-          <div class="form-row">
-            <label>조 선택</label>
-            <select id="live-group-name" onchange="saveGroupSetup()">
-              <option value="1조">1조</option><option value="2조">2조</option><option value="3조">3조</option>
-              <option value="4조">4조</option><option value="5조">5조</option><option value="6조">6조</option>
-            </select>
+          <div class="form-row"><label>조 선택</label>
+            <select id="live-group-name" onchange="saveGroupSetup()"><option value="1조">1조</option><option value="2조">2조</option><option value="3조">3조</option><option value="4조">4조</option><option value="5조">5조</option><option value="6조">6조</option></select>
           </div>
           <div class="form-row-2" style="margin-bottom:10px;">
             <select id="gp-1" class="gp-sel" onchange="saveGroupSetup()"><option value="">조원 1 선택</option></select>
@@ -400,14 +370,21 @@
             <select id="gp-3" class="gp-sel" onchange="saveGroupSetup()"><option value="">조원 3 선택</option></select>
             <select id="gp-4" class="gp-sel" onchange="saveGroupSetup()"><option value="">조원 4 선택</option></select>
           </div>
-
           <div style="display:flex; justify-content:space-between; align-items:center; background:#0b1914; padding:10px 12px; border-radius:10px; border:1px solid var(--card-border); margin-bottom:10px;">
             <button class="btn-sm" onclick="stepLiveHole(-1)">◀ 이전홀</button>
             <div id="live-group-hole-label" style="font-weight:800; font-size:15px; color:var(--gold);">1홀 · Par 4</div>
             <button class="btn-sm" onclick="stepLiveHole(1)">다음홀 ▶</button>
           </div>
-
           <div id="live-group-players-list"></div>
+        </div>
+
+        <!-- 현재 홀 사진 자동 표시 박스 -->
+        <div id="live-hole-photo-box">
+          <div class="live-photo-head">
+            <span id="live-photo-title" style="font-size:13px; font-weight:800; color:var(--gold-light);">📷 홀 모양</span>
+            <button class="btn-sm" id="live-photo-toggle-btn" onclick="toggleLivePhoto()">접기</button>
+          </div>
+          <div id="live-photo-content"></div>
         </div>
       </div>
 
@@ -425,22 +402,34 @@
       </div>
     </div>
 
-    <!-- 4. 라운딩 목록 -->
+    <!-- 4. 코스 안내 (홀 모양 사진 뷰어) -->
+    <div id="t-guide" class="tab-pane">
+      <div class="card">
+        <div class="card-title">
+          <span>🗺 골프장 코스 안내 (홀 모양)</span>
+          <span style="font-size:11px; color:var(--text-muted);">사진 클릭 시 크게 확대</span>
+        </div>
+        <div class="form-row">
+          <label>골프장 선택</label>
+          <select id="guide-course-select" onchange="renderCourseGuide()"><option value="">-- 골프장을 선택하세요 --</option></select>
+        </div>
+        <div class="guide-tabs" id="guide-subcourse-tabs"></div>
+        <div class="guide-grid" id="guide-holes-container">
+          <div style="font-size:13px; color:var(--text-muted);">등록된 골프장을 선택하면 홀별 파와 사진을 볼 수 있습니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 라운딩 목록 -->
     <div id="t-rounds" class="tab-pane"><div id="rounds-container"><div class="card">기록을 불러오는 중…</div></div></div>
 
-    <!-- 5. 개인별 성적 -->
+    <!-- 6. 개인별 성적 -->
     <div id="t-personal" class="tab-pane">
       <div class="card">
         <div class="card-title"><span>🎒 개인별 성적 & 포인트 조회</span></div>
         <div class="form-row-2">
-          <div class="form-row">
-            <label>회원 선택</label>
-            <select id="personal-select" onchange="renderPersonal()"><option value="">회원을 선택하세요</option></select>
-          </div>
-          <div class="form-row">
-            <label>연도 선택</label>
-            <select id="personal-year" onchange="renderPersonal()"><option value="all">전체 연도</option></select>
-          </div>
+          <div class="form-row"><label>회원 선택</label><select id="personal-select" onchange="renderPersonal()"><option value="">회원을 선택하세요</option></select></div>
+          <div class="form-row"><label>연도 선택</label><select id="personal-year" onchange="renderPersonal()"><option value="all">전체 연도</option></select></div>
         </div>
         <div class="stat-grid" id="personal-stats">
           <div class="stat-box"><div class="lbl">평균 타수</div><div class="val">-</div></div>
@@ -453,25 +442,21 @@
       <div class="card">
         <div class="card-title"><span>📅 월별 라운딩 성적 & 포인트</span></div>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>날짜</th><th>골프장</th><th>스코어</th><th>핸디대비</th><th>포인트</th><th>벌금</th></tr></thead>
-            <tbody id="personal-monthly-tbody"><tr><td colspan="6">회원을 선택하세요.</td></tr></tbody>
-          </table>
+          <table><thead><tr><th>날짜</th><th>골프장</th><th>스코어</th><th>핸디대비</th><th>포인트</th><th>벌금</th></tr></thead>
+          <tbody id="personal-monthly-tbody"><tr><td colspan="6">회원을 선택하세요.</td></tr></tbody></table>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title"><span>⭐ 개별 포인트 지급/차감 내역</span></div>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>날짜</th><th>사유</th><th>포인트</th></tr></thead>
-            <tbody id="personal-points-tbody"><tr><td colspan="3">회원을 선택하세요.</td></tr></tbody>
-          </table>
+          <table><thead><tr><th>날짜</th><th>사유</th><th>포인트</th></tr></thead>
+          <tbody id="personal-points-tbody"><tr><td colspan="3">회원을 선택하세요.</td></tr></tbody></table>
         </div>
       </div>
     </div>
 
-    <!-- 6. 회원 명단 -->
+    <!-- 7. 회원 명단 -->
     <div id="t-members" class="tab-pane">
       <div class="card">
         <div class="card-title"><span>👥 등록 회원 명단</span><span style="font-size:11px; color:var(--text-muted);" id="member-count">총 0명</span></div>
@@ -482,7 +467,7 @@
       </div>
     </div>
 
-    <!-- 7. 회비 내역 -->
+    <!-- 8. 회비 내역 -->
     <div id="t-finance" class="tab-pane">
       <div class="card" style="background: linear-gradient(135deg, #163329, #0e221b);">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
@@ -500,10 +485,8 @@
           <select id="fee-year-select" onchange="renderFinance()" style="background:#0b1914;color:#fff;border:1px solid var(--card-border);border-radius:6px;padding:4px 8px;font-size:12px;"></select>
         </div>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>회원명</th><th>납부 상태</th><th>납부 금액</th><th class="admin-only">관리</th></tr></thead>
-            <tbody id="annual-fee-tbody"><tr><td colspan="4">등록된 회원이 없습니다.</td></tr></tbody>
-          </table>
+          <table><thead><tr><th>회원명</th><th>납부 상태</th><th>납부 금액</th><th class="admin-only">관리</th></tr></thead>
+          <tbody id="annual-fee-tbody"><tr><td colspan="4">등록된 회원이 없습니다.</td></tr></tbody></table>
         </div>
       </div>
 
@@ -519,7 +502,7 @@
       </div>
     </div>
 
-    <!-- 8. 대회 모드 -->
+    <!-- 9. 대회 모드 -->
     <div id="t-tourney" class="tab-pane">
       <div class="card">
         <div class="card-title">
@@ -531,12 +514,10 @@
             <option value="">날짜 없음</option>
           </select>
         </div>
-
         <div class="seg-tabs">
           <button class="seg-btn active" id="btn-tmode-peoria" onclick="setTourneyMode('peoria')">신페리오 (18홀 기준)</button>
           <button class="seg-btn" id="btn-tmode-stroke" onclick="setTourneyMode('stroke')">스트로크 (등록 핸디)</button>
         </div>
-
         <div id="peoria-admin-bar" class="admin-block admin-only" style="background:#0b1914;border:1px solid var(--card-border);border-radius:10px;padding:10px;margin-bottom:12px;">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
             <span style="font-size:12px;color:var(--gold-light);" id="peoria-hidden-label">히든 12홀: 자동 배정</span>
@@ -546,20 +527,17 @@
             </div>
           </div>
         </div>
-
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>순위</th><th>이름</th><th>그로스</th><th>핸디</th><th>네트(최종)</th><th class="admin-only">18홀</th></tr></thead>
-            <tbody id="tourney-tbody"><tr><td colspan="6">대회 데이터가 없습니다.</td></tr></tbody>
-          </table>
+          <table><thead><tr><th>순위</th><th>이름</th><th>그로스</th><th>핸디</th><th>네트(최종)</th><th class="admin-only">18홀</th></tr></thead>
+          <tbody id="tourney-tbody"><tr><td colspan="6">대회 데이터가 없습니다.</td></tr></tbody></table>
         </div>
       </div>
     </div>
 
-    <!-- 9. 소식 -->
+    <!-- 10. 소식 -->
     <div id="t-news" class="tab-pane"><div id="news-container"><div class="card">등록된 동호회 소식이 없습니다.</div></div></div>
 
-    <!-- 10. 관리자 전용: 세분화된 관리/입력 탭 -->
+    <!-- 11. 관리자 전용: 세분화된 관리/입력 탭 -->
     <div id="t-input" class="tab-pane">
       <div class="admin-sub-nav">
         <button class="admin-sub-btn active" onclick="switchAdminSub('sub-score', this)">✏ 스코어</button>
@@ -576,19 +554,15 @@
             <div class="card-title"><span>✏ 라운딩 스코어 등록</span></div>
             <div class="form-row"><label>날짜</label><input type="date" id="in-date"></div>
             <div class="form-row"><label>골프장명</label>
-              <select id="in-course-select" onchange="onInCourseSelectChange()" style="margin-bottom:6px;">
-                <option value="">-- 등록된 골프장 선택 --</option>
-              </select>
+              <select id="in-course-select" onchange="onInCourseSelectChange()" style="margin-bottom:6px;"><option value="">-- 등록된 골프장 선택 --</option></select>
               <div id="in-subcourse-wrap" class="form-row-2" style="display:none; margin-bottom:6px;">
                 <select id="in-front-course" onchange="syncInCourseText()"></select>
                 <select id="in-back-course" onchange="syncInCourseText()"></select>
               </div>
-              <input type="text" id="in-course" placeholder="예: 트윈도브스 CC (직접 입력 가능)">
+              <input type="text" id="in-course" placeholder="예: 엠버힐 CC (직접 입력 가능)">
             </div>
             <div class="form-row"><label>회원 선택 (또는 직접 입력)</label>
-              <select id="in-player-select" onchange="document.getElementById('in-player').value=this.value" style="margin-bottom:6px;">
-                <option value="">-- 등록된 회원 중 선택 --</option>
-              </select>
+              <select id="in-player-select" onchange="document.getElementById('in-player').value=this.value" style="margin-bottom:6px;"><option value="">-- 등록된 회원 중 선택 --</option></select>
               <input type="text" id="in-player" placeholder="직접 이름 입력 가능">
             </div>
             <div class="form-row"><label>최종 타수 (등록 핸디 기준 벌금 자동반영)</label><input type="number" id="in-score" placeholder="예: 82"></div>
@@ -616,14 +590,11 @@
           <div class="card" style="border-color: var(--gold);">
             <div class="card-title"><span>⭐ 개별 포인트 입력 (가감)</span></div>
             <div class="form-row"><label>날짜</label><input type="date" id="pt-date"></div>
-            <div class="form-row"><label>회원 선택</label>
-              <select id="pt-player"><option value="">-- 회원 선택 --</option></select>
-            </div>
+            <div class="form-row"><label>회원 선택</label><select id="pt-player"><option value="">-- 회원 선택 --</option></select></div>
             <div class="form-row"><label>포인트 (차감은 - 입력)</label><input type="number" id="pt-amount" placeholder="예: 100 또는 -100"></div>
             <div class="form-row"><label>사유</label><input type="text" id="pt-reason" placeholder="예: 버디상, 니어리스트, 이월 포인트 등"></div>
             <button class="btn-primary" onclick="saveManualPoint()">포인트 저장</button>
           </div>
-
           <div class="card">
             <div class="card-title"><span>📋 최근 개별 포인트 내역</span></div>
             <div id="admin-points-list" style="max-height:360px; overflow-y:auto; font-size:12px;"></div>
@@ -639,7 +610,7 @@
               <span id="course-par-sum" style="font-size:12px; color:var(--gold);">총 18홀 · Par 72</span>
             </div>
             <div class="form-row-2">
-              <div class="form-row"><label>골프장 이름</label><input type="text" id="c-name" placeholder="예: 트윈도브스 CC"></div>
+              <div class="form-row"><label>골프장 이름</label><input type="text" id="c-name" placeholder="예: 엠버힐 CC"></div>
               <div class="form-row"><label>총 홀 수 (9홀 코스 단위)</label>
                 <select id="c-hole-count" onchange="renderCourseBuilder('c-courses-container', Number(this.value)/9, null, 'course-par-sum')">
                   <option value="18">18홀 (2개 코스)</option>
@@ -650,10 +621,13 @@
                 </select>
               </div>
             </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+              <span style="font-size:11px; color:var(--text-muted);">1번 코스 1H 사진 URL 넣은 뒤 누르면 전체 자동 입력</span>
+              <button type="button" class="btn-sm" onclick="autoFillAllCourseUrls('c-courses-container')">⚡ 1번 홀 주소로 전체 홀 자동채우기</button>
+            </div>
             <div id="c-courses-container"></div>
             <button class="btn-primary" style="margin-top:6px;" onclick="saveCourse()">골프장 저장하기</button>
           </div>
-
           <div class="card">
             <div class="card-title"><span>📋 등록된 골프장 목록</span></div>
             <div id="courses-list"></div>
@@ -669,16 +643,11 @@
             <div class="form-row-2">
               <div class="form-row"><label>항목 구분</label>
                 <select id="f-category" onchange="toggleFinFields()">
-                  <option value="월회비">월회비 입금 (+)</option>
-                  <option value="년회비">개인 년회비 입금 (+)</option>
-                  <option value="벌금">벌금 입금 (+)</option>
-                  <option value="일반입금">기타 입금 (+)</option>
-                  <option value="출금">지출 / 출금 (-)</option>
+                  <option value="월회비">월회비 입금 (+)</option><option value="년회비">개인 년회비 입금 (+)</option>
+                  <option value="벌금">벌금 입금 (+)</option><option value="일반입금">기타 입금 (+)</option><option value="출금">지출 / 출금 (-)</option>
                 </select>
               </div>
-              <div class="form-row" id="f-player-wrap"><label>회원 (년회비/벌금 시)</label>
-                <select id="f-player"><option value="">-- 선택 --</option></select>
-              </div>
+              <div class="form-row" id="f-player-wrap"><label>회원 (년회비/벌금 시)</label><select id="f-player"><option value="">-- 선택 --</option></select></div>
             </div>
             <div class="form-row"><label>내용</label><input type="text" id="f-desc" placeholder="예: 2026년 년회비 / 11월 월례회 식대"></div>
             <div class="form-row"><label>금액 (동 / VND)</label><input type="number" id="f-amount" placeholder="예: 500000"></div>
@@ -699,7 +668,7 @@
       </div>
     </div>
 
-    <!-- 11. 설정 -->
+    <!-- 12. 설정 -->
     <div id="t-settings" class="tab-pane">
       <div class="card">
         <div class="card-title"><span>⚙ 데이터 관리</span></div>
@@ -718,18 +687,9 @@
         <span>📱 앱으로 설치하기</span>
         <button onclick="document.getElementById('pwa-guide-modal').style.display='none'" style="background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;">✕</button>
       </div>
-      <div class="pwa-guide-step">
-        <b>🍎 아이폰 / 아이패드 (Safari)</b>
-        화면 하단(또는 상단)의 <b>공유(□↑)</b> 버튼을 누른 뒤, <b>'홈 화면에 추가'</b>를 선택하세요.
-      </div>
-      <div class="pwa-guide-step">
-        <b>🤖 안드로이드 (Chrome / 삼성인터넷)</b>
-        브라우저 우측 상단 <b>⋮ 메뉴</b> → <b>'앱 설치'</b> 또는 <b>'홈 화면에 추가'</b>를 누르세요.
-      </div>
-      <div class="pwa-guide-step">
-        <b>💻 PC (Chrome / Edge)</b>
-        주소창 오른쪽 끝의 <b>설치(⊕ / 모니터)</b> 아이콘 또는 우측 상단 <b>⋮ → 전송, 저장 및 공유 → 페이지 앱으로 설치</b>를 누르세요.
-      </div>
+      <div class="pwa-guide-step"><b>🍎 아이폰 / 아이패드 (Safari)</b>화면 하단(또는 상단)의 <b>공유(□↑)</b> 버튼을 누른 뒤, <b>'홈 화면에 추가'</b>를 선택하세요.</div>
+      <div class="pwa-guide-step"><b>🤖 안드로이드 (Chrome / 삼성인터넷)</b>브라우저 우측 상단 <b>⋮ 메뉴</b> → <b>'앱 설치'</b> 또는 <b>'홈 화면에 추가'</b>를 누르세요.</div>
+      <div class="pwa-guide-step"><b>💻 PC (Chrome / Edge)</b>주소창 오른쪽 끝의 <b>설치(⊕)</b> 아이콘 또는 우측 상단 <b>⋮ → 전송, 저장 및 공유 → 페이지 앱으로 설치</b>를 누르세요.</div>
       <button class="btn-primary" onclick="document.getElementById('pwa-guide-modal').style.display='none'">확인</button>
     </div>
   </div>
@@ -759,6 +719,13 @@
     </div>
   </div>
 
+  <!-- 홀 사진 확대 라이트박스 -->
+  <div id="img-lightbox" onclick="this.style.display='none'">
+    <img id="img-lightbox-pic" src="" alt="홀 사진">
+    <div id="img-lightbox-caption"></div>
+    <div style="font-size:11px; color:var(--text-muted); margin-top:6px;">화면을 터치하면 닫힙니다</div>
+  </div>
+
   <script>
     window.isAdmin = false;
     let deferredPrompt = null;
@@ -772,18 +739,10 @@
         const cvs = document.createElement('canvas');
         cvs.width = 192; cvs.height = 192;
         const ctx = cvs.getContext('2d');
-        ctx.fillStyle = '#0b1914';
-        ctx.fillRect(0, 0, 192, 192);
-        ctx.strokeStyle = '#d4af37';
-        ctx.lineWidth = 8;
-        ctx.strokeRect(12, 12, 168, 168);
-        ctx.fillStyle = '#d4af37';
-        ctx.font = 'bold 46px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('HANUL', 96, 94);
-        ctx.fillStyle = '#f3e5ab';
-        ctx.font = 'bold 26px sans-serif';
-        ctx.fillText('GOLF', 96, 134);
+        ctx.fillStyle = '#0b1914'; ctx.fillRect(0, 0, 192, 192);
+        ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 8; ctx.strokeRect(12, 12, 168, 168);
+        ctx.fillStyle = '#d4af37'; ctx.font = 'bold 46px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('HANUL', 96, 94);
+        ctx.fillStyle = '#f3e5ab'; ctx.font = 'bold 26px sans-serif'; ctx.fillText('GOLF', 96, 134);
         const iconLink = document.getElementById('apple-touch-icon-link');
         if (iconLink) iconLink.href = cvs.toDataURL('image/png');
       } catch(e) {}
@@ -792,26 +751,15 @@
         navigator.serviceWorker.register('./sw.js').catch(() => {});
       }
 
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        if (btn) btn.style.display = 'inline-flex';
-      });
-
-      window.addEventListener('appinstalled', () => {
-        deferredPrompt = null;
-        if (btn) btn.style.display = 'none';
-      });
+      window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; if (btn) btn.style.display = 'inline-flex'; });
+      window.addEventListener('appinstalled', () => { deferredPrompt = null; if (btn) btn.style.display = 'none'; });
     })();
 
     function triggerPwaInstall() {
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choice) => {
-          if (choice.outcome === 'accepted') {
-            const btn = document.getElementById('pwa-install-btn');
-            if (btn) btn.style.display = 'none';
-          }
+          if (choice.outcome === 'accepted') { const btn = document.getElementById('pwa-install-btn'); if (btn) btn.style.display = 'none'; }
           deferredPrompt = null;
         });
       } else {
@@ -823,10 +771,7 @@
       const today = new Date().toISOString().slice(0, 10);
       const mf = document.getElementById('month-filter');
       if (mf) mf.value = today.slice(0, 7);
-      ['in-date', 'f-date', 'pt-date', 'live-date-input'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el && !el.value) el.value = today;
-      });
+      ['in-date', 'f-date', 'pt-date', 'live-date-input'].forEach(id => { const el = document.getElementById(id); if (el && !el.value) el.value = today; });
       const pwInput = document.getElementById('pw-input');
       if (pwInput) pwInput.addEventListener('keypress', function(e) { if (e.key === 'Enter' && window.loginMember) window.loginMember(); });
     });
@@ -870,32 +815,15 @@
 
     const DEFAULT_9_PARS = [4,4,3,4,5,4,3,4,5];
     const DEFAULT_PARS = [...DEFAULT_9_PARS, ...DEFAULT_9_PARS];
+    const DEFAULT_9_IMGS = ['', '', '', '', '', '', '', '', ''];
     const DEFAULT_COURSE_LABELS = ['A코스', 'B코스', 'C코스', 'D코스', 'E코스', 'F코스'];
 
-    let allRounds = [];
-    let allLive = [];
-    let allFinance = [];
-    let allNews = [];
-    let allPoints = [];
-    let allCourses = [];
-    let liveConfig = {
-      date: new Date().toISOString().slice(0, 10),
-      courseKey: '',
-      courseName: '기본 코스',
-      frontIdx: 0,
-      backIdx: 1,
-      pars: [...DEFAULT_PARS]
-    };
-    let tourneyConfigs = {};
-    let registeredMembers = {};
-    let memberStats = {};
-    let memberTotalPoints = {};
-    let currentEdit = null;
-    let liveMode = 'single';
-    let currentLiveHole = 1;
-    let tourneyMode = 'peoria';
-    let unsubscribes = [];
-    let dbListenersActive = false;
+    let allRounds = [], allLive = [], allFinance = [], allNews = [], allPoints = [], allCourses = [];
+    let liveConfig = { date: new Date().toISOString().slice(0, 10), courseKey: '', courseName: '기본 코스', frontIdx: 0, backIdx: 1, pars: [...DEFAULT_PARS] };
+    let tourneyConfigs = {}, registeredMembers = {}, memberStats = {}, memberTotalPoints = {};
+    let currentEdit = null, liveMode = 'single', currentLiveHole = 1, tourneyMode = 'peoria';
+    let livePhotoOpen = true, selectedGuideSubIdx = -1;
+    let unsubscribes = [], dbListenersActive = false;
 
     const authErrorMsg = (err) => {
       const c = err?.code || '';
@@ -905,54 +833,33 @@
       return '로그인 오류: ' + (err?.message || '알 수 없는 오류');
     };
 
-    // ==========================================
-    // Firebase Authentication 로그인 / 로그아웃
-    // ==========================================
     window.loginMember = () => {
-      const pw = document.getElementById('pw-input').value.trim();
-      const errEl = document.getElementById('login-err');
+      const pw = document.getElementById('pw-input').value.trim(), errEl = document.getElementById('login-err');
       if (!pw) { errEl.innerText = '비밀번호를 입력하세요.'; return; }
       errEl.innerText = '확인 중…';
-      signInWithEmailAndPassword(auth, MEMBER_EMAIL, pw)
-        .then(() => { errEl.innerText = ''; })
-        .catch((err) => { errEl.innerText = authErrorMsg(err); });
+      signInWithEmailAndPassword(auth, MEMBER_EMAIL, pw).then(() => { errEl.innerText = ''; }).catch((err) => { errEl.innerText = authErrorMsg(err); });
     };
 
     window.loginAdminDirect = () => {
-      const pw = document.getElementById('pw-input').value.trim();
-      const errEl = document.getElementById('login-err');
+      const pw = document.getElementById('pw-input').value.trim(), errEl = document.getElementById('login-err');
       if (!pw) { errEl.innerText = '관리자 비밀번호를 입력한 뒤 버튼을 누르세요.'; return; }
       errEl.innerText = '관리자 인증 중…';
-      signInWithEmailAndPassword(auth, ADMIN_EMAIL, pw)
-        .then(() => { errEl.innerText = ''; })
-        .catch((err) => { errEl.innerText = authErrorMsg(err); });
+      signInWithEmailAndPassword(auth, ADMIN_EMAIL, pw).then(() => { errEl.innerText = ''; }).catch((err) => { errEl.innerText = authErrorMsg(err); });
     };
 
     window.toggleAdmin = () => {
       if (!window.isAdmin) {
         const pw = prompt('관리자 비밀번호를 입력하세요');
         if (pw === null || !pw.trim()) return;
-        signInWithEmailAndPassword(auth, ADMIN_EMAIL, pw.trim())
-          .then(() => alert('관리자 모드로 전환되었습니다.'))
-          .catch((err) => alert(authErrorMsg(err)));
-      } else {
-        if (confirm('관리자 로그아웃 후 로그인 화면으로 돌아갈까요?')) {
-          signOut(auth);
-        }
-      }
-    };
-
-    window.logoutAll = () => {
-      if (confirm('로그아웃 할까요?')) {
+        signInWithEmailAndPassword(auth, ADMIN_EMAIL, pw.trim()).then(() => alert('관리자 모드로 전환되었습니다.')).catch((err) => alert(authErrorMsg(err)));
+      } else if (confirm('관리자 로그아웃 후 로그인 화면으로 돌아갈까요?')) {
         signOut(auth);
       }
     };
 
-    const stopDbListeners = () => {
-      unsubscribes.forEach(fn => { try { fn(); } catch(e) {} });
-      unsubscribes = [];
-      dbListenersActive = false;
-    };
+    window.logoutAll = () => { if (confirm('로그아웃 할까요?')) signOut(auth); };
+
+    const stopDbListeners = () => { unsubscribes.forEach(fn => { try { fn(); } catch(e) {} }); unsubscribes = []; dbListenersActive = false; };
 
     const startDbListeners = () => {
       if (dbListenersActive) return;
@@ -963,6 +870,8 @@
         allCourses = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })) : [];
         renderCoursesList();
         renderLiveCourseSelector();
+        renderLiveHolePhoto();
+        window.renderCourseGuide();
       }));
 
       unsubscribes.push(onValue(ref(db, 'liveConfig'), (snap) => {
@@ -970,53 +879,30 @@
         if (val) {
           liveConfig = {
             date: val.date || new Date().toISOString().slice(0, 10),
-            courseKey: val.courseKey || '',
-            courseName: val.courseName || '기본 코스',
-            frontIdx: Number(val.frontIdx ?? 0),
-            backIdx: Number(val.backIdx ?? 1),
-            pars: val.pars || [...DEFAULT_PARS]
+            courseKey: val.courseKey || '', courseName: val.courseName || '기본 코스',
+            frontIdx: Number(val.frontIdx ?? 0), backIdx: Number(val.backIdx ?? 1), pars: val.pars || [...DEFAULT_PARS]
           };
         }
-        renderLiveCourseSelector();
-        renderLiveParStrip();
-        renderLiveInputUI();
+        renderLiveCourseSelector(); renderLiveParStrip(); renderLiveInputUI();
       }));
 
       unsubscribes.push(onValue(ref(db, 'live'), (snap) => {
         const data = snap.val();
         allLive = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })) : [];
-        const sorted = allLive.map(l => ({ ...l, ...getLiveSummary(l) }))
-          .sort((a, b) => (a.played === 0 ? 999 : a.diff) - (b.played === 0 ? 999 : b.diff));
-
+        const sorted = allLive.map(l => ({ ...l, ...getLiveSummary(l) })).sort((a, b) => (a.played === 0 ? 999 : a.diff) - (b.played === 0 ? 999 : b.diff));
         document.getElementById('live-tbody').innerHTML = sorted.length ? sorted.map((l, i) => `
           <tr>
             <td>${i + 1}</td>
             <td style="font-size:11px;color:var(--text-muted);">${esc(l.group || '-')}</td>
-            <td>
-              <button onclick="openScorecardModal('live','${l.key}')" style="background:none;border:none;color:#fff;font-weight:800;cursor:pointer;text-decoration:underline dotted rgba(212,175,55,0.6);">
-                ${esc(l.name)}
-              </button>
-              ${l.played === 18 ? '<span class="sub-note" style="color:var(--green-accent);">✅ 자동저장</span>' : ''}
-            </td>
+            <td><button onclick="openScorecardModal('live','${l.key}')" style="background:none;border:none;color:#fff;font-weight:800;cursor:pointer;text-decoration:underline dotted rgba(212,175,55,0.6);">${esc(l.name)}</button>${l.played === 18 ? '<span class="sub-note" style="color:var(--green-accent);">✅ 자동저장</span>' : ''}</td>
             <td>${l.played}/18H</td>
-            <td style="color:var(--gold);font-weight:700;">
-              ${l.diffStr} ${l.played > 0 ? `<span class="sub-note">(${l.totalStrokes}타)</span>` : ''}
-            </td>
-            <td class="admin-only">
-              <div class="action-btns">
-                <button class="btn-edit" onclick="openScorecardModal('live','${l.key}')">수정</button>
-                <button class="btn-del" onclick="deleteLive('${l.key}')">삭제</button>
-              </div>
-            </td>
+            <td style="color:var(--gold);font-weight:700;">${l.diffStr} ${l.played > 0 ? `<span class="sub-note">(${l.totalStrokes}타)</span>` : ''}</td>
+            <td class="admin-only"><div class="action-btns"><button class="btn-edit" onclick="openScorecardModal('live','${l.key}')">수정</button><button class="btn-del" onclick="deleteLive('${l.key}')">삭제</button></div></td>
           </tr>`).join('') : '<tr><td colspan="6">진행 중인 라이브 기록이 없습니다.</td></tr>';
-
         renderLiveInputUI();
       }));
 
-      unsubscribes.push(onValue(ref(db, 'members'), (snap) => {
-        registeredMembers = snap.val() || {};
-        window.renderAll();
-      }));
+      unsubscribes.push(onValue(ref(db, 'members'), (snap) => { registeredMembers = snap.val() || {}; window.renderAll(); }));
 
       unsubscribes.push(onValue(ref(db, 'points'), (snap) => {
         const data = snap.val();
@@ -1025,15 +911,8 @@
         if (listEl) {
           listEl.innerHTML = allPoints.length ? allPoints.slice(0, 30).map(p => `
             <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(30,63,51,0.4);gap:6px;">
-              <div>
-                <b>${esc(p.player)}</b>
-                <span style="color:${p.amount>=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${p.amount>=0?'+':''}${p.amount}P</span>
-                <span class="sub-note">${esc(p.date)} · ${esc(p.reason)}</span>
-              </div>
-              <div class="action-btns">
-                <button class="btn-edit" onclick="openEdit('point','${p.key}')">수정</button>
-                <button class="btn-del" onclick="deleteManualPoint('${p.key}')">삭제</button>
-              </div>
+              <div><b>${esc(p.player)}</b> <span style="color:${p.amount>=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${p.amount>=0?'+':''}${p.amount}P</span><span class="sub-note">${esc(p.date)} · ${esc(p.reason)}</span></div>
+              <div class="action-btns"><button class="btn-edit" onclick="openEdit('point','${p.key}')">수정</button><button class="btn-del" onclick="deleteManualPoint('${p.key}')">삭제</button></div>
             </div>`).join('') : '<div style="color:var(--text-muted);">등록된 개별 포인트가 없습니다.</div>';
         }
         window.renderAll();
@@ -1041,66 +920,43 @@
 
       unsubscribes.push(onValue(ref(db, 'rounds'), (snap) => {
         const data = snap.val();
-        allRounds = data
-          ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || ''))
-          : [];
+        allRounds = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || '')) : [];
         window.renderAll();
       }));
 
       unsubscribes.push(onValue(ref(db, 'finance'), (snap) => {
         const data = snap.val();
-        allFinance = data
-          ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || ''))
-          : [];
+        allFinance = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || '')) : [];
         window.renderFinance();
       }));
 
-      unsubscribes.push(onValue(ref(db, 'tourneyConfig'), (snap) => {
-        tourneyConfigs = snap.val() || {};
-        window.renderTourney();
-      }));
+      unsubscribes.push(onValue(ref(db, 'tourneyConfig'), (snap) => { tourneyConfigs = snap.val() || {}; window.renderTourney(); }));
 
       unsubscribes.push(onValue(ref(db, 'news'), (snap) => {
         const data = snap.val();
         allNews = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })).reverse() : [];
         document.getElementById('news-container').innerHTML = allNews.length ? allNews.map(n => `
           <div class="card">
-            <div class="card-title">
-              <span>📣 ${esc(n.title)}</span>
-              <span style="font-size:11px;color:var(--text-muted);">${esc(n.date || '')}</span>
-            </div>
+            <div class="card-title"><span>📣 ${esc(n.title)}</span><span style="font-size:11px;color:var(--text-muted);">${esc(n.date || '')}</span></div>
             <div style="font-size:13px;line-height:1.6;white-space:pre-wrap;">${esc(n.body)}</div>
-            <div class="action-btns admin-only" style="margin-top:12px;">
-              <button class="btn-edit" onclick="openEdit('news','${n.key}')">수정</button>
-              <button class="btn-del" onclick="deleteNews('${n.key}')">삭제</button>
-            </div>
+            <div class="action-btns admin-only" style="margin-top:12px;"><button class="btn-edit" onclick="openEdit('news','${n.key}')">수정</button><button class="btn-del" onclick="deleteNews('${n.key}')">삭제</button></div>
           </div>`).join('') : '<div class="card">등록된 동호회 소식이 없습니다.</div>';
       }));
     };
 
     onAuthStateChanged(auth, (user) => {
-      const loginScreen = document.getElementById('login-screen');
-      const authLoading = document.getElementById('auth-loading');
-      const loginWrap = document.getElementById('login-form-wrap');
-
+      const loginScreen = document.getElementById('login-screen'), authLoading = document.getElementById('auth-loading'), loginWrap = document.getElementById('login-form-wrap');
       if (authLoading) authLoading.style.display = 'none';
-
       if (user) {
         window.isAdmin = (user.email === ADMIN_EMAIL);
         document.body.classList.toggle('is-admin', window.isAdmin);
         document.getElementById('admin-btn').innerText = window.isAdmin ? '관리자 로그아웃' : '관리자 로그인';
         if (!window.isAdmin) {
           const curActive = document.querySelector('.tab-pane.active');
-          if (curActive && (curActive.id === 't-input' || curActive.id === 't-settings')) {
-            switchTab('t-handi', document.querySelector('.nav-btn'));
-          }
+          if (curActive && (curActive.id === 't-input' || curActive.id === 't-settings')) switchTab('t-handi', document.querySelector('.nav-btn'));
         }
         loginScreen.style.display = 'none';
-        if (!dbListenersActive) {
-          startDbListeners();
-        } else {
-          window.renderAll();
-        }
+        if (!dbListenersActive) startDbListeners(); else window.renderAll();
       } else {
         stopDbListeners();
         window.isAdmin = false;
@@ -1113,25 +969,50 @@
       }
     });
 
-    // ==========================================
-    // 유틸 & 계산 로직
-    // ==========================================
-    const esc = (str) => String(str ?? '')
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-
+    const esc = (str) => String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     const safeKey = (s) => encodeURIComponent(String(s).trim()).replace(/\./g, '%2E');
+    const safeImgUrl = (url) => (/^https?:\/\//i.test((url || '').trim()) ? (url || '').trim() : '');
+
+    window.openLightbox = (url, caption) => {
+      const safe = safeImgUrl(url);
+      if (!safe) return;
+      document.getElementById('img-lightbox-pic').src = safe;
+      document.getElementById('img-lightbox-caption').innerText = caption || '';
+      document.getElementById('img-lightbox').style.display = 'flex';
+    };
+
+    // 연속 URL 번호 자동 증가 (예: .../1.png -> .../2.png, .../01.jpg -> .../02.jpg)
+    const incrementUrlNumber = (url, offset) => {
+      const trimmed = (url || '').trim();
+      if (!trimmed) return '';
+      const m = trimmed.match(/^(.*?)(\d+)(\.[a-zA-Z0-9]+(?:[?#].*)?)$/);
+      if (m) {
+        const [, prefix, numStr, suffix] = m;
+        const nextNum = Number(numStr) + offset;
+        const padded = numStr.length > 1 && numStr.startsWith('0') ? String(nextNum).padStart(numStr.length, '0') : String(nextNum);
+        return `${prefix}${padded}${suffix}`;
+      }
+      const m2 = trimmed.match(/^(.*?)(\d+)([^0-9]*)$/);
+      if (m2) {
+        const [, prefix, numStr, suffix] = m2;
+        const nextNum = Number(numStr) + offset;
+        const padded = numStr.length > 1 && numStr.startsWith('0') ? String(nextNum).padStart(numStr.length, '0') : String(nextNum);
+        return `${prefix}${padded}${suffix}`;
+      }
+      return trimmed;
+    };
 
     const normalizeSubCourses = (c) => {
-      if (!c) return [{ name: '전반 (OUT)', pars: [...DEFAULT_9_PARS] }, { name: '후반 (IN)', pars: [...DEFAULT_9_PARS] }];
+      if (!c) return [{ name: '전반 (OUT)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }, { name: '후반 (IN)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }];
       if (Array.isArray(c.subCourses) && c.subCourses.length >= 2) {
         return c.subCourses.map((sc, idx) => ({
           name: sc.name || DEFAULT_COURSE_LABELS[idx] || `${idx + 1}코스`,
-          pars: Array.isArray(sc.pars) && sc.pars.length === 9 ? sc.pars.map(Number) : [...DEFAULT_9_PARS]
+          pars: Array.isArray(sc.pars) && sc.pars.length === 9 ? sc.pars.map(Number) : [...DEFAULT_9_PARS],
+          images: Array.isArray(sc.images) && sc.images.length === 9 ? sc.images.map(u => String(u || '')) : [...DEFAULT_9_IMGS]
         }));
       }
       const p = Array.isArray(c.pars) && c.pars.length >= 18 ? c.pars.map(Number) : [...DEFAULT_PARS];
-      return [{ name: '전반 (OUT)', pars: p.slice(0, 9) }, { name: '후반 (IN)', pars: p.slice(9, 18) }];
+      return [{ name: '전반 (OUT)', pars: p.slice(0, 9), images: [...DEFAULT_9_IMGS] }, { name: '후반 (IN)', pars: p.slice(9, 18), images: [...DEFAULT_9_IMGS] }];
     };
 
     const getGolfTerm = (score, par) => {
@@ -1152,35 +1033,18 @@
       return mEntry ? Number(mEntry.initHandi ?? 18) : 18;
     };
 
-    const getEffectiveRoundHandi = (r) => {
-      if (r.appliedHandi !== undefined && r.appliedHandi !== null && r.appliedHandi !== '') {
-        return Number(r.appliedHandi);
-      }
-      return getRegisteredHandi(r.player);
-    };
+    const getEffectiveRoundHandi = (r) => (r.appliedHandi !== undefined && r.appliedHandi !== null && r.appliedHandi !== '') ? Number(r.appliedHandi) : getRegisteredHandi(r.player);
 
     const calcFineAmount = (r) => {
-      const actualScore = Number(r.score);
-      const handi = getEffectiveRoundHandi(r);
-      const over = actualScore - (72 + handi);
-      if (over <= 0) return { over: 0, amount: 0, handi };
-      return { over, amount: Math.min(over * 100000, 500000), handi };
+      const actualScore = Number(r.score), handi = getEffectiveRoundHandi(r), over = actualScore - (72 + handi);
+      return over <= 0 ? { over: 0, amount: 0, handi } : { over, amount: Math.min(over * 100000, 500000), handi };
     };
 
     const syncRoundFine = (roundKey, roundObj) => {
       const { over, amount } = calcFineAmount({ ...roundObj, key: roundKey });
-      const fineKey = 'fine_' + roundKey;
-      const fineRef = ref(db, 'finance/' + fineKey);
+      const fineKey = 'fine_' + roundKey, fineRef = ref(db, 'finance/' + fineKey);
       if (amount > 0) {
-        return set(fineRef, {
-          date: roundObj.date,
-          desc: `[벌금] ${roundObj.player} (핸디대비 +${over}타)`,
-          type: 'in',
-          amount,
-          category: '벌금',
-          player: roundObj.player,
-          roundKey
-        });
+        return set(fineRef, { date: roundObj.date, desc: `[벌금] ${roundObj.player} (핸디대비 +${over}타)`, type: 'in', amount, category: '벌금', player: roundObj.player, roundKey });
       } else if (allFinance.some(f => f.key === fineKey)) {
         return remove(fineRef);
       }
@@ -1189,84 +1053,96 @@
 
     window.syncAllRoundFines = () => {
       if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      Promise.all(allRounds.map(r => syncRoundFine(r.key, r)))
-        .then(() => alert(`총 ${allRounds.length}건의 라운딩 기록 기준 벌금을 동기화했습니다.`))
-        .catch(err => alert("동기화 실패: " + err.message));
+      Promise.all(allRounds.map(r => syncRoundFine(r.key, r))).then(() => alert(`총 ${allRounds.length}건의 라운딩 기록 기준 벌금을 동기화했습니다.`)).catch(err => alert("동기화 실패: " + err.message));
     };
 
     window.syncMonthHandi = () => {
       if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const selMonth = document.getElementById('month-filter').value;
-      const targets = allRounds.filter(r => r.date && r.date.startsWith(selMonth));
+      const selMonth = document.getElementById('month-filter').value, targets = allRounds.filter(r => r.date && r.date.startsWith(selMonth));
       if (!targets.length) return alert("해당 월에 라운딩 기록이 없습니다.");
       if (!confirm(`${selMonth}월 기록 ${targets.length}건의 적용 핸디를\n현재 회원 '등록 핸디' 기준으로 재계산(벌금 포함) 할까요?`)) return;
-
       Promise.all(targets.map(r => {
-        const regHandi = getRegisteredHandi(r.player);
-        const updatedObj = { ...r, appliedHandi: regHandi };
+        const regHandi = getRegisteredHandi(r.player), updatedObj = { ...r, appliedHandi: regHandi };
         delete updatedObj.key;
-        return update(ref(db, 'rounds/' + r.key), { appliedHandi: regHandi })
-          .then(() => syncRoundFine(r.key, updatedObj));
-      }))
-        .then(() => alert(`${selMonth}월 성적 및 벌금이 등록 핸디 기준으로 재계산되었습니다.`))
-        .catch(err => alert("재계산 실패: " + err.message));
+        return update(ref(db, 'rounds/' + r.key), { appliedHandi: regHandi }).then(() => syncRoundFine(r.key, updatedObj));
+      })).then(() => alert(`${selMonth}월 성적 및 벌금이 등록 핸디 기준으로 재계산되었습니다.`)).catch(err => alert("재계산 실패: " + err.message));
     };
 
     const computeMonthResults = (monthStr) => {
-      const mRounds = allRounds.filter(r => r.date && r.date.startsWith(monthStr));
-      const enriched = mRounds.map(r => {
-        const actualScore = Number(r.score);
-        const handi = getEffectiveRoundHandi(r);
-        const vsHandi = actualScore - (72 + handi);
+      const enriched = allRounds.filter(r => r.date && r.date.startsWith(monthStr)).map(r => {
+        const actualScore = Number(r.score), handi = getEffectiveRoundHandi(r), vsHandi = actualScore - (72 + handi);
         return { ...r, actualScore, handi, vsHandi };
       }).sort((a, b) => (a.vsHandi - b.vsHandi) || (a.actualScore - b.actualScore));
-
-      const bonusPrizes = [300, 200, 100];
-      const rankedPlayers = [];
-      const playerAutoPoints = {};
+      const bonusPrizes = [300, 200, 100], rankedPlayers = [], playerAutoPoints = {};
       enriched.forEach(r => {
         if (!playerAutoPoints[r.player]) {
-          const rankIdx = rankedPlayers.length;
-          rankedPlayers.push(r.player);
+          const rankIdx = rankedPlayers.length; rankedPlayers.push(r.player);
           playerAutoPoints[r.player] = { base: 300, bonus: rankIdx < 3 ? bonusPrizes[rankIdx] : 0, rank: rankIdx + 1 };
         }
       });
-
       const playerManualPoints = {};
-      allPoints.filter(p => p.date && p.date.startsWith(monthStr)).forEach(p => {
-        playerManualPoints[p.player] = (playerManualPoints[p.player] || 0) + Number(p.amount);
-      });
-
+      allPoints.filter(p => p.date && p.date.startsWith(monthStr)).forEach(p => { playerManualPoints[p.player] = (playerManualPoints[p.player] || 0) + Number(p.amount); });
       return { enriched, playerAutoPoints, playerManualPoints };
     };
 
     const computeAllMemberPoints = () => {
-      const totals = {};
-      const months = new Set();
+      const totals = {}, months = new Set();
       allRounds.forEach(r => { if (r.date) months.add(r.date.slice(0, 7)); });
-      months.forEach(m => {
-        const { playerAutoPoints } = computeMonthResults(m);
-        Object.entries(playerAutoPoints).forEach(([player, info]) => {
-          totals[player] = (totals[player] || 0) + info.base + info.bonus;
-        });
-      });
-      allPoints.forEach(p => {
-        totals[p.player] = (totals[p.player] || 0) + Number(p.amount);
-      });
+      months.forEach(m => { const { playerAutoPoints } = computeMonthResults(m); Object.entries(playerAutoPoints).forEach(([p, info]) => { totals[p] = (totals[p] || 0) + info.base + info.bonus; }); });
+      allPoints.forEach(p => { totals[p.player] = (totals[p.player] || 0) + Number(p.amount); });
       return totals;
     };
 
     // ==========================================
-    // 골프장 빌더 (18~54홀, 코스별 이름)
+    // 골프장 빌더 (18~54홀, 코스명, 파, 홀별 사진 URL + 자동채우기)
     // ==========================================
     const readBuilderSubCourses = (containerId) => {
       const container = document.getElementById(containerId);
       if (!container) return [];
-      return Array.from(container.querySelectorAll('.sub-course-box')).map((box, idx) => {
-        const name = box.querySelector('.sc-name-inp').value.trim() || DEFAULT_COURSE_LABELS[idx] || `${idx + 1}코스`;
-        const pars = Array.from(box.querySelectorAll('.sc-par-sel')).map(s => Number(s.value));
-        return { name, pars };
+      return Array.from(container.querySelectorAll('.sub-course-box')).map((box, idx) => ({
+        name: box.querySelector('.sc-name-inp').value.trim() || DEFAULT_COURSE_LABELS[idx] || `${idx + 1}코스`,
+        pars: Array.from(box.querySelectorAll('.sc-par-sel')).map(s => Number(s.value)),
+        images: Array.from(box.querySelectorAll('.sc-img-inp')).map(i => i.value.trim())
+      }));
+    };
+
+    window.toggleCourseImgWrap = (btn) => {
+      const box = btn.closest('.sub-course-box');
+      const wrap = box.querySelector('.sc-imgs-wrap');
+      const isOpen = wrap.classList.toggle('open');
+      btn.innerText = isOpen ? '📷 홀 사진 URL ▲' : '📷 홀 사진 URL ▼';
+    };
+
+    window.autoFillSubCourseUrls = (btn) => {
+      const box = btn.closest('.sub-course-box');
+      const wrap = box.querySelector('.sc-imgs-wrap');
+      wrap.classList.add('open');
+      const toggleBtn = box.querySelector('.sc-img-toggle-btn');
+      if (toggleBtn) toggleBtn.innerText = '📷 홀 사진 URL ▲';
+      const inputs = Array.from(box.querySelectorAll('.sc-img-inp'));
+      const firstUrl = inputs[0]?.value.trim();
+      if (!firstUrl) return alert("이 코스의 1H 칸에 첫 번째 사진 주소를 먼저 붙여넣으세요.");
+      inputs.forEach((inp, idx) => { inp.value = incrementUrlNumber(firstUrl, idx); });
+    };
+
+    window.autoFillAllCourseUrls = (containerId) => {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const boxes = Array.from(container.querySelectorAll('.sub-course-box'));
+      if (!boxes.length) return;
+      const firstUrl = boxes[0].querySelector('.sc-img-inp')?.value.trim();
+      if (!firstUrl) return alert("1번 코스 '1H 사진 URL' 칸에 첫 번째 홀 이미지 주소를 먼저 붙여넣으세요.");
+
+      let globalIdx = 0;
+      boxes.forEach(box => {
+        box.querySelector('.sc-imgs-wrap').classList.add('open');
+        const toggleBtn = box.querySelector('.sc-img-toggle-btn');
+        if (toggleBtn) toggleBtn.innerText = '📷 홀 사진 URL ▲';
+        box.querySelectorAll('.sc-img-inp').forEach(inp => {
+          inp.value = incrementUrlNumber(firstUrl, globalIdx++);
+        });
       });
+      alert(`총 ${globalIdx}개 홀의 사진 주소가 순서대로 자동 입력되었습니다!`);
     };
 
     window.renderCourseBuilder = (containerId, numCourses, existingSubCourses = null, sumId = 'course-par-sum') => {
@@ -1278,7 +1154,9 @@
         const prev = currentSnapshot[cIdx];
         const cName = prev ? prev.name : (DEFAULT_COURSE_LABELS[cIdx] || `${cIdx + 1}코스`);
         const cPars = prev && Array.isArray(prev.pars) && prev.pars.length === 9 ? prev.pars : [...DEFAULT_9_PARS];
+        const cImgs = prev && Array.isArray(prev.images) && prev.images.length === 9 ? prev.images : [...DEFAULT_9_IMGS];
         const cSum = cPars.reduce((a, b) => a + Number(b), 0);
+        const imgCount = cImgs.filter(u => u && u.trim()).length;
 
         return `
           <div class="sub-course-box" data-cidx="${cIdx}">
@@ -1298,6 +1176,19 @@
                   </select>
                 </div>`).join('')}
             </div>
+            <div class="sc-img-toggle-row">
+              <button type="button" class="btn-sm sc-img-toggle-btn" onclick="toggleCourseImgWrap(this)">
+                📷 홀 사진 URL (${imgCount}/9) ▼
+              </button>
+              <button type="button" class="btn-sm" onclick="autoFillSubCourseUrls(this)">⚡ 이 코스 9홀 자동채우기</button>
+            </div>
+            <div class="sc-imgs-wrap">
+              ${Array.from({length: 9}, (_, hIdx) => `
+                <div class="hole-img-row">
+                  <span>${hIdx + 1}H</span>
+                  <input type="url" class="sc-img-inp" value="${esc(cImgs[hIdx] || '')}" placeholder="https://.../hole${hIdx + 1}.png">
+                </div>`).join('')}
+            </div>
           </div>`;
       }).join('');
 
@@ -1306,8 +1197,7 @@
         container.querySelectorAll('.sub-course-box').forEach(box => {
           const sum = Array.from(box.querySelectorAll('.sc-par-sel')).reduce((a, s) => a + Number(s.value), 0);
           box.querySelector('.sub-course-par-badge').innerText = `Par ${sum}`;
-          totalHoles += 9;
-          totalPar += sum;
+          totalHoles += 9; totalPar += sum;
         });
         const sumEl = document.getElementById(sumId);
         if (sumEl) sumEl.innerText = `총 ${totalHoles}홀 · Par ${totalPar}`;
@@ -1317,8 +1207,8 @@
     };
 
     window.renderCourseBuilder('c-courses-container', 2, [
-      { name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS] },
-      { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS] }
+      { name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] },
+      { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }
     ], 'course-par-sum');
 
     window.saveCourse = () => {
@@ -1326,8 +1216,7 @@
       if (!name) return alert("골프장 이름을 입력하세요.");
       const subCourses = readBuilderSubCourses('c-courses-container');
       if (subCourses.length < 2) return alert("최소 2개 코스(18홀) 이상 필요합니다.");
-      const holeCount = subCourses.length * 9;
-      const pars = subCourses.flatMap(sc => sc.pars);
+      const holeCount = subCourses.length * 9, pars = subCourses.flatMap(sc => sc.pars);
 
       push(ref(db, 'courses'), { name, holeCount, subCourses, pars })
         .then(() => {
@@ -1335,8 +1224,8 @@
           document.getElementById('c-name').value = "";
           document.getElementById('c-hole-count').value = "18";
           window.renderCourseBuilder('c-courses-container', 2, [
-            { name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS] },
-            { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS] }
+            { name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] },
+            { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }
           ], 'course-par-sum');
         })
         .catch(err => alert("골프장 저장 실패: " + err.message));
@@ -1345,31 +1234,25 @@
     window.deleteCourse = (key) => {
       if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const c = allCourses.find(x => x.key === key);
-      if (!c) return;
-      if (confirm(`'${c.name}' 골프장을 삭제할까요?`)) {
-        remove(ref(db, 'courses/' + key)).catch(err => alert("삭제 실패: " + err.message));
-      }
+      if (c && confirm(`'${c.name}' 골프장을 삭제할까요?`)) remove(ref(db, 'courses/' + key)).catch(err => alert("삭제 실패: " + err.message));
     };
 
     const renderCoursesList = () => {
       const listEl = document.getElementById('courses-list');
       if (listEl) {
         listEl.innerHTML = allCourses.length ? allCourses.map(c => {
-          const subs = normalizeSubCourses(c);
-          const holes = subs.length * 9;
+          const subs = normalizeSubCourses(c), holes = subs.length * 9;
           const totalPar = subs.reduce((a, sc) => a + sc.pars.reduce((x, y) => x + Number(y), 0), 0);
+          const photoCnt = subs.reduce((a, sc) => a + sc.images.filter(u => u && u.trim()).length, 0);
           const namesStr = subs.map(sc => `${sc.name}(P${sc.pars.reduce((x,y)=>x+Number(y),0)})`).join(' · ');
           return `
             <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(30,63,51,0.5);gap:8px;">
               <div>
                 <b>⛳ ${esc(c.name)}</b>
-                <span style="font-size:11px;color:var(--gold);margin-left:4px;">${holes}홀 · Par ${totalPar}</span>
+                <span style="font-size:11px;color:var(--gold);margin-left:4px;">${holes}홀 · Par ${totalPar} · 사진 ${photoCnt}장</span>
                 <span class="sub-note">${esc(namesStr)}</span>
               </div>
-              <div class="action-btns">
-                <button class="btn-edit" onclick="openEdit('course','${c.key}')">수정</button>
-                <button class="btn-del" onclick="deleteCourse('${c.key}')">삭제</button>
-              </div>
+              <div class="action-btns"><button class="btn-edit" onclick="openEdit('course','${c.key}')">수정</button><button class="btn-del" onclick="deleteCourse('${c.key}')">삭제</button></div>
             </div>`;
         }).join('') : '<div style="font-size:12px;color:var(--text-muted);">등록된 골프장이 없습니다.</div>';
       }
@@ -1377,36 +1260,32 @@
       const inCSel = document.getElementById('in-course-select');
       if (inCSel) {
         const cur = inCSel.value;
-        inCSel.innerHTML = '<option value="">-- 등록된 골프장 선택 --</option>' +
-          allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
+        inCSel.innerHTML = '<option value="">-- 등록된 골프장 선택 --</option>' + allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
         inCSel.value = cur;
+      }
+
+      const gSel = document.getElementById('guide-course-select');
+      if (gSel) {
+        const curG = gSel.value;
+        gSel.innerHTML = '<option value="">-- 골프장을 선택하세요 --</option>' + allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
+        gSel.value = allCourses.some(c => c.key === curG) ? curG : (allCourses[0]?.key || '');
       }
     };
 
     window.onInCourseSelectChange = () => {
-      const key = document.getElementById('in-course-select').value;
-      const wrap = document.getElementById('in-subcourse-wrap');
-      const found = allCourses.find(c => c.key === key);
+      const key = document.getElementById('in-course-select').value, wrap = document.getElementById('in-subcourse-wrap'), found = allCourses.find(c => c.key === key);
       if (!found) { wrap.style.display = 'none'; return; }
-      const subs = normalizeSubCourses(found);
-      const fSel = document.getElementById('in-front-course');
-      const bSel = document.getElementById('in-back-course');
+      const subs = normalizeSubCourses(found), fSel = document.getElementById('in-front-course'), bSel = document.getElementById('in-back-course');
       const opts = subs.map((sc, i) => `<option value="${i}">${esc(sc.name)}</option>`).join('');
-      fSel.innerHTML = opts;
-      bSel.innerHTML = opts;
-      fSel.value = '0';
-      bSel.value = subs.length > 1 ? '1' : '0';
+      fSel.innerHTML = opts; bSel.innerHTML = opts; fSel.value = '0'; bSel.value = subs.length > 1 ? '1' : '0';
       wrap.style.display = 'grid';
       window.syncInCourseText();
     };
 
     window.syncInCourseText = () => {
-      const key = document.getElementById('in-course-select').value;
-      const found = allCourses.find(c => c.key === key);
+      const found = allCourses.find(c => c.key === document.getElementById('in-course-select').value);
       if (!found) return;
-      const subs = normalizeSubCourses(found);
-      const fIdx = Number(document.getElementById('in-front-course').value || 0);
-      const bIdx = Number(document.getElementById('in-back-course').value || 0);
+      const subs = normalizeSubCourses(found), fIdx = Number(document.getElementById('in-front-course').value || 0), bIdx = Number(document.getElementById('in-back-course').value || 0);
       document.getElementById('in-course').value = `${found.name} (${subs[fIdx]?.name || ''}→${subs[bIdx]?.name || ''})`;
     };
 
@@ -1414,91 +1293,151 @@
       if (!courseStr) return DEFAULT_PARS;
       const match = courseStr.match(/^(.+?)\s*\((.+?)→(.+?)\)$/);
       if (match) {
-        const [, clubName, fName, bName] = match;
-        const found = allCourses.find(c => c.name === clubName.trim());
+        const [, clubName, fName, bName] = match, found = allCourses.find(c => c.name === clubName.trim());
         if (found) {
-          const subs = normalizeSubCourses(found);
-          const fSub = subs.find(s => s.name === fName.trim()) || subs[0];
-          const bSub = subs.find(s => s.name === bName.trim()) || subs[1] || subs[0];
+          const subs = normalizeSubCourses(found), fSub = subs.find(s => s.name === fName.trim()) || subs[0], bSub = subs.find(s => s.name === bName.trim()) || subs[1] || subs[0];
           return [...fSub.pars, ...bSub.pars];
         }
       }
       const foundExact = allCourses.find(c => c.name === courseStr.trim());
-      if (foundExact) {
-        const subs = normalizeSubCourses(foundExact);
-        return [...subs[0].pars, ...(subs[1] || subs[0]).pars];
-      }
+      if (foundExact) { const subs = normalizeSubCourses(foundExact); return [...subs[0].pars, ...(subs[1] || subs[0]).pars]; }
       return DEFAULT_PARS;
     };
 
     // ==========================================
-    // 라이브 스코어 (개별/조별 + 18홀 자동저장)
+    // 🗺 코스 안내 탭 렌더링
     // ==========================================
-    const renderLiveCourseSelector = () => {
-      const dateEl = document.getElementById('live-date-input');
-      const selEl = document.getElementById('live-course-select');
-      const subWrap = document.getElementById('live-subcourse-wrap');
-      const fSel = document.getElementById('live-front-course');
-      const bSel = document.getElementById('live-back-course');
+    window.selectGuideSub = (idx) => { selectedGuideSubIdx = idx; window.renderCourseGuide(); };
 
-      if (dateEl && liveConfig.date) dateEl.value = liveConfig.date;
-      if (selEl) {
-        selEl.innerHTML = '<option value="">기본 코스 (Par 72)</option>' +
-          allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
-        selEl.value = liveConfig.courseKey || '';
+    window.renderCourseGuide = () => {
+      const key = document.getElementById('guide-course-select')?.value;
+      const tabsEl = document.getElementById('guide-subcourse-tabs');
+      const boxEl = document.getElementById('guide-holes-container');
+      if (!tabsEl || !boxEl) return;
+
+      const found = allCourses.find(c => c.key === key);
+      if (!found) {
+        tabsEl.innerHTML = '';
+        boxEl.innerHTML = '<div style="font-size:13px; color:var(--text-muted);">등록된 골프장을 선택하면 홀별 파와 사진을 볼 수 있습니다.</div>';
+        return;
       }
 
+      const subs = normalizeSubCourses(found);
+      if (selectedGuideSubIdx >= subs.length) selectedGuideSubIdx = -1;
+
+      tabsEl.innerHTML = `<button class="btn-sm ${selectedGuideSubIdx === -1 ? 'active' : ''}" onclick="selectGuideSub(-1)">전체 (${subs.length * 9}홀)</button>` +
+        subs.map((sc, idx) => `<button class="btn-sm ${selectedGuideSubIdx === idx ? 'active' : ''}" onclick="selectGuideSub(${idx})">${esc(sc.name)} (P${sc.pars.reduce((a,b)=>a+Number(b),0)})</button>`).join('');
+
+      const targetSubs = selectedGuideSubIdx === -1 ? subs.map((sc, i) => ({ ...sc, cIdx: i })) : [{ ...subs[selectedGuideSubIdx], cIdx: selectedGuideSubIdx }];
+
+      boxEl.innerHTML = targetSubs.flatMap(sc => sc.pars.map((p, hIdx) => {
+        const holeNum = hIdx + 1, imgUrl = safeImgUrl(sc.images[hIdx]), cap = `${found.name} · ${sc.name} ${holeNum}홀 (Par ${p})`;
+        return `
+          <div class="guide-hole-card">
+            <div class="guide-hole-head">
+              <span>⛳ ${esc(sc.name)} ${holeNum}홀</span>
+              <span style="color:var(--gold);">Par ${p}</span>
+            </div>
+            ${imgUrl
+              ? `<img src="${esc(imgUrl)}" class="guide-hole-img" alt="${esc(cap)}" loading="lazy"
+                   onclick="openLightbox('${esc(imgUrl)}','${esc(cap)}')"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                 <div class="guide-img-fallback" style="display:none;">
+                   이미지를 직접 불러올 수 없습니다.<br>
+                   <a href="${esc(imgUrl)}" target="_blank" rel="noopener noreferrer">🔗 새 탭에서 사진 열기</a>
+                 </div>`
+              : `<div class="guide-img-fallback">등록된 홀 사진이 없습니다.</div>`
+            }
+          </div>`;
+      })).join('');
+    };
+
+    // ==========================================
+    // 라이브 스코어 + 현재 홀 사진 표시
+    // ==========================================
+    window.toggleLivePhoto = () => {
+      livePhotoOpen = !livePhotoOpen;
+      document.getElementById('live-photo-toggle-btn').innerText = livePhotoOpen ? '접기' : '펼치기';
+      renderLiveHolePhoto();
+    };
+
+    const renderLiveHolePhoto = () => {
+      const box = document.getElementById('live-hole-photo-box');
+      const titleEl = document.getElementById('live-photo-title');
+      const contentEl = document.getElementById('live-photo-content');
+      if (!box || !titleEl || !contentEl) return;
+
+      const found = allCourses.find(c => c.key === liveConfig.courseKey);
+      if (!found) { box.style.display = 'none'; return; }
+
+      const subs = normalizeSubCourses(found);
+      const isFront = currentLiveHole <= 9;
+      const sc = isFront ? subs[liveConfig.frontIdx ?? 0] : subs[liveConfig.backIdx ?? 0];
+      if (!sc) { box.style.display = 'none'; return; }
+
+      const holeIdx = (currentLiveHole - 1) % 9;
+      const imgUrl = safeImgUrl(sc.images[holeIdx]);
+      if (!imgUrl) { box.style.display = 'none'; return; }
+
+      const par = Number(sc.pars[holeIdx] || 4);
+      const cap = `${found.name} · ${sc.name} ${holeIdx + 1}홀 (${currentLiveHole}H · Par ${par})`;
+      titleEl.innerText = `📷 ${sc.name} ${holeIdx + 1}홀 (Par ${par}) 사진`;
+      box.style.display = 'block';
+
+      if (!livePhotoOpen) {
+        contentEl.innerHTML = '';
+        return;
+      }
+      contentEl.innerHTML = `
+        <img src="${esc(imgUrl)}" class="live-photo-img" alt="${esc(cap)}"
+          onclick="openLightbox('${esc(imgUrl)}','${esc(cap)}')"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="guide-img-fallback" style="display:none; padding:8px;">
+          <a href="${esc(imgUrl)}" target="_blank" rel="noopener noreferrer">🔗 새 탭에서 홀 사진 열기</a>
+        </div>`;
+    };
+
+    const renderLiveCourseSelector = () => {
+      const dateEl = document.getElementById('live-date-input'), selEl = document.getElementById('live-course-select'), subWrap = document.getElementById('live-subcourse-wrap'), fSel = document.getElementById('live-front-course'), bSel = document.getElementById('live-back-course');
+      if (dateEl && liveConfig.date) dateEl.value = liveConfig.date;
+      if (selEl) {
+        selEl.innerHTML = '<option value="">기본 코스 (Par 72)</option>' + allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
+        selEl.value = liveConfig.courseKey || '';
+      }
       const found = allCourses.find(c => c.key === liveConfig.courseKey);
       if (found && subWrap && fSel && bSel) {
-        const subs = normalizeSubCourses(found);
-        const opts = subs.map((sc, idx) => `<option value="${idx}">${esc(sc.name)} (Par ${sc.pars.reduce((a,b)=>a+Number(b),0)})</option>`).join('');
-        fSel.innerHTML = opts;
-        bSel.innerHTML = opts;
+        const subs = normalizeSubCourses(found), opts = subs.map((sc, idx) => `<option value="${idx}">${esc(sc.name)} (Par ${sc.pars.reduce((a,b)=>a+Number(b),0)})</option>`).join('');
+        fSel.innerHTML = opts; bSel.innerHTML = opts;
         fSel.value = String(Math.min(liveConfig.frontIdx ?? 0, subs.length - 1));
         bSel.value = String(Math.min(liveConfig.backIdx ?? (subs.length > 1 ? 1 : 0), subs.length - 1));
         subWrap.style.display = 'grid';
-      } else if (subWrap) {
-        subWrap.style.display = 'none';
-      }
+      } else if (subWrap) subWrap.style.display = 'none';
 
-      const pars = liveConfig.pars || DEFAULT_PARS;
-      const f = pars.slice(0, 9).reduce((a, b) => a + Number(b), 0);
-      const b = pars.slice(9, 18).reduce((a, b) => a + Number(b), 0);
+      const pars = liveConfig.pars || DEFAULT_PARS, f = pars.slice(0, 9).reduce((a, b) => a + Number(b), 0), b = pars.slice(9, 18).reduce((a, b) => a + Number(b), 0);
       const infoEl = document.getElementById('live-course-par-info');
       if (infoEl) infoEl.innerText = `선택 코스: ${liveConfig.courseName} · 총 Par ${f + b} (전반 ${f} / 후반 ${b})`;
     };
 
     window.updateLiveConfig = (resetSubIdx = false) => {
-      const date = document.getElementById('live-date-input').value || new Date().toISOString().slice(0, 10);
-      const courseKey = document.getElementById('live-course-select').value;
-      const found = allCourses.find(c => c.key === courseKey);
-
+      const date = document.getElementById('live-date-input').value || new Date().toISOString().slice(0, 10), courseKey = document.getElementById('live-course-select').value, found = allCourses.find(c => c.key === courseKey);
       let courseName = '기본 코스', frontIdx = 0, backIdx = 1, pars = [...DEFAULT_PARS];
       if (found) {
         const subs = normalizeSubCourses(found);
         if (resetSubIdx) { frontIdx = 0; backIdx = subs.length > 1 ? 1 : 0; }
-        else {
-          frontIdx = Math.min(Number(document.getElementById('live-front-course').value || 0), subs.length - 1);
-          backIdx = Math.min(Number(document.getElementById('live-back-course').value || 0), subs.length - 1);
-        }
+        else { frontIdx = Math.min(Number(document.getElementById('live-front-course').value || 0), subs.length - 1); backIdx = Math.min(Number(document.getElementById('live-back-course').value || 0), subs.length - 1); }
         courseName = `${found.name} (${subs[frontIdx].name}→${subs[backIdx].name})`;
         pars = [...subs[frontIdx].pars, ...subs[backIdx].pars];
       }
-      set(ref(db, 'liveConfig'), { date, courseKey, courseName, frontIdx, backIdx, pars })
-        .catch(err => alert("코스 설정 실패: " + err.message));
+      set(ref(db, 'liveConfig'), { date, courseKey, courseName, frontIdx, backIdx, pars }).catch(err => alert("코스 설정 실패: " + err.message));
     };
 
     const renderLiveParStrip = () => {
       const strip = document.getElementById('live-par-strip');
       if (!strip) return;
-      const pars = liveConfig.pars || DEFAULT_PARS;
-      strip.innerHTML = pars.map((p, idx) => {
-        const h = idx + 1;
-        return `<div class="hole-pill ${h === currentLiveHole ? 'active' : ''}" onclick="selectLiveHole(${h})"><b>${h}H</b><small>P${p}</small></div>`;
-      }).join('');
+      strip.innerHTML = (liveConfig.pars || DEFAULT_PARS).map((p, idx) => `<div class="hole-pill ${idx + 1 === currentLiveHole ? 'active' : ''}" onclick="selectLiveHole(${idx + 1})"><b>${idx + 1}H</b><small>P${p}</small></div>`).join('');
     };
 
-    window.selectLiveHole = (h) => { currentLiveHole = Math.max(1, Math.min(18, h)); renderLiveParStrip(); renderLiveInputUI(); };
+    window.selectLiveHole = (h) => { currentLiveHole = Math.max(1, Math.min(18, h)); renderLiveParStrip(); renderLiveInputUI(); renderLiveHolePhoto(); };
     window.stepLiveHole = (delta) => { let n = currentLiveHole + delta; if (n < 1) n = 18; if (n > 18) n = 1; window.selectLiveHole(n); };
 
     window.setLiveMode = (mode) => {
@@ -1511,10 +1450,7 @@
     };
 
     window.saveGroupSetup = () => {
-      localStorage.setItem('hanul_live_group', JSON.stringify({
-        group: document.getElementById('live-group-name').value,
-        players: [1,2,3,4].map(i => document.getElementById('gp-' + i).value)
-      }));
+      localStorage.setItem('hanul_live_group', JSON.stringify({ group: document.getElementById('live-group-name').value, players: [1,2,3,4].map(i => document.getElementById('gp-' + i).value) }));
       renderLiveInputUI();
     };
 
@@ -1529,43 +1465,22 @@
     };
 
     const syncLiveToRoundIfComplete = (pKey, payload) => {
-      const holes = payload.holes || {};
-      const filledCount = Array.from({length: 18}, (_, i) => Number(holes[String(i+1)] || 0)).filter(v => v > 0).length;
+      const holes = payload.holes || {}, filledCount = Array.from({length: 18}, (_, i) => Number(holes[String(i+1)] || 0)).filter(v => v > 0).length;
       if (filledCount !== 18) return Promise.resolve();
       const totalScore = Array.from({length: 18}, (_, i) => Number(holes[String(i+1)])).reduce((a, b) => a + b, 0);
-      const rKey = 'auto_' + payload.date + '_' + pKey;
-      const existRound = allRounds.find(r => r.key === rKey);
+      const rKey = 'auto_' + payload.date + '_' + pKey, existRound = allRounds.find(r => r.key === rKey);
       const appliedHandi = existRound && existRound.appliedHandi !== undefined ? Number(existRound.appliedHandi) : getRegisteredHandi(payload.name);
-      const roundObj = {
-        date: payload.date, course: payload.courseName, player: payload.name, score: totalScore,
-        appliedHandi, holes, pars: payload.pars || liveConfig.pars || DEFAULT_PARS, source: 'live'
-      };
+      const roundObj = { date: payload.date, course: payload.courseName, player: payload.name, score: totalScore, appliedHandi, holes, pars: payload.pars || liveConfig.pars || DEFAULT_PARS, source: 'live' };
       return set(ref(db, 'rounds/' + rKey), roundObj).then(() => syncRoundFine(rKey, roundObj));
     };
 
     window.saveLiveHoleScore = (playerName, groupName, holeNum, strokes) => {
       if (!playerName) return alert("회원을 먼저 선택하세요.");
-      const val = Number(strokes);
-      if (isNaN(val) || val < 1 || val > 20) return;
-
-      const pKey = safeKey(playerName);
-      const existing = allLive.find(l => l.key === pKey);
-      const pars = liveConfig.pars || DEFAULT_PARS;
-      const holes = existing && existing.holes ? { ...existing.holes } : {};
+      const val = Number(strokes); if (isNaN(val) || val < 1 || val > 20) return;
+      const pKey = safeKey(playerName), existing = allLive.find(l => l.key === pKey), pars = liveConfig.pars || DEFAULT_PARS, holes = existing && existing.holes ? { ...existing.holes } : {};
       holes[String(holeNum)] = val;
-
-      const payload = {
-        name: playerName,
-        group: groupName || (existing ? existing.group : '1조'),
-        date: liveConfig.date || new Date().toISOString().slice(0, 10),
-        courseName: liveConfig.courseName || '기본 코스',
-        pars,
-        holes
-      };
-
-      set(ref(db, 'live/' + pKey), payload)
-        .then(() => syncLiveToRoundIfComplete(pKey, payload))
-        .catch(err => alert("라이브 저장 실패: " + err.message));
+      const payload = { name: playerName, group: groupName || (existing ? existing.group : '1조'), date: liveConfig.date || new Date().toISOString().slice(0, 10), courseName: liveConfig.courseName || '기본 코스', pars, holes };
+      set(ref(db, 'live/' + pKey), payload).then(() => syncLiveToRoundIfComplete(pKey, payload)).catch(err => alert("라이브 저장 실패: " + err.message));
     };
 
     const getCurrentSubCourseLabel = (holeNum) => {
@@ -1576,140 +1491,63 @@
     };
 
     const getLiveSummary = (l) => {
-      const pars = l.pars || liveConfig.pars || DEFAULT_PARS;
-      const holes = l.holes || {};
+      const pars = l.pars || liveConfig.pars || DEFAULT_PARS, holes = l.holes || {};
       let played = 0, totalStrokes = 0, totalParPlayed = 0;
-      for (let h = 1; h <= 18; h++) {
-        const sc = Number(holes[String(h)] || 0);
-        if (sc > 0) { played++; totalStrokes += sc; totalParPlayed += Number(pars[h - 1] || 4); }
-      }
+      for (let h = 1; h <= 18; h++) { const sc = Number(holes[String(h)] || 0); if (sc > 0) { played++; totalStrokes += sc; totalParPlayed += Number(pars[h - 1] || 4); } }
       const diff = totalStrokes - totalParPlayed;
       return { played, totalStrokes, diff, diffStr: played === 0 ? '-' : (diff === 0 ? 'E' : (diff > 0 ? `+${diff}` : `${diff}`)) };
     };
 
     window.renderLiveInputUI = () => {
-      const pars = liveConfig.pars || DEFAULT_PARS;
-      const par = Number(pars[currentLiveHole - 1] || 4);
-      const subLabel = getCurrentSubCourseLabel(currentLiveHole);
-
-      const singleName = document.getElementById('live-single-player')?.value || '';
-      const singleRec = allLive.find(l => l.key === safeKey(singleName));
+      const pars = liveConfig.pars || DEFAULT_PARS, par = Number(pars[currentLiveHole - 1] || 4), subLabel = getCurrentSubCourseLabel(currentLiveHole);
+      const singleName = document.getElementById('live-single-player')?.value || '', singleRec = allLive.find(l => l.key === safeKey(singleName));
       const curSingleScore = singleRec && singleRec.holes ? Number(singleRec.holes[String(currentLiveHole)] || 0) : 0;
 
-      const sLabel = document.getElementById('live-single-hole-label');
-      if (sLabel) sLabel.innerText = `${subLabel} ${currentLiveHole}홀 · Par ${par}`;
+      const sLabel = document.getElementById('live-single-hole-label'); if (sLabel) sLabel.innerText = `${subLabel} ${currentLiveHole}홀 · Par ${par}`;
       const sCur = document.getElementById('live-single-cur-score');
       if (sCur) {
-        if (curSingleScore > 0) {
-          const t = getGolfTerm(curSingleScore, par);
-          sCur.innerHTML = `현재 입력: <b class="${t.cls}">${curSingleScore}타 (${t.text})</b>`;
-        } else sCur.innerText = singleName ? '아직 미입력' : '회원을 선택하세요';
+        if (curSingleScore > 0) { const t = getGolfTerm(curSingleScore, par); sCur.innerHTML = `현재 입력: <b class="${t.cls}">${curSingleScore}타 (${t.text})</b>`; }
+        else sCur.innerText = singleName ? '아직 미입력' : '회원을 선택하세요';
       }
 
       const qBox = document.getElementById('live-single-quick-btns');
       if (qBox) {
-        const candidates = [];
-        for (let s = Math.max(1, par - 2); s <= par + 4; s++) candidates.push(s);
-        qBox.innerHTML = candidates.map(s => {
-          const t = getGolfTerm(s, par);
-          const isSel = curSingleScore === s;
-          return `<button class="q-btn" style="${isSel ? 'border-color:var(--gold);background:rgba(212,175,55,0.22);' : ''}" onclick="onSingleQuickTap(${s})"><span>${s}타</span><small class="${t.cls}">${t.text}</small></button>`;
-        }).join('') + `<button class="q-btn" onclick="onSingleCustomTap()"><span>직접입력</span><small style="color:var(--text-muted);">기타 타수</small></button>`;
+        const candidates = []; for (let s = Math.max(1, par - 2); s <= par + 4; s++) candidates.push(s);
+        qBox.innerHTML = candidates.map(s => { const t = getGolfTerm(s, par); return `<button class="q-btn" style="${curSingleScore === s ? 'border-color:var(--gold);background:rgba(212,175,55,0.22);' : ''}" onclick="onSingleQuickTap(${s})"><span>${s}타</span><small class="${t.cls}">${t.text}</small></button>`; }).join('') + `<button class="q-btn" onclick="onSingleCustomTap()"><span>직접입력</span><small style="color:var(--text-muted);">기타 타수</small></button>`;
       }
 
-      const gLabel = document.getElementById('live-group-hole-label');
-      if (gLabel) gLabel.innerText = `${subLabel} ${currentLiveHole}홀 · Par ${par}`;
+      const gLabel = document.getElementById('live-group-hole-label'); if (gLabel) gLabel.innerText = `${subLabel} ${currentLiveHole}홀 · Par ${par}`;
       const gList = document.getElementById('live-group-players-list');
       if (gList) {
-        const groupName = document.getElementById('live-group-name')?.value || '1조';
-        const players = [1,2,3,4].map(i => document.getElementById('gp-' + i)?.value).filter(Boolean);
-        gList.innerHTML = !players.length
-          ? '<div style="text-align:center;font-size:12px;color:var(--text-muted);padding:14px;">위에서 조원(회원)을 1명 이상 선택하세요.</div>'
-          : players.map(pName => {
-              const rec = allLive.find(l => l.key === safeKey(pName));
-              const curS = rec && rec.holes ? Number(rec.holes[String(currentLiveHole)] || 0) : 0;
-              const term = curS > 0 ? getGolfTerm(curS, par) : null;
-              const safeP = esc(pName);
-              return `
-                <div class="group-player-row">
-                  <div>
-                    <div style="font-weight:800;font-size:14px;">${safeP}</div>
-                    <div style="font-size:11px;color:var(--text-muted);">${rec ? `진행 ${getLiveSummary(rec).played}/18H · ${getLiveSummary(rec).diffStr}` : '대기중'}</div>
-                  </div>
-                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
-                    <div class="stepper">
-                      <button class="step-btn" onclick="stepGroupPlayerScore('${safeP}','${esc(groupName)}',-1,${par})">-</button>
-                      <div class="step-val">${curS > 0 ? `<b style="font-size:16px;">${curS}</b> <span class="${term.cls}" style="font-size:11px;font-weight:700;">(${term.text})</span>` : `<span style="color:var(--text-muted);font-size:12px;">미입력</span>`}</div>
-                      <button class="step-btn" onclick="stepGroupPlayerScore('${safeP}','${esc(groupName)}',1,${par})">+</button>
-                    </div>
-                    <div style="display:flex;gap:4px;">
-                      <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${Math.max(1,par-1)})">버디</button>
-                      <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par})">파</button>
-                      <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par+1})">보기</button>
-                      <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par+2})">더블</button>
-                    </div>
-                  </div>
-                </div>`;
-            }).join('');
+        const groupName = document.getElementById('live-group-name')?.value || '1조', players = [1,2,3,4].map(i => document.getElementById('gp-' + i)?.value).filter(Boolean);
+        gList.innerHTML = !players.length ? '<div style="text-align:center;font-size:12px;color:var(--text-muted);padding:14px;">위에서 조원(회원)을 1명 이상 선택하세요.</div>' : players.map(pName => {
+          const rec = allLive.find(l => l.key === safeKey(pName)), curS = rec && rec.holes ? Number(rec.holes[String(currentLiveHole)] || 0) : 0, term = curS > 0 ? getGolfTerm(curS, par) : null, safeP = esc(pName);
+          return `<div class="group-player-row"><div><div style="font-weight:800;font-size:14px;">${safeP}</div><div style="font-size:11px;color:var(--text-muted);">${rec ? `진행 ${getLiveSummary(rec).played}/18H · ${getLiveSummary(rec).diffStr}` : '대기중'}</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;"><div class="stepper"><button class="step-btn" onclick="stepGroupPlayerScore('${safeP}','${esc(groupName)}',-1,${par})">-</button><div class="step-val">${curS > 0 ? `<b style="font-size:16px;">${curS}</b> <span class="${term.cls}" style="font-size:11px;font-weight:700;">(${term.text})</span>` : `<span style="color:var(--text-muted);font-size:12px;">미입력</span>`}</div><button class="step-btn" onclick="stepGroupPlayerScore('${safeP}','${esc(groupName)}',1,${par})">+</button></div><div style="display:flex;gap:4px;"><button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${Math.max(1,par-1)})">버디</button><button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par})">파</button><button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par+1})">보기</button><button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par+2})">더블</button></div></div></div>`;
+        }).join('');
       }
+      renderLiveHolePhoto();
     };
 
     window.onSingleQuickTap = (s) => window.saveLiveHoleScore(document.getElementById('live-single-player').value, document.getElementById('live-single-group').value, currentLiveHole, s);
-    window.onSingleCustomTap = () => {
-      const name = document.getElementById('live-single-player').value;
-      if (!name) return alert("회원을 먼저 선택하세요.");
-      const val = prompt(`${currentLiveHole}홀 타수를 입력하세요`);
-      if (val !== null && val.trim() !== '') window.saveLiveHoleScore(name, document.getElementById('live-single-group').value, currentLiveHole, Number(val));
-    };
-    window.stepGroupPlayerScore = (pName, groupName, delta, par) => {
-      const rec = allLive.find(l => l.key === safeKey(pName));
-      const cur = rec && rec.holes ? Number(rec.holes[String(currentLiveHole)] || 0) : 0;
-      window.saveLiveHoleScore(pName, groupName, currentLiveHole, cur === 0 ? par : Math.max(1, cur + delta));
-    };
-
-    window.deleteLive = (key) => {
-      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const l = allLive.find(x => x.key === key);
-      if (l && confirm(`'${l.name}'님의 라이브 기록을 삭제할까요?`)) {
-        remove(ref(db, 'live/' + key)).catch(err => alert("삭제 실패: " + err.message));
-      }
-    };
-
-    window.clearLive = () => {
-      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      if (confirm("라이브 스코어보드를 전체 초기화할까요? (이미 18홀 완료되어 저장된 정식 기록은 유지됩니다)")) {
-        remove(ref(db, 'live')).then(() => alert("라이브 보드가 초기화되었습니다.")).catch(err => alert("초기화 실패: " + err.message));
-      }
-    };
+    window.onSingleCustomTap = () => { const n = document.getElementById('live-single-player').value; if (!n) return alert("회원을 먼저 선택하세요."); const v = prompt(`${currentLiveHole}홀 타수를 입력하세요`); if (v !== null && v.trim() !== '') window.saveLiveHoleScore(n, document.getElementById('live-single-group').value, currentLiveHole, Number(v)); };
+    window.stepGroupPlayerScore = (pName, groupName, delta, par) => { const rec = allLive.find(l => l.key === safeKey(pName)), cur = rec && rec.holes ? Number(rec.holes[String(currentLiveHole)] || 0) : 0; window.saveLiveHoleScore(pName, groupName, currentLiveHole, cur === 0 ? par : Math.max(1, cur + delta)); };
+    window.deleteLive = (key) => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); const l = allLive.find(x => x.key === key); if (l && confirm(`'${l.name}'님의 라이브 기록을 삭제할까요?`)) remove(ref(db, 'live/' + key)).catch(err => alert("삭제 실패: " + err.message)); };
+    window.clearLive = () => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); if (confirm("라이브 스코어보드를 전체 초기화할까요? (이미 18홀 완료되어 저장된 정식 기록은 유지됩니다)")) remove(ref(db, 'live')).then(() => alert("라이브 보드가 초기화되었습니다.")).catch(err => alert("초기화 실패: " + err.message)); };
 
     // ==========================================
     // 스코어카드 & 공용 수정 모달
     // ==========================================
     window.openScorecardModal = (sourceType, key) => {
       let record, pars, holes, title;
-      if (sourceType === 'live') {
-        record = allLive.find(x => x.key === key);
-        if (!record) return;
-        pars = record.pars || liveConfig.pars || DEFAULT_PARS;
-        holes = record.holes || {};
-        title = `⛳ ${record.name} 실시간 스코어카드`;
-      } else {
-        record = allRounds.find(x => x.key === key);
-        if (!record) return;
-        pars = record.pars || findCourseParsByName(record.course);
-        holes = record.holes || {};
-        title = `🏆 ${record.player} · 18홀 스코어 입력/수정`;
-      }
+      if (sourceType === 'live') { record = allLive.find(x => x.key === key); if (!record) return; pars = record.pars || liveConfig.pars || DEFAULT_PARS; holes = record.holes || {}; title = `⛳ ${record.name} 실시간 스코어카드`; }
+      else { record = allRounds.find(x => x.key === key); if (!record) return; pars = record.pars || findCourseParsByName(record.course); holes = record.holes || {}; title = `🏆 ${record.player} · 18홀 스코어 입력/수정`; }
       const readOnly = !window.isAdmin;
       currentEdit = { type: 'scorecard_' + sourceType, key, pars };
       document.getElementById('edit-modal-title').innerText = title;
 
       const makeRow = (start, end) => `<div class="sc-grid">${Array.from({length: end - start + 1}, (_, idx) => {
         const h = start + idx, p = Number(pars[h - 1] || 4), s = Number(holes[String(h)] || 0), t = s > 0 ? getGolfTerm(s, p) : null;
-        return `<div class="sc-cell"><div class="h">${h}H</div><div class="p">P${p}</div>${readOnly
-          ? `<div class="s ${t ? t.cls : ''}">${s > 0 ? s : '-'}</div>`
-          : `<input type="number" class="sc-hole-inp" data-hole="${h}" value="${s > 0 ? s : ''}" min="1" max="20" style="width:100%;background:#132820;border:1px solid var(--card-border);color:#fff;text-align:center;border-radius:4px;padding:3px 0;font-weight:800;font-size:13px;margin-top:2px;">`
-        }</div>`;
+        return `<div class="sc-cell"><div class="h">${h}H</div><div class="p">P${p}</div>${readOnly ? `<div class="s ${t ? t.cls : ''}">${s > 0 ? s : '-'}</div>` : `<input type="number" class="sc-hole-inp" data-hole="${h}" value="${s > 0 ? s : ''}" min="1" max="20" style="width:100%;background:#132820;border:1px solid var(--card-border);color:#fff;text-align:center;border-radius:4px;padding:3px 0;font-weight:800;font-size:13px;margin-top:2px;">`}</div>`;
       }).join('')}</div>`;
 
       const bodyEl = document.getElementById('edit-modal-body');
@@ -1723,65 +1561,57 @@
       };
       bodyEl.querySelectorAll('.sc-hole-inp').forEach(inp => inp.addEventListener('input', updateTotalPreview));
       updateTotalPreview();
-
-      document.getElementById('edit-modal-actions').innerHTML = readOnly
-        ? `<button class="btn-primary" onclick="closeEditModal()">닫기</button>`
-        : `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">18홀 스코어 저장</button>`;
+      document.getElementById('edit-modal-actions').innerHTML = readOnly ? `<button class="btn-primary" onclick="closeEditModal()">닫기</button>` : `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">18홀 스코어 저장</button>`;
       document.getElementById('edit-modal').style.display = 'flex';
     };
 
-    window.closeEditModal = () => {
-      document.getElementById('edit-modal').style.display = 'none';
-      document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`;
-      currentEdit = null;
-    };
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && currentEdit) window.closeEditModal(); });
+    window.closeEditModal = () => { document.getElementById('edit-modal').style.display = 'none'; document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`; currentEdit = null; };
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (currentEdit) window.closeEditModal(); document.getElementById('img-lightbox').style.display = 'none'; } });
 
     window.openEdit = (type, key) => {
       if (!window.isAdmin) return alert("관리자 로그인 후 이용하세요.");
       currentEdit = { type, key };
-      const titleEl = document.getElementById('edit-modal-title');
-      const bodyEl = document.getElementById('edit-modal-body');
+      const titleEl = document.getElementById('edit-modal-title'), bodyEl = document.getElementById('edit-modal-body');
       document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`;
 
       if (type === 'member') {
         const m = registeredMembers[key]; if (!m) return;
         titleEl.innerText = "👥 회원 정보 수정";
         bodyEl.innerHTML = `<div class="form-row"><label>회원 이름</label><input type="text" id="ed-m-name"></div><div class="form-row"><label>직책</label><select id="ed-m-role"><option value="회원">일반 회원</option><option value="회장">회장</option><option value="총무">총무</option><option value="경기이사">경기이사</option></select></div><div class="form-row"><label>등록 핸디 (관리자 지정)</label><input type="number" id="ed-m-handi"></div>`;
-        document.getElementById('ed-m-name').value = m.name || '';
-        document.getElementById('ed-m-role').value = m.role || '회원';
-        document.getElementById('ed-m-handi').value = m.initHandi ?? 0;
+        document.getElementById('ed-m-name').value = m.name || ''; document.getElementById('ed-m-role').value = m.role || '회원'; document.getElementById('ed-m-handi').value = m.initHandi ?? 0;
       } else if (type === 'round') {
         const r = allRounds.find(x => x.key === key); if (!r) return;
         titleEl.innerText = "✏ 라운딩 스코어 수정";
         bodyEl.innerHTML = `<div class="form-row"><label>날짜</label><input type="date" id="ed-r-date"></div><div class="form-row"><label>골프장명</label><input type="text" id="ed-r-course"></div><div class="form-row"><label>플레이어</label><input type="text" id="ed-r-player"></div><div class="form-row-2"><div class="form-row"><label>최종 타수</label><input type="number" id="ed-r-score"></div><div class="form-row"><label>적용 핸디</label><input type="number" id="ed-r-handi"></div></div>`;
-        document.getElementById('ed-r-date').value = r.date || '';
-        document.getElementById('ed-r-course').value = r.course || '';
-        document.getElementById('ed-r-player').value = r.player || '';
-        document.getElementById('ed-r-score').value = r.score ?? '';
-        document.getElementById('ed-r-handi').value = getEffectiveRoundHandi(r);
+        document.getElementById('ed-r-date').value = r.date || ''; document.getElementById('ed-r-course').value = r.course || ''; document.getElementById('ed-r-player').value = r.player || ''; document.getElementById('ed-r-score').value = r.score ?? ''; document.getElementById('ed-r-handi').value = getEffectiveRoundHandi(r);
       } else if (type === 'finance') {
         const f = allFinance.find(x => x.key === key); if (!f) return;
         titleEl.innerText = "💰 회비 내역 수정";
         bodyEl.innerHTML = `<div class="form-row"><label>날짜</label><input type="date" id="ed-f-date"></div><div class="form-row-2"><div class="form-row"><label>구분</label><select id="ed-f-cat"><option value="월회비">월회비 (+)</option><option value="년회비">년회비 (+)</option><option value="벌금">벌금 (+)</option><option value="일반입금">기타입금 (+)</option><option value="출금">출금 (-)</option></select></div><div class="form-row"><label>회원명 (선택)</label><input type="text" id="ed-f-player"></div></div><div class="form-row"><label>내역</label><input type="text" id="ed-f-desc"></div><div class="form-row"><label>금액 (동)</label><input type="number" id="ed-f-amount"></div>`;
-        document.getElementById('ed-f-date').value = f.date || '';
-        document.getElementById('ed-f-cat').value = f.category || (f.type === 'out' ? '출금' : '월회비');
-        document.getElementById('ed-f-player').value = f.player || '';
-        document.getElementById('ed-f-desc').value = f.desc || '';
-        document.getElementById('ed-f-amount').value = f.amount ?? 0;
+        document.getElementById('ed-f-date').value = f.date || ''; document.getElementById('ed-f-cat').value = f.category || (f.type === 'out' ? '출금' : '월회비'); document.getElementById('ed-f-player').value = f.player || ''; document.getElementById('ed-f-desc').value = f.desc || ''; document.getElementById('ed-f-amount').value = f.amount ?? 0;
       } else if (type === 'point') {
         const p = allPoints.find(x => x.key === key); if (!p) return;
         titleEl.innerText = "⭐ 개별 포인트 수정";
         bodyEl.innerHTML = `<div class="form-row"><label>날짜</label><input type="date" id="ed-p-date"></div><div class="form-row"><label>회원명</label><input type="text" id="ed-p-player"></div><div class="form-row"><label>포인트</label><input type="number" id="ed-p-amount"></div><div class="form-row"><label>사유</label><input type="text" id="ed-p-reason"></div>`;
-        document.getElementById('ed-p-date').value = p.date || '';
-        document.getElementById('ed-p-player').value = p.player || '';
-        document.getElementById('ed-p-amount').value = p.amount ?? 0;
-        document.getElementById('ed-p-reason').value = p.reason || '';
+        document.getElementById('ed-p-date').value = p.date || ''; document.getElementById('ed-p-player').value = p.player || ''; document.getElementById('ed-p-amount').value = p.amount ?? 0; document.getElementById('ed-p-reason').value = p.reason || '';
       } else if (type === 'course') {
         const c = allCourses.find(x => x.key === key); if (!c) return;
         const subs = normalizeSubCourses(c);
         titleEl.innerText = "⛳ 골프장 정보 수정 (최대 54홀)";
-        bodyEl.innerHTML = `<div class="form-row-2"><div class="form-row"><label>골프장 이름</label><input type="text" id="ed-c-name"></div><div class="form-row"><label>총 홀 수</label><select id="ed-c-hole-count" onchange="renderCourseBuilder('ed-c-container', Number(this.value)/9, null, 'ed-c-sum')"><option value="18">18홀 (2개 코스)</option><option value="27">27홀 (3개 코스)</option><option value="36">36홀 (4개 코스)</option><option value="45">45홀 (5개 코스)</option><option value="54">54홀 (6개 코스)</option></select></div></div><div id="ed-c-container"></div><div id="ed-c-sum" style="font-size:12px;color:var(--gold-light);margin-top:6px;text-align:right;font-weight:700;"></div>`;
+        bodyEl.innerHTML = `
+          <div class="form-row-2">
+            <div class="form-row"><label>골프장 이름</label><input type="text" id="ed-c-name"></div>
+            <div class="form-row"><label>총 홀 수</label>
+              <select id="ed-c-hole-count" onchange="renderCourseBuilder('ed-c-container', Number(this.value)/9, null, 'ed-c-sum')">
+                <option value="18">18홀 (2개 코스)</option><option value="27">27홀 (3개 코스)</option><option value="36">36홀 (4개 코스)</option><option value="45">45홀 (5개 코스)</option><option value="54">54홀 (6개 코스)</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; margin-bottom:8px;">
+            <button type="button" class="btn-sm" onclick="autoFillAllCourseUrls('ed-c-container')">⚡ 1번 홀 주소로 전체 홀 자동채우기</button>
+          </div>
+          <div id="ed-c-container"></div>
+          <div id="ed-c-sum" style="font-size:12px;color:var(--gold-light);margin-top:6px;text-align:right;font-weight:700;"></div>`;
         document.getElementById('ed-c-name').value = c.name || '';
         document.getElementById('ed-c-hole-count').value = String(subs.length * 9);
         window.renderCourseBuilder('ed-c-container', subs.length, subs, 'ed-c-sum');
@@ -1789,9 +1619,7 @@
         const n = allNews.find(x => x.key === key); if (!n) return;
         titleEl.innerText = "📣 소식/공지 수정";
         bodyEl.innerHTML = `<div class="form-row"><label>날짜</label><input type="date" id="ed-n-date"></div><div class="form-row"><label>제목</label><input type="text" id="ed-n-title"></div><div class="form-row"><label>내용</label><textarea id="ed-n-body" rows="4"></textarea></div>`;
-        document.getElementById('ed-n-date').value = n.date || new Date().toISOString().slice(0, 10);
-        document.getElementById('ed-n-title').value = n.title || '';
-        document.getElementById('ed-n-body').value = n.body || '';
+        document.getElementById('ed-n-date').value = n.date || new Date().toISOString().slice(0, 10); document.getElementById('ed-n-title').value = n.title || ''; document.getElementById('ed-n-body').value = n.body || '';
       }
       document.getElementById('edit-modal').style.display = 'flex';
     };
@@ -1799,7 +1627,6 @@
     window.submitEdit = () => {
       if (!currentEdit || !window.isAdmin) return;
       const { type, key } = currentEdit;
-
       if (type === 'member') {
         const name = document.getElementById('ed-m-name').value.trim(), role = document.getElementById('ed-m-role').value, initHandi = Number(document.getElementById('ed-m-handi').value) || 0;
         if (!name) return alert("회원 이름을 입력하세요.");
@@ -1811,17 +1638,14 @@
         update(ref(db, 'rounds/' + key), updated).then(() => syncRoundFine(key, updated)).then(() => window.closeEditModal()).catch(err => alert("수정 실패: " + err.message));
       } else if (type === 'scorecard_live') {
         const rec = allLive.find(x => x.key === key); if (!rec) return;
-        const holes = {};
-        document.querySelectorAll('#edit-modal-body .sc-hole-inp').forEach(inp => { const v = Number(inp.value || 0); if (v > 0) holes[inp.dataset.hole] = v; });
-        const updatedLive = { ...rec, holes };
-        update(ref(db, 'live/' + key), { holes }).then(() => syncLiveToRoundIfComplete(key, updatedLive)).then(() => window.closeEditModal()).catch(err => alert("저장 실패: " + err.message));
+        const holes = {}; document.querySelectorAll('#edit-modal-body .sc-hole-inp').forEach(inp => { const v = Number(inp.value || 0); if (v > 0) holes[inp.dataset.hole] = v; });
+        update(ref(db, 'live/' + key), { holes }).then(() => syncLiveToRoundIfComplete(key, { ...rec, holes })).then(() => window.closeEditModal()).catch(err => alert("저장 실패: " + err.message));
       } else if (type === 'scorecard_round') {
         const rec = allRounds.find(x => x.key === key); if (!rec) return;
         const holes = {}; let sum = 0, cnt = 0;
         document.querySelectorAll('#edit-modal-body .sc-hole-inp').forEach(inp => { const v = Number(inp.value || 0); if (v > 0) { holes[inp.dataset.hole] = v; sum += v; cnt++; } });
         if (cnt > 0 && cnt < 18) return alert(`현재 ${cnt}개 홀만 입력되었습니다. 18홀을 모두 입력하세요.`);
-        const pars = rec.pars || findCourseParsByName(rec.course), newScore = cnt === 18 ? sum : rec.score;
-        const updated = { ...rec, holes, pars, score: newScore }; delete updated.key;
+        const pars = rec.pars || findCourseParsByName(rec.course), newScore = cnt === 18 ? sum : rec.score, updated = { ...rec, holes, pars, score: newScore }; delete updated.key;
         update(ref(db, 'rounds/' + key), { holes, pars, score: newScore }).then(() => syncRoundFine(key, updated)).then(() => window.closeEditModal()).catch(err => alert("저장 실패: " + err.message));
       } else if (type === 'finance') {
         const date = document.getElementById('ed-f-date').value, category = document.getElementById('ed-f-cat').value, player = document.getElementById('ed-f-player').value.trim(), desc = document.getElementById('ed-f-desc').value.trim(), amount = Number(document.getElementById('ed-f-amount').value);
@@ -1846,187 +1670,74 @@
       }
     };
 
-    // ==========================================
-    // CRUD 핸들러 & 화면 렌더링
-    // ==========================================
-    window.saveMember = () => {
-      const name = document.getElementById('m-name').value.trim(), role = document.getElementById('m-role').value, initHandi = Number(document.getElementById('m-handi').value) || 0;
-      if (!name) return alert("회원 이름을 입력하세요.");
-      push(ref(db, 'members'), { name, role, initHandi }).then(() => { alert(`${name} 회원이 등록되었습니다!`); document.getElementById('m-name').value = ""; }).catch(err => alert("회원 저장 실패: " + err.message));
-    };
-    window.deleteMember = (key) => {
-      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const m = registeredMembers[key];
-      if (m && confirm(`'${m.name}' 회원을 명단에서 삭제할까요?`)) remove(ref(db, 'members/' + key)).catch(err => alert("삭제 실패: " + err.message));
-    };
-
-    window.saveManualPoint = () => {
-      const date = document.getElementById('pt-date').value, player = document.getElementById('pt-player').value, amount = Number(document.getElementById('pt-amount').value), reason = document.getElementById('pt-reason').value.trim();
-      if (!date || !player || !amount || !reason) return alert("날짜, 회원, 포인트, 사유를 모두 입력하세요.");
-      push(ref(db, 'points'), { date, player, amount, reason }).then(() => { alert(`${player}님에게 ${amount > 0 ? '+' : ''}${amount}P 입력되었습니다.`); document.getElementById('pt-amount').value = ""; document.getElementById('pt-reason').value = ""; }).catch(err => alert("포인트 저장 실패: " + err.message));
-    };
-    window.deleteManualPoint = (key) => {
-      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const p = allPoints.find(x => x.key === key);
-      if (p && confirm(`${p.player} (${p.amount}P / ${p.reason}) 내역을 삭제할까요?`)) remove(ref(db, 'points/' + key)).catch(err => alert("삭제 실패: " + err.message));
-    };
+    window.saveMember = () => { const n = document.getElementById('m-name').value.trim(), r = document.getElementById('m-role').value, h = Number(document.getElementById('m-handi').value) || 0; if (!n) return alert("회원 이름을 입력하세요."); push(ref(db, 'members'), { name: n, role: r, initHandi: h }).then(() => { alert(`${n} 회원이 등록되었습니다!`); document.getElementById('m-name').value = ""; }).catch(err => alert("회원 저장 실패: " + err.message)); };
+    window.deleteMember = (key) => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); const m = registeredMembers[key]; if (m && confirm(`'${m.name}' 회원을 명단에서 삭제할까요?`)) remove(ref(db, 'members/' + key)).catch(err => alert("삭제 실패: " + err.message)); };
+    window.saveManualPoint = () => { const d = document.getElementById('pt-date').value, p = document.getElementById('pt-player').value, a = Number(document.getElementById('pt-amount').value), r = document.getElementById('pt-reason').value.trim(); if (!d || !p || !a || !r) return alert("날짜, 회원, 포인트, 사유를 모두 입력하세요."); push(ref(db, 'points'), { date: d, player: p, amount: a, reason: r }).then(() => { alert(`${p}님에게 ${a > 0 ? '+' : ''}${a}P 입력되었습니다.`); document.getElementById('pt-amount').value = ""; document.getElementById('pt-reason').value = ""; }).catch(err => alert("포인트 저장 실패: " + err.message)); };
+    window.deleteManualPoint = (key) => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); const p = allPoints.find(x => x.key === key); if (p && confirm(`${p.player} (${p.amount}P / ${p.reason}) 내역을 삭제할까요?`)) remove(ref(db, 'points/' + key)).catch(err => alert("삭제 실패: " + err.message)); };
 
     window.saveRound = () => {
       const date = document.getElementById('in-date').value, course = document.getElementById('in-course').value.trim(), player = document.getElementById('in-player').value.trim(), score = Number(document.getElementById('in-score').value);
       if (!date || !course || !player || !score) return alert("모두 입력하세요.");
       const roundObj = { date, course, player, score, appliedHandi: getRegisteredHandi(player), pars: findCourseParsByName(course) };
-      push(ref(db, 'rounds'), roundObj)
-        .then((newRef) => syncRoundFine(newRef.key, roundObj))
-        .then(() => {
-          if (score <= 79) { document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`; document.getElementById('achievement-modal').style.display = 'flex'; }
-          else alert("저장 완료! (등록 핸디 기준 벌금 자동 반영)");
-          document.getElementById('in-player').value = ""; document.getElementById('in-score').value = "";
-        })
-        .catch(err => alert("스코어 저장 실패: " + err.message));
+      push(ref(db, 'rounds'), roundObj).then((newRef) => syncRoundFine(newRef.key, roundObj)).then(() => {
+        if (score <= 79) { document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`; document.getElementById('achievement-modal').style.display = 'flex'; }
+        else alert("저장 완료! (등록 핸디 기준 벌금 자동 반영)");
+        document.getElementById('in-player').value = ""; document.getElementById('in-score').value = "";
+      }).catch(err => alert("스코어 저장 실패: " + err.message));
     };
-    window.deleteRound = (key) => {
-      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const r = allRounds.find(x => x.key === key);
-      if (r && confirm(`${r.date} ${r.course}\n${r.player} (${r.score}타) 기록을 삭제할까요?\n(연동된 자동 벌금 내역도 함께 삭제됩니다)`)) {
-        remove(ref(db, 'rounds/' + key)).then(() => remove(ref(db, 'finance/fine_' + key))).catch(err => alert("삭제 실패: " + err.message));
-      }
-    };
+    window.deleteRound = (key) => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); const r = allRounds.find(x => x.key === key); if (r && confirm(`${r.date} ${r.course}\n${r.player} (${r.score}타) 기록을 삭제할까요?\n(연동된 자동 벌금 내역도 함께 삭제됩니다)`)) remove(ref(db, 'rounds/' + key)).then(() => remove(ref(db, 'finance/fine_' + key))).catch(err => alert("삭제 실패: " + err.message)); };
 
     window.renderHandiRank = () => {
-      const selYear = document.getElementById('handi-year-filter')?.value || 'all';
-      const subLbl = document.getElementById('handi-sub-label');
+      const selYear = document.getElementById('handi-year-filter')?.value || 'all', subLbl = document.getElementById('handi-sub-label');
       if (subLbl) subLbl.innerText = `72타 기준 자동산출 (${selYear === 'all' ? '전체 시즌' : selYear + '년'})`;
-
       const periodMap = {};
       Object.entries(registeredMembers).forEach(([, m]) => { periodMap[m.name] = { regHandi: Number(m.initHandi ?? 18), count: 0, total: 0 }; });
-      allRounds.forEach(r => {
-        if (selYear !== 'all' && !(r.date && r.date.startsWith(selYear))) return;
-        if (!periodMap[r.player]) periodMap[r.player] = { regHandi: 18, count: 0, total: 0 };
-        periodMap[r.player].count += 1; periodMap[r.player].total += Number(r.score);
-      });
-
-      const list = Object.entries(periodMap).map(([name, s]) => {
-        const has = s.count > 0, avg = has ? Number((s.total / s.count).toFixed(1)) : null, handi = has ? Math.max(0, Math.round(avg - 72)) : null;
-        return { name, avg, handi, count: s.count, regHandi: s.regHandi };
-      }).sort((a, b) => {
-        if (a.count > 0 && b.count === 0) return -1;
-        if (a.count === 0 && b.count > 0) return 1;
-        if (a.count > 0 && b.count > 0) return (a.handi - b.handi) || (a.avg - b.avg);
-        return a.regHandi - b.regHandi;
-      });
-
+      allRounds.forEach(r => { if (selYear !== 'all' && !(r.date && r.date.startsWith(selYear))) return; if (!periodMap[r.player]) periodMap[r.player] = { regHandi: 18, count: 0, total: 0 }; periodMap[r.player].count += 1; periodMap[r.player].total += Number(r.score); });
+      const list = Object.entries(periodMap).map(([name, s]) => { const has = s.count > 0, avg = has ? Number((s.total / s.count).toFixed(1)) : null; return { name, avg, handi: has ? Math.max(0, Math.round(avg - 72)) : null, count: s.count, regHandi: s.regHandi }; }).sort((a, b) => { if (a.count > 0 && b.count === 0) return -1; if (a.count === 0 && b.count > 0) return 1; if (a.count > 0 && b.count > 0) return (a.handi - b.handi) || (a.avg - b.avg); return a.regHandi - b.regHandi; });
       let rankNum = 0;
-      document.getElementById('handi-tbody').innerHTML = list.length ? list.map(m => {
-        if (m.count > 0) rankNum++;
-        return `<tr><td>${m.count > 0 ? `<span class="rank-badge ${rankNum<=3?'rank-'+rankNum:''}">${rankNum}</span>` : '-'}</td><td style="font-weight:700;">${esc(m.name)}</td><td>${m.avg !== null ? m.avg + '타' : '-'}</td><td style="color:var(--gold);font-weight:700;">${m.handi !== null ? m.handi : `<span style="color:var(--text-muted);font-size:11px;">-</span>`}</td><td>${m.count}회</td></tr>`;
-      }).join('') : '<tr><td colspan="5">등록된 회원이 없습니다.</td></tr>';
+      document.getElementById('handi-tbody').innerHTML = list.length ? list.map(m => { if (m.count > 0) rankNum++; return `<tr><td>${m.count > 0 ? `<span class="rank-badge ${rankNum<=3?'rank-'+rankNum:''}">${rankNum}</span>` : '-'}</td><td style="font-weight:700;">${esc(m.name)}</td><td>${m.avg !== null ? m.avg + '타' : '-'}</td><td style="color:var(--gold);font-weight:700;">${m.handi !== null ? m.handi : `<span style="color:var(--text-muted);font-size:11px;">-</span>`}</td><td>${m.count}회</td></tr>`; }).join('') : '<tr><td colspan="5">등록된 회원이 없습니다.</td></tr>';
     };
 
     window.renderAll = () => {
       memberStats = {};
       Object.entries(registeredMembers).forEach(([key, m]) => { memberStats[m.name] = { key, role: m.role || '회원', regHandi: Number(m.initHandi ?? 18), scores: [], total: 0, best: '-' }; });
-      allRounds.forEach(r => {
-        if (!memberStats[r.player]) memberStats[r.player] = { key: null, role: '회원', regHandi: 18, scores: [], total: 0, best: 999 };
-        if (memberStats[r.player].best === '-') memberStats[r.player].best = 999;
-        memberStats[r.player].scores.push(r);
-        memberStats[r.player].total += Number(r.score);
-        if (Number(r.score) < memberStats[r.player].best) memberStats[r.player].best = Number(r.score);
-      });
-
+      allRounds.forEach(r => { if (!memberStats[r.player]) memberStats[r.player] = { key: null, role: '회원', regHandi: 18, scores: [], total: 0, best: 999 }; if (memberStats[r.player].best === '-') memberStats[r.player].best = 999; memberStats[r.player].scores.push(r); memberStats[r.player].total += Number(r.score); if (Number(r.score) < memberStats[r.player].best) memberStats[r.player].best = Number(r.score); });
       memberTotalPoints = computeAllMemberPoints();
-      const years = new Set([new Date().toISOString().slice(0, 4)]);
-      allRounds.forEach(r => { if (r.date) years.add(r.date.slice(0, 4)); });
-      allPoints.forEach(p => { if (p.date) years.add(p.date.slice(0, 4)); });
+
+      const years = new Set([new Date().toISOString().slice(0, 4)]); allRounds.forEach(r => { if (r.date) years.add(r.date.slice(0, 4)); }); allPoints.forEach(p => { if (p.date) years.add(p.date.slice(0, 4)); });
       const sortedYears = Array.from(years).sort((a, b) => b.localeCompare(a));
 
       const hyEl = document.getElementById('handi-year-filter');
-      if (hyEl) {
-        const curHY = hyEl.value || 'all';
-        hyEl.innerHTML = '<option value="all">전체 시즌</option>' + sortedYears.map(y => `<option value="${y}">${y}년</option>`).join('');
-        hyEl.value = (curHY === 'all' || sortedYears.includes(curHY)) ? curHY : 'all';
-      }
+      if (hyEl) { const curHY = hyEl.value || 'all'; hyEl.innerHTML = '<option value="all">전체 시즌</option>' + sortedYears.map(y => `<option value="${y}">${y}년</option>`).join(''); hyEl.value = (curHY === 'all' || sortedYears.includes(curHY)) ? curHY : 'all'; }
       window.renderHandiRank();
 
-      const allMembersList = Object.entries(memberStats).map(([name, s]) => ({
-        name, key: s.key, role: s.role, regHandi: s.regHandi, count: s.scores.length, best: s.best, points: memberTotalPoints[name] || 0
-      })).sort((a, b) => a.regHandi - b.regHandi);
-
+      const allMembersList = Object.entries(memberStats).map(([name, s]) => ({ name, key: s.key, role: s.role, regHandi: s.regHandi, count: s.scores.length, best: s.best, points: memberTotalPoints[name] || 0 })).sort((a, b) => a.regHandi - b.regHandi);
       document.getElementById('member-count').innerText = `총 ${allMembersList.length}명`;
-      document.getElementById('members-tbody').innerHTML = allMembersList.length ? allMembersList.map(m => `
-        <tr>
-          <td><b>${esc(m.name)}</b>${m.role !== '회원' ? `<span class="role-badge">${esc(m.role)}</span>` : ''}</td>
-          <td>${m.count}회</td>
-          <td>${m.best !== '-' ? m.best+'타' : '-'}</td>
-          <td style="color:var(--gold);font-weight:700;">${m.regHandi}</td>
-          <td style="color:var(--green-accent);font-weight:800;">${m.points.toLocaleString()} P</td>
-          <td class="admin-only">${m.key ? `<div class="action-btns"><button class="btn-edit" onclick="openEdit('member','${m.key}')">수정</button><button class="btn-del" onclick="deleteMember('${m.key}')">삭제</button></div>` : '-'}</td>
-        </tr>`).join('') : '<tr><td colspan="6">등록된 회원이 없습니다.</td></tr>';
+      document.getElementById('members-tbody').innerHTML = allMembersList.length ? allMembersList.map(m => `<tr><td><b>${esc(m.name)}</b>${m.role !== '회원' ? `<span class="role-badge">${esc(m.role)}</span>` : ''}</td><td>${m.count}회</td><td>${m.best !== '-' ? m.best+'타' : '-'}</td><td style="color:var(--gold);font-weight:700;">${m.regHandi}</td><td style="color:var(--green-accent);font-weight:800;">${m.points.toLocaleString()} P</td><td class="admin-only">${m.key ? `<div class="action-btns"><button class="btn-edit" onclick="openEdit('member','${m.key}')">수정</button><button class="btn-del" onclick="deleteMember('${m.key}')">삭제</button></div>` : '-'}</td></tr>`).join('') : '<tr><td colspan="6">등록된 회원이 없습니다.</td></tr>';
 
       const optionsHtml = allMembersList.map(m => `<option value="${esc(m.name)}">${esc(m.name)}</option>`).join('');
-      const updateSelect = (id, placeholder) => { const el = document.getElementById(id); if (!el) return; const cur = el.value; el.innerHTML = `<option value="">${placeholder}</option>` + optionsHtml; el.value = cur; };
-      updateSelect('personal-select', '회원을 선택하세요');
-      updateSelect('in-player-select', '-- 등록된 회원 중 선택 --');
-      updateSelect('pt-player', '-- 회원 선택 --');
-      updateSelect('f-player', '-- 회원 선택 --');
-      updateSelect('live-single-player', '-- 회원 선택 --');
+      const updateSelect = (id, ph) => { const el = document.getElementById(id); if (!el) return; const cur = el.value; el.innerHTML = `<option value="">${ph}</option>` + optionsHtml; el.value = cur; };
+      updateSelect('personal-select', '회원을 선택하세요'); updateSelect('in-player-select', '-- 등록된 회원 중 선택 --'); updateSelect('pt-player', '-- 회원 선택 --'); updateSelect('f-player', '-- 회원 선택 --'); updateSelect('live-single-player', '-- 회원 선택 --');
       [1,2,3,4].forEach(i => updateSelect('gp-' + i, `조원 ${i} 선택`));
       loadGroupSetup();
 
-      const selMonth = document.getElementById('month-filter').value;
-      const { enriched, playerAutoPoints, playerManualPoints } = computeMonthResults(selMonth);
+      const selMonth = document.getElementById('month-filter').value, { enriched, playerAutoPoints, playerManualPoints } = computeMonthResults(selMonth);
       document.getElementById('monthly-tbody').innerHTML = enriched.length ? enriched.map((r, i) => {
-        const autoP = playerAutoPoints[r.player], manP = playerManualPoints[r.player] || 0;
-        const totalMonthPts = (autoP ? (autoP.base + autoP.bonus) : 0) + manP;
-        const vsStr = r.vsHandi === 0 ? 'E' : (r.vsHandi > 0 ? `+${r.vsHandi}` : `${r.vsHandi}`);
-        const ptDetail = [];
+        const autoP = playerAutoPoints[r.player], manP = playerManualPoints[r.player] || 0, totalMonthPts = (autoP ? (autoP.base + autoP.bonus) : 0) + manP, vsStr = r.vsHandi === 0 ? 'E' : (r.vsHandi > 0 ? `+${r.vsHandi}` : `${r.vsHandi}`), ptDetail = [];
         if (autoP) { ptDetail.push(`참가${autoP.base}`); if (autoP.bonus > 0) ptDetail.push(`${autoP.rank}위+${autoP.bonus}`); }
         if (manP !== 0) ptDetail.push(`개별${manP > 0 ? '+'+manP : manP}`);
-        return `
-          <tr>
-            <td><span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span></td>
-            <td><b>${esc(r.player)}</b><span class="sub-note">${esc(r.course)}</span></td>
-            <td><b>${r.actualScore}타</b></td>
-            <td style="color:${r.vsHandi <= 0 ? 'var(--green-accent)' : 'var(--red-accent)'};font-weight:700;">${vsStr}<span class="sub-note">(H${r.handi})</span></td>
-            <td style="color:var(--gold);font-weight:800;">${totalMonthPts.toLocaleString()} P<span class="sub-note">${ptDetail.join(' / ')}</span></td>
-            <td class="admin-only"><div class="action-btns"><button class="btn-edit" onclick="openEdit('round','${r.key}')">수정</button><button class="btn-del" onclick="deleteRound('${r.key}')">삭제</button></div></td>
-          </tr>`;
+        return `<tr><td><span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span></td><td><b>${esc(r.player)}</b><span class="sub-note">${esc(r.course)}</span></td><td><b>${r.actualScore}타</b></td><td style="color:${r.vsHandi <= 0 ? 'var(--green-accent)' : 'var(--red-accent)'};font-weight:700;">${vsStr}<span class="sub-note">(H${r.handi})</span></td><td style="color:var(--gold);font-weight:800;">${totalMonthPts.toLocaleString()} P<span class="sub-note">${ptDetail.join(' / ')}</span></td><td class="admin-only"><div class="action-btns"><button class="btn-edit" onclick="openEdit('round','${r.key}')">수정</button><button class="btn-del" onclick="deleteRound('${r.key}')">삭제</button></div></td></tr>`;
       }).join('') : '<tr><td colspan="6">해당 월의 기록이 없습니다.</td></tr>';
 
-      document.getElementById('rounds-container').innerHTML = allRounds.length ? allRounds.map(r => `
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;gap:8px;">
-            <span>⛳ ${esc(r.course)}</span>
-            <span style="color:var(--gold);">${r.score}타 ${r.holes ? '<small style="color:var(--green-accent);">(18H)</small>' : ''}</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px;">
-            <span style="font-size:12px;color:var(--text-muted);">${esc(r.date)} · 플레이어: <b style="color:#fff;">${esc(r.player)}</b></span>
-            <div class="action-btns admin-only">
-              <button class="btn-edit" onclick="openScorecardModal('round','${r.key}')">18홀</button>
-              <button class="btn-edit" onclick="openEdit('round','${r.key}')">수정</button>
-              <button class="btn-del" onclick="deleteRound('${r.key}')">삭제</button>
-            </div>
-          </div>
-        </div>`).join('') : '<div class="card">등록된 라운딩이 없습니다.</div>';
+      document.getElementById('rounds-container').innerHTML = allRounds.length ? allRounds.map(r => `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;gap:8px;"><span>⛳ ${esc(r.course)}</span><span style="color:var(--gold);">${r.score}타 ${r.holes ? '<small style="color:var(--green-accent);">(18H)</small>' : ''}</span></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px;"><span style="font-size:12px;color:var(--text-muted);">${esc(r.date)} · 플레이어: <b style="color:#fff;">${esc(r.player)}</b></span><div class="action-btns admin-only"><button class="btn-edit" onclick="openScorecardModal('round','${r.key}')">18홀</button><button class="btn-edit" onclick="openEdit('round','${r.key}')">수정</button><button class="btn-del" onclick="deleteRound('${r.key}')">삭제</button></div></div></div>`).join('') : '<div class="card">등록된 라운딩이 없습니다.</div>';
 
       const pyEl = document.getElementById('personal-year');
-      if (pyEl) {
-        const curY = pyEl.value || 'all';
-        pyEl.innerHTML = '<option value="all">전체 연도</option>' + sortedYears.map(y => `<option value="${y}">${y}년</option>`).join('');
-        pyEl.value = (curY === 'all' || sortedYears.includes(curY)) ? curY : 'all';
-      }
+      if (pyEl) { const curY = pyEl.value || 'all'; pyEl.innerHTML = '<option value="all">전체 연도</option>' + sortedYears.map(y => `<option value="${y}">${y}년</option>`).join(''); pyEl.value = (curY === 'all' || sortedYears.includes(curY)) ? curY : 'all'; }
 
-      const tDates = Array.from(new Set(allRounds.map(r => r.date).filter(Boolean))).sort((a, b) => b.localeCompare(a));
-      const tSel = document.getElementById('tourney-date-select');
-      if (tSel) {
-        const prevDate = tSel.value;
-        tSel.innerHTML = tDates.length ? tDates.map(d => `<option value="${d}">${d}</option>`).join('') : '<option value="">날짜 없음</option>';
-        tSel.value = (prevDate && tDates.includes(prevDate)) ? prevDate : (tDates[0] || '');
-      }
+      const tDates = Array.from(new Set(allRounds.map(r => r.date).filter(Boolean))).sort((a, b) => b.localeCompare(a)), tSel = document.getElementById('tourney-date-select');
+      if (tSel) { const prev = tSel.value; tSel.innerHTML = tDates.length ? tDates.map(d => `<option value="${d}">${d}</option>`).join('') : '<option value="">날짜 없음</option>'; tSel.value = (prev && tDates.includes(prev)) ? prev : (tDates[0] || ''); }
 
-      window.renderPersonal();
-      window.renderFinance();
-      window.renderTourney();
-      window.renderLiveInputUI();
+      window.renderPersonal(); window.renderFinance(); window.renderTourney(); window.renderLiveInputUI(); window.renderCourseGuide();
     };
 
     window.renderPersonal = () => {
@@ -2037,77 +1748,42 @@
         document.getElementById('personal-points-tbody').innerHTML = '<tr><td colspan="3">회원을 선택하세요.</td></tr>';
         return;
       }
-
       const filteredRounds = s.scores.filter(r => year === 'all' || (r.date && r.date.startsWith(year)));
       const avg = filteredRounds.length ? (filteredRounds.reduce((a, r) => a + Number(r.score), 0) / filteredRounds.length).toFixed(1) : '-';
       const best = filteredRounds.length ? Math.min(...filteredRounds.map(r => Number(r.score))) : '-';
-
-      const monthsInRounds = new Set(filteredRounds.map(r => r.date.slice(0, 7)));
-      let autoPtsSum = 0; const monthPointCache = {};
+      const monthsInRounds = new Set(filteredRounds.map(r => r.date.slice(0, 7))); let autoPtsSum = 0; const monthPointCache = {};
       monthsInRounds.forEach(m => { const res = computeMonthResults(m); monthPointCache[m] = res; const ap = res.playerAutoPoints[name]; if (ap) autoPtsSum += (ap.base + ap.bonus); });
       const manualPtsList = allPoints.filter(p => p.player === name && (year === 'all' || (p.date && p.date.startsWith(year))));
       const totalPts = autoPtsSum + manualPtsList.reduce((a, p) => a + Number(p.amount), 0);
 
       document.getElementById('personal-stats').innerHTML = `<div class="stat-box"><div class="lbl">평균 타수</div><div class="val">${avg}</div></div><div class="stat-box"><div class="lbl">베스트</div><div class="val">${best}</div></div><div class="stat-box"><div class="lbl">등록 핸디</div><div class="val">${s.regHandi}</div></div><div class="stat-box"><div class="lbl">${year==='all'?'누적':year+'년'} 포인트</div><div class="val" style="color:var(--green-accent);">${totalPts.toLocaleString()}P</div></div>`;
-
       document.getElementById('personal-monthly-tbody').innerHTML = filteredRounds.length ? filteredRounds.map(r => {
-        const actualScore = Number(r.score), handi = getEffectiveRoundHandi(r), vsHandi = actualScore - (72 + handi);
-        const vsStr = vsHandi === 0 ? 'E' : (vsHandi > 0 ? `+${vsHandi}` : `${vsHandi}`);
-        const ap = monthPointCache[r.date.slice(0, 7)]?.playerAutoPoints[name], mPts = ap ? (ap.base + ap.bonus) : 0;
-        const { amount: fineAmt } = calcFineAmount(r);
+        const actualScore = Number(r.score), handi = getEffectiveRoundHandi(r), vsHandi = actualScore - (72 + handi), vsStr = vsHandi === 0 ? 'E' : (vsHandi > 0 ? `+${vsHandi}` : `${vsHandi}`), ap = monthPointCache[r.date.slice(0, 7)]?.playerAutoPoints[name], mPts = ap ? (ap.base + ap.bonus) : 0, { amount: fineAmt } = calcFineAmount(r);
         return `<tr><td>${esc(r.date)}</td><td>${esc(r.course)}</td><td><b>${actualScore}타</b></td><td style="color:${vsHandi<=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${vsStr}<span class="sub-note">(H${handi})</span></td><td style="color:var(--gold);font-weight:700;">+${mPts}P</td><td style="color:${fineAmt>0?'var(--red-accent)':'var(--text-muted)'};">${fineAmt > 0 ? (fineAmt/10000)+'만동' : '-'}</td></tr>`;
       }).join('') : '<tr><td colspan="6">해당 기간 라운딩 기록이 없습니다.</td></tr>';
-
       document.getElementById('personal-points-tbody').innerHTML = manualPtsList.length ? manualPtsList.map(p => `<tr><td>${esc(p.date)}</td><td>${esc(p.reason)}</td><td style="color:${p.amount>=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${p.amount>=0?'+':''}${p.amount}P</td></tr>`).join('') : '<tr><td colspan="3">개별 지급/차감 내역이 없습니다.</td></tr>';
     };
 
-    window.toggleFinFields = () => {
-      const cat = document.getElementById('f-category').value, pWrap = document.getElementById('f-player-wrap');
-      if (pWrap) pWrap.style.opacity = (cat === '년회비' || cat === '벌금' || cat === '월회비') ? '1' : '0.4';
-    };
-
+    window.toggleFinFields = () => { const cat = document.getElementById('f-category').value, pWrap = document.getElementById('f-player-wrap'); if (pWrap) pWrap.style.opacity = (cat === '년회비' || cat === '벌금' || cat === '월회비') ? '1' : '0.4'; };
     window.saveFin = () => {
       const date = document.getElementById('f-date').value, category = document.getElementById('f-category').value, player = document.getElementById('f-player').value, descInput = document.getElementById('f-desc').value.trim(), amount = Number(document.getElementById('f-amount').value);
-      if (!date || !amount) return alert("날짜와 금액을 입력하세요.");
-      if (category === '년회비' && !player) return alert("년회비는 회원을 선택해야 합니다.");
+      if (!date || !amount) return alert("날짜와 금액을 입력하세요."); if (category === '년회비' && !player) return alert("년회비는 회원을 선택해야 합니다.");
       push(ref(db, 'finance'), { date, desc: descInput || (player ? `${player} ${category}` : category), type: category === '출금' ? 'out' : 'in', amount, category, player, year: date.slice(0, 4) })
-        .then(() => { alert("회비 내역이 저장되었습니다!"); document.getElementById('f-desc').value = ""; document.getElementById('f-amount').value = ""; })
-        .catch(err => alert("회비 저장 실패: " + err.message));
+        .then(() => { alert("회비 내역이 저장되었습니다!"); document.getElementById('f-desc').value = ""; document.getElementById('f-amount').value = ""; }).catch(err => alert("회비 저장 실패: " + err.message));
     };
-
     window.quickMarkAnnualFee = (playerName) => {
       if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const year = document.getElementById('fee-year-select').value || new Date().toISOString().slice(0, 4);
-      const val = prompt(`${playerName}님의 ${year}년 년회비 납부 금액(동)을 입력하세요`, "2000000");
-      if (val === null) return;
-      const amount = Number(val);
-      if (!amount || amount <= 0) return alert("올바른 금액을 입력하세요.");
-      set(ref(db, 'finance/' + `annual_${year}_${safeKey(playerName)}`), {
-        date: `${year}-${new Date().toISOString().slice(5, 10)}`, desc: `[년회비] ${playerName} (${year}년)`,
-        type: 'in', amount, category: '년회비', player: playerName, year
-      }).catch(err => alert("저장 실패: " + err.message));
+      const year = document.getElementById('fee-year-select').value || new Date().toISOString().slice(0, 4), val = prompt(`${playerName}님의 ${year}년 년회비 납부 금액(동)을 입력하세요`, "2000000");
+      if (val === null) return; const amount = Number(val); if (!amount || amount <= 0) return alert("올바른 금액을 입력하세요.");
+      set(ref(db, 'finance/' + `annual_${year}_${safeKey(playerName)}`), { date: `${year}-${new Date().toISOString().slice(5, 10)}`, desc: `[년회비] ${playerName} (${year}년)`, type: 'in', amount, category: '년회비', player: playerName, year }).catch(err => alert("저장 실패: " + err.message));
     };
-
-    window.deleteFin = (key) => {
-      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const f = allFinance.find(x => x.key === key);
-      if (f && confirm(`'${f.desc}' (${Number(f.amount).toLocaleString()}동) 내역을 삭제할까요?`)) remove(ref(db, 'finance/' + key)).catch(err => alert("삭제 실패: " + err.message));
-    };
+    window.deleteFin = (key) => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); const f = allFinance.find(x => x.key === key); if (f && confirm(`'${f.desc}' (${Number(f.amount).toLocaleString()}동) 내역을 삭제할까요?`)) remove(ref(db, 'finance/' + key)).catch(err => alert("삭제 실패: " + err.message)); };
 
     window.renderFinance = () => {
-      let balance = 0;
-      allFinance.forEach(f => { balance += (f.type === 'in' ? Number(f.amount) : -Number(f.amount)); });
+      let balance = 0; allFinance.forEach(f => { balance += (f.type === 'in' ? Number(f.amount) : -Number(f.amount)); });
       document.getElementById('fin-balance').innerText = balance.toLocaleString();
-
       const feeYearEl = document.getElementById('fee-year-select');
-      if (feeYearEl) {
-        const curY = feeYearEl.value || new Date().toISOString().slice(0, 4);
-        const ySet = new Set([new Date().toISOString().slice(0, 4)]);
-        allFinance.forEach(f => { if (f.year) ySet.add(String(f.year)); else if (f.date) ySet.add(f.date.slice(0, 4)); });
-        feeYearEl.innerHTML = Array.from(ySet).sort((a, b) => b.localeCompare(a)).map(y => `<option value="${y}">${y}년</option>`).join('');
-        feeYearEl.value = curY;
-      }
-
+      if (feeYearEl) { const curY = feeYearEl.value || new Date().toISOString().slice(0, 4), ySet = new Set([new Date().toISOString().slice(0, 4)]); allFinance.forEach(f => { if (f.year) ySet.add(String(f.year)); else if (f.date) ySet.add(f.date.slice(0, 4)); }); feeYearEl.innerHTML = Array.from(ySet).sort((a, b) => b.localeCompare(a)).map(y => `<option value="${y}">${y}년</option>`).join(''); feeYearEl.value = curY; }
       const selYear = feeYearEl ? feeYearEl.value : new Date().toISOString().slice(0, 4), membersArr = Object.values(registeredMembers), feeTbody = document.getElementById('annual-fee-tbody');
       if (feeTbody) {
         feeTbody.innerHTML = membersArr.length ? membersArr.map(m => {
@@ -2115,43 +1791,20 @@
           return `<tr><td><b>${esc(m.name)}</b></td><td>${paidSum > 0 ? '<span class="badge-paid">납부완료</span>' : '<span class="badge-unpaid">미납</span>'}</td><td style="color:${paidSum > 0 ? 'var(--green-accent)' : 'var(--text-muted)'};font-weight:700;">${paidSum > 0 ? paidSum.toLocaleString() + '동' : '-'}</td><td class="admin-only"><button class="btn-edit" onclick="quickMarkAnnualFee('${esc(m.name)}')">${paidSum > 0 ? '수정' : '납부입력'}</button></td></tr>`;
         }).join('') : '<tr><td colspan="4">등록된 회원이 없습니다.</td></tr>';
       }
-
-      document.getElementById('fin-tbody').innerHTML = allFinance.length ? allFinance.map(f => {
-        const cat = f.category || (f.type === 'out' ? '출금' : '입금');
-        return `<tr><td>${esc(f.date)}</td><td><span class="role-badge">${esc(cat)}</span></td><td>${esc(f.desc)}</td><td style="color:${f.type==='in'?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${f.type==='in'?'+':'-'}${Number(f.amount).toLocaleString()}동</td><td class="admin-only"><div class="action-btns"><button class="btn-edit" onclick="openEdit('finance','${f.key}')">수정</button><button class="btn-del" onclick="deleteFin('${f.key}')">삭제</button></div></td></tr>`;
-      }).join('') : '<tr><td colspan="5">회비 내역이 없습니다.</td></tr>';
+      document.getElementById('fin-tbody').innerHTML = allFinance.length ? allFinance.map(f => `<tr><td>${esc(f.date)}</td><td><span class="role-badge">${esc(f.category || (f.type === 'out' ? '출금' : '입금'))}</span></td><td>${esc(f.desc)}</td><td style="color:${f.type==='in'?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${f.type==='in'?'+':'-'}${Number(f.amount).toLocaleString()}동</td><td class="admin-only"><div class="action-btns"><button class="btn-edit" onclick="openEdit('finance','${f.key}')">수정</button><button class="btn-del" onclick="deleteFin('${f.key}')">삭제</button></div></td></tr>`).join('') : '<tr><td colspan="5">회비 내역이 없습니다.</td></tr>';
     };
 
-    window.setTourneyMode = (mode) => {
-      tourneyMode = mode;
-      document.getElementById('btn-tmode-peoria').classList.toggle('active', mode === 'peoria');
-      document.getElementById('btn-tmode-stroke').classList.toggle('active', mode === 'stroke');
-      window.renderTourney();
-    };
-
+    window.setTourneyMode = (mode) => { tourneyMode = mode; document.getElementById('btn-tmode-peoria').classList.toggle('active', mode === 'peoria'); document.getElementById('btn-tmode-stroke').classList.toggle('active', mode === 'stroke'); window.renderTourney(); };
     const pickBalancedHiddenHoles = (pars = DEFAULT_PARS) => {
       const front = [1,2,3,4,5,6,7,8,9], back = [10,11,12,13,14,15,16,17,18], target = Math.round(pars.reduce((a, b) => a + Number(b), 0) * 12 / 18), shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
       let bestSet = [1,2,4,6,7,9, 10,12,13,15,16,18], bestDiff = 999;
-      for (let attempt = 0; attempt < 80; attempt++) {
-        const pick = [...shuffle(front).slice(0, 6), ...shuffle(back).slice(0, 6)];
-        const diff = Math.abs(pick.reduce((a, h) => a + Number(pars[h - 1] || 4), 0) - target);
-        if (diff < bestDiff) { bestDiff = diff; bestSet = pick; if (diff === 0) break; }
-      }
+      for (let attempt = 0; attempt < 80; attempt++) { const pick = [...shuffle(front).slice(0, 6), ...shuffle(back).slice(0, 6)], diff = Math.abs(pick.reduce((a, h) => a + Number(pars[h - 1] || 4), 0) - target); if (diff < bestDiff) { bestDiff = diff; bestSet = pick; if (diff === 0) break; } }
       return bestSet.sort((a, b) => a - b);
     };
-
-    window.randomizeHiddenHoles = () => {
-      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const date = document.getElementById('tourney-date-select').value;
-      if (!date) return alert("대회 날짜가 없습니다.");
-      const sampleRound = allRounds.find(r => r.date === date);
-      set(ref(db, 'tourneyConfig/' + date), { hiddenHoles: pickBalancedHiddenHoles(sampleRound?.pars || findCourseParsByName(sampleRound?.course) || DEFAULT_PARS) }).catch(err => alert("저장 실패: " + err.message));
-    };
-
+    window.randomizeHiddenHoles = () => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); const date = document.getElementById('tourney-date-select').value; if (!date) return alert("대회 날짜가 없습니다."); const s = allRounds.find(r => r.date === date); set(ref(db, 'tourneyConfig/' + date), { hiddenHoles: pickBalancedHiddenHoles(s?.pars || findCourseParsByName(s?.course) || DEFAULT_PARS) }).catch(err => alert("저장 실패: " + err.message)); };
     window.openHiddenHolesModal = () => {
       if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const date = document.getElementById('tourney-date-select').value;
-      if (!date) return alert("대회 날짜가 없습니다.");
+      const date = document.getElementById('tourney-date-select').value; if (!date) return alert("대회 날짜가 없습니다.");
       const cur = tourneyConfigs[date]?.hiddenHoles || [1,2,4,6,7,9, 10,12,13,15,16,18];
       currentEdit = { type: 'hidden_holes', key: date };
       document.getElementById('edit-modal-title').innerText = `⚙ ${date} 히든 12홀 선택`;
@@ -2159,32 +1812,24 @@
       document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">12홀 저장</button>`;
       document.getElementById('edit-modal').style.display = 'flex';
     };
-
     window.toggleHiddenHoleBtn = (btn) => { btn.classList.toggle('selected'); document.getElementById('hh-count').innerText = `선택됨: ${document.querySelectorAll('.hh-btn.selected').length} / 12홀`; };
 
     window.renderTourney = () => {
       const selDate = document.getElementById('tourney-date-select')?.value, metaEl = document.getElementById('tourney-title-meta'), tbody = document.getElementById('tourney-tbody'), adminBar = document.getElementById('peoria-admin-bar');
       if (!selDate || !allRounds.length) { if (metaEl) metaEl.innerText = ''; if (tbody) tbody.innerHTML = '<tr><td colspan="6">대회 데이터가 없습니다.</td></tr>'; return; }
-
       const dayRounds = allRounds.filter(r => r.date === selDate);
       if (metaEl) metaEl.innerText = `(${selDate} · ${Array.from(new Set(dayRounds.map(r => r.course).filter(Boolean))).join(', ') || '골프장 미상'})`;
       if (adminBar) adminBar.style.display = tourneyMode === 'peoria' ? '' : 'none';
-
-      const hiddenHoles = tourneyConfigs[selDate]?.hiddenHoles || [1,2,4,6,7,9, 10,12,13,15,16,18];
-      const hhLabel = document.getElementById('peoria-hidden-label');
+      const hiddenHoles = tourneyConfigs[selDate]?.hiddenHoles || [1,2,4,6,7,9, 10,12,13,15,16,18], hhLabel = document.getElementById('peoria-hidden-label');
       if (hhLabel) hhLabel.innerText = `히든 12홀: ${hiddenHoles.map(h => h + 'H').join(', ')}`;
 
       if (tourneyMode === 'peoria') {
         const rows = dayRounds.map(r => {
           const totalPar = (r.pars || findCourseParsByName(r.course)).reduce((a, b) => a + Number(b), 0);
           const has18 = r.holes && Array.from({length: 18}, (_, i) => Number(r.holes[String(i+1)] || 0)).every(v => v > 0);
-          if (has18) {
-            const handi = Number((((hiddenHoles.reduce((a, h) => a + Number(r.holes[String(h)]), 0) * 1.5) - totalPar) * 0.8).toFixed(1));
-            return { ...r, has18: true, handi, net: Number((Number(r.score) - handi).toFixed(1)) };
-          }
+          if (has18) { const handi = Number((((hiddenHoles.reduce((a, h) => a + Number(r.holes[String(h)]), 0) * 1.5) - totalPar) * 0.8).toFixed(1)); return { ...r, has18: true, handi, net: Number((Number(r.score) - handi).toFixed(1)) }; }
           return { ...r, has18: false, handi: null, net: 9999 };
         }).sort((a, b) => (a.net - b.net) || (a.score - b.score));
-
         tbody.innerHTML = rows.length ? rows.map((t, i) => `<tr><td>${t.has18 ? `<span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span>` : '-'}</td><td><b>${esc(t.player)}</b></td><td>${t.score}</td><td>${t.has18 ? `-${t.handi}` : '<span style="font-size:11px;color:var(--text-muted);">18홀 미입력</span>'}</td><td style="color:var(--gold);font-weight:800;">${t.has18 ? t.net : '-'}</td><td class="admin-only"><button class="btn-edit" onclick="openScorecardModal('round','${t.key}')">${t.has18 ? '수정' : '18홀입력'}</button></td></tr>`).join('') : '<tr><td colspan="6">해당 날짜 기록이 없습니다.</td></tr>';
       } else {
         const rows = dayRounds.map(r => { const h = getEffectiveRoundHandi(r); return { ...r, handi: h, net: Number(r.score) - h }; }).sort((a, b) => (a.net - b.net) || (a.score - b.score));
@@ -2192,16 +1837,8 @@
       }
     };
 
-    window.saveNews = () => {
-      const title = document.getElementById('n-title').value.trim(), body = document.getElementById('n-body').value.trim();
-      if (!title || !body) return alert("제목과 내용을 입력하세요.");
-      push(ref(db, 'news'), { title, body, date: new Date().toISOString().slice(0, 10) }).then(() => { alert("소식이 등록되었습니다!"); document.getElementById('n-title').value = ""; document.getElementById('n-body').value = ""; }).catch(err => alert("소식 등록 실패: " + err.message));
-    };
-    window.deleteNews = (key) => {
-      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const n = allNews.find(x => x.key === key);
-      if (n && confirm(`'${n.title}' 소식을 삭제할까요?`)) remove(ref(db, 'news/' + key)).catch(err => alert("삭제 실패: " + err.message));
-    };
+    window.saveNews = () => { const t = document.getElementById('n-title').value.trim(), b = document.getElementById('n-body').value.trim(); if (!t || !b) return alert("제목과 내용을 입력하세요."); push(ref(db, 'news'), { title: t, body: b, date: new Date().toISOString().slice(0, 10) }).then(() => { alert("소식이 등록되었습니다!"); document.getElementById('n-title').value = ""; document.getElementById('n-body').value = ""; }).catch(err => alert("소식 등록 실패: " + err.message)); };
+    window.deleteNews = (key) => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); const n = allNews.find(x => x.key === key); if (n && confirm(`'${n.title}' 소식을 삭제할까요?`)) remove(ref(db, 'news/' + key)).catch(err => alert("삭제 실패: " + err.message)); };
   </script>
 </body>
 </html>
