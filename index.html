@@ -35,18 +35,22 @@
     #login-screen { position: fixed; inset: 0; background: radial-gradient(circle at top, #163329 0%, #09130f 100%); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; text-align: center; }
     .badge-members { font-size: 11px; letter-spacing: 3px; color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.4); padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; }
     .login-title { font-size: 28px; font-weight: 800; letter-spacing: 2px; color: #fff; margin-bottom: 6px; }
-    .login-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; }
+    .login-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 26px; }
     .login-box { width: 100%; max-width: 320px; }
     .login-box input { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--card-border); background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 16px; text-align: center; margin-bottom: 12px; outline: none; }
     .login-box input:focus { border-color: var(--gold); }
     .login-box button { width: 100%; padding: 14px; border-radius: 10px; border: none; background: linear-gradient(135deg, #d4af37, #b59226); color: #0b1914; font-size: 16px; font-weight: 800; cursor: pointer; }
-    .login-hint { font-size: 12px; color: var(--text-muted); margin-top: 20px; line-height: 1.5; }
+    .login-admin-link { background: transparent !important; color: var(--gold) !important; border: 1px solid rgba(212, 175, 55, 0.4) !important; margin-top: 8px; padding: 10px !important; font-size: 13px !important; font-weight: 700 !important; }
+    .login-hint { font-size: 12px; color: var(--text-muted); margin-top: 18px; line-height: 1.5; }
+    #login-err { font-size: 12px; color: #fca5a5; margin-top: 10px; min-height: 18px; }
 
     /* 헤더 및 메뉴 */
-    header { padding: 18px 16px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); background: #0d1f18; }
+    header { padding: 18px 16px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); background: #0d1f18; gap: 8px; }
     .header-left span { font-size: 11px; color: var(--gold); display: block; letter-spacing: 1px; }
     .header-left h1 { font-size: 20px; font-weight: 800; letter-spacing: 1px; }
-    .btn-admin { background: rgba(212, 175, 55, 0.15); color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.4); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .header-actions { display: flex; gap: 6px; align-items: center; }
+    .btn-admin { background: rgba(212, 175, 55, 0.15); color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.4); padding: 6px 11px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .btn-logout { background: rgba(148, 163, 184, 0.12); color: var(--text-muted); border: 1px solid var(--card-border); padding: 6px 9px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap; }
     .nav-grid { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 12px; background: #0b1914; border-bottom: 1px solid var(--card-border); }
     .nav-btn { background: var(--card-dark); color: var(--text-muted); border: 1px solid var(--card-border); padding: 8px 11px; border-radius: 10px; font-size: 13px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: 0.2s; }
     .nav-btn:hover { border-color: rgba(212, 175, 55, 0.5); color: #fff; }
@@ -58,32 +62,10 @@
     body.is-admin th.admin-only, body.is-admin td.admin-only { display: table-cell !important; }
     body.is-admin .action-btns.admin-only { display: inline-flex !important; }
     body.is-admin .admin-block.admin-only { display: block !important; }
-    body.is-admin .admin-flex.admin-only { display: flex !important; }
 
     /* 관리/입력 서브 메뉴 */
-    .admin-sub-nav {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-bottom: 14px;
-      background: #0d1f18;
-      padding: 8px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-    }
-    .admin-sub-btn {
-      background: var(--card-dark);
-      color: var(--text-muted);
-      border: 1px solid var(--card-border);
-      padding: 10px 6px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.15s;
-      text-align: center;
-      white-space: nowrap;
-    }
+    .admin-sub-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 14px; background: #0d1f18; padding: 8px; border-radius: 12px; border: 1px solid var(--card-border); }
+    .admin-sub-btn { background: var(--card-dark); color: var(--text-muted); border: 1px solid var(--card-border); padding: 10px 6px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.15s; text-align: center; white-space: nowrap; }
     .admin-sub-btn:hover { color: #fff; border-color: rgba(212, 175, 55, 0.5); }
     .admin-sub-btn.active { background: var(--gold); color: #0b1914; border-color: var(--gold); font-weight: 800; }
     .admin-sub-pane { display: none; }
@@ -129,7 +111,7 @@
     .seg-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--card-border); background: #0b1914; color: var(--text-muted); font-weight: 700; font-size: 13px; cursor: pointer; }
     .seg-btn.active { background: var(--gold); color: #0b1914; border-color: var(--gold); }
 
-    /* 골프장 9홀 코스별 파 입력 블록 (최대 54홀 / 6코스) */
+    /* 골프장 9홀 코스별 파 입력 블록 */
     .sub-course-box { background: rgba(11, 25, 20, 0.7); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px; margin-bottom: 10px; }
     .sub-course-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
     .sub-course-header input { flex: 1; padding: 7px 9px; border-radius: 6px; border: 1px solid var(--card-border); background: #0b1914; color: #fff; font-size: 13px; font-weight: 700; }
@@ -163,7 +145,7 @@
     .term-bogey { color: #38bdf8; }
     .term-double { color: #94a3b8; }
 
-    /* 스코어카드 상세 테이블 */
+    /* 스코어카드 상세 */
     .sc-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; font-size: 11px; text-align: center; margin-bottom: 8px; }
     .sc-cell { background: #0b1914; border: 1px solid var(--card-border); border-radius: 5px; padding: 4px 2px; }
     .sc-cell .h { font-size: 9px; color: var(--text-muted); }
@@ -185,118 +167,84 @@
     #achievement-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
     .achieve-card { background: linear-gradient(145deg, #18382c, #0d1f18); border: 2px solid var(--gold); border-radius: 16px; padding: 24px; text-align: center; max-width: 320px; width: 100%; }
 
-    /* 공용 모달 */
     #edit-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.82); z-index: 10001; justify-content: center; align-items: center; padding: 16px; }
     .edit-card { background: var(--card-dark); border: 1.5px solid var(--gold); border-radius: 16px; padding: 20px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
     .edit-card-title { font-size: 16px; font-weight: 800; color: var(--gold-light); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
     .edit-actions { display: flex; gap: 8px; margin-top: 16px; }
 
-    /* 히든홀 체크 그리드 */
     .hidden-hole-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 10px 0; }
     .hh-btn { padding: 8px 4px; border-radius: 6px; border: 1px solid var(--card-border); background: #0b1914; color: var(--text-muted); font-size: 12px; font-weight: 700; cursor: pointer; }
     .hh-btn.selected { background: rgba(212, 175, 55, 0.25); color: var(--gold); border-color: var(--gold); }
 
-    /* 오른쪽 하단 PWA 앱 설치 플로팅 버튼 */
+    /* 오른쪽 하단 PWA 앱 설치 버튼 */
     #pwa-install-btn {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 9000;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, #f3e5ab, #d4af37);
-      color: #0b1914;
+      position: fixed; right: 18px; bottom: 18px; z-index: 9000;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, #f3e5ab, #d4af37); color: #0b1914;
       border: 1.5px solid rgba(255, 255, 255, 0.35);
-      padding: 11px 18px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.3px;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      padding: 11px 18px; border-radius: 999px; font-size: 13px; font-weight: 900;
+      cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55); transition: 0.15s;
     }
     #pwa-install-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65); }
-    #pwa-install-btn:active { transform: scale(0.96); }
 
-    /* PWA 설치 안내 모달 */
     #pwa-guide-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.82); z-index: 10002; justify-content: center; align-items: center; padding: 18px; }
     .pwa-guide-box { background: var(--card-dark); border: 1.5px solid var(--gold); border-radius: 16px; padding: 22px; max-width: 380px; width: 100%; }
     .pwa-guide-step { background: #0b1914; border: 1px solid var(--card-border); border-radius: 10px; padding: 11px 12px; margin-bottom: 10px; font-size: 13px; line-height: 1.55; }
     .pwa-guide-step b { color: var(--gold); display: block; margin-bottom: 3px; }
 
-    /* =======================================================
-       PC / 태블릿 큰 화면용 반응형 스타일 (768px 이상)
-       ======================================================= */
+    /* PC / 태블릿 반응형 */
     @media (min-width: 768px) {
-      body {
-        max-width: 1140px;
-        border-left: 1px solid var(--card-border);
-        border-right: 1px solid var(--card-border);
-      }
+      body { max-width: 1140px; border-left: 1px solid var(--card-border); border-right: 1px solid var(--card-border); }
       header { padding: 22px 28px; }
       .header-left span { font-size: 12px; }
       .header-left h1 { font-size: 26px; }
       .btn-admin { padding: 9px 16px; font-size: 13px; }
-
       .nav-grid { padding: 14px 28px; gap: 8px; }
       .nav-btn { padding: 10px 16px; font-size: 14px; }
-
       .content { padding: 24px 28px; }
       .card { padding: 22px 24px; margin-bottom: 18px; }
       .card-title { font-size: 17px; margin-bottom: 16px; }
-
       table { font-size: 14px; }
       th { padding: 11px 6px; font-size: 13px; }
       td { padding: 12px 6px; }
       .rank-badge { width: 26px; height: 26px; line-height: 26px; font-size: 13px; }
       .btn-edit, .btn-del { padding: 4px 9px; font-size: 12px; }
-
       .stat-grid { gap: 16px; }
       .stat-box { padding: 20px 12px; }
       .stat-box .lbl { font-size: 13px; }
       .stat-box .val { font-size: 24px; margin-top: 8px; }
-
-      #rounds-container, #news-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-      }
+      #rounds-container, #news-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
       #rounds-container .card, #news-container .card { margin-bottom: 0; }
       #rounds-container .card:only-child, #news-container .card:only-child { grid-column: 1 / -1; }
-
-      .admin-sub-nav {
-        grid-template-columns: repeat(6, 1fr);
-        gap: 8px;
-        padding: 10px;
-      }
+      .admin-sub-nav { grid-template-columns: repeat(6, 1fr); gap: 8px; padding: 10px; }
       .admin-sub-btn { font-size: 13px; padding: 11px 8px; }
       .admin-single-wrap { max-width: 640px; margin: 0 auto; }
-      .admin-split-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-        align-items: start;
-      }
+      .admin-split-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
       .admin-split-2 .card { margin-bottom: 0; }
-
       #pwa-install-btn { right: 28px; bottom: 26px; padding: 12px 20px; font-size: 14px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Firebase Auth 기반 보안 로그인 화면 -->
   <div id="login-screen">
     <div class="badge-members">MEMBERS ONLY</div>
     <div style="font-size: 13px; color: var(--gold); margin-bottom: 4px;">한울모임 골프동호회</div>
     <div class="login-title">HANUL GOLF</div>
     <div class="login-sub">월례 라운드 · 스코어보드</div>
-    <div class="login-box">
-      <input type="password" id="pw-input" placeholder="공용 비밀번호">
-      <button onclick="loginMember()">입장하기</button>
+
+    <div id="auth-loading" style="font-size:14px; color:var(--gold-light); padding:20px;">
+      인증 상태를 확인하는 중…
     </div>
-    <div class="login-hint">비밀번호는 총무에게 문의하세요<br>한 번 입장하면 이 기기에서 30일간 유지됩니다</div>
+
+    <div class="login-box" id="login-form-wrap" style="display:none;">
+      <input type="password" id="pw-input" placeholder="비밀번호 입력 (6자리 이상)">
+      <button onclick="loginMember()">회원 입장하기</button>
+      <button class="login-admin-link" onclick="loginAdminDirect()">관리자로 바로 로그인</button>
+      <div id="login-err"></div>
+      <div class="login-hint">비밀번호는 총무에게 문의하세요<br>한 번 로그인하면 이 기기에서 안전하게 유지됩니다</div>
+    </div>
   </div>
 
   <header>
@@ -304,7 +252,10 @@
       <span>HANUL GOLF CLUB</span>
       <h1>LEADERBOARD</h1>
     </div>
-    <button class="btn-admin" id="admin-btn" onclick="toggleAdmin()">관리자 로그인</button>
+    <div class="header-actions">
+      <button class="btn-admin" id="admin-btn" onclick="toggleAdmin()">관리자 로그인</button>
+      <button class="btn-logout" onclick="logoutAll()">로그아웃</button>
+    </div>
   </header>
 
   <nav class="nav-grid">
@@ -760,7 +711,7 @@
   <!-- 오른쪽 하단 PWA 앱 설치 버튼 -->
   <button id="pwa-install-btn" onclick="triggerPwaInstall()">+ 앱 설치</button>
 
-  <!-- PWA 수동 설치 안내 모달 (iOS Safari 등용) -->
+  <!-- PWA 수동 설치 안내 모달 -->
   <div id="pwa-guide-modal" onclick="if(event.target===this) this.style.display='none'">
     <div class="pwa-guide-box">
       <div class="edit-card-title">
@@ -809,21 +760,14 @@
   </div>
 
   <script>
-    const MEMBER_PW = "1234";
-    const ADMIN_PW = "9999";
-    let isAdmin = false;
+    window.isAdmin = false;
     let deferredPrompt = null;
 
-    // ==========================================
-    // PWA 설치 & 서비스워커 & iOS 아이콘 생성
-    // ==========================================
     (function setupPWA() {
-      // 이미 앱(standalone) 형태로 실행 중이면 설치 버튼 숨김
       const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
       const btn = document.getElementById('pwa-install-btn');
       if (isStandalone && btn) btn.style.display = 'none';
 
-      // Canvas로 192x192 골드/그린 앱 아이콘을 자동 생성하여 iOS 홈화면 아이콘 연결
       try {
         const cvs = document.createElement('canvas');
         cvs.width = 192; cvs.height = 192;
@@ -844,7 +788,6 @@
         if (iconLink) iconLink.href = cvs.toDataURL('image/png');
       } catch(e) {}
 
-      // HTTPS / localhost 환경이면 서비스 워커 등록
       if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
       }
@@ -877,44 +820,16 @@
     }
 
     window.addEventListener('DOMContentLoaded', function() {
-      const exp = localStorage.getItem('hanul_golf_exp');
-      if (exp && Date.now() < Number(exp)) document.getElementById('login-screen').style.display = 'none';
       const today = new Date().toISOString().slice(0, 10);
-      const month = today.slice(0, 7);
       const mf = document.getElementById('month-filter');
-      if (mf) mf.value = month;
+      if (mf) mf.value = today.slice(0, 7);
       ['in-date', 'f-date', 'pt-date', 'live-date-input'].forEach(id => {
         const el = document.getElementById(id);
         if (el && !el.value) el.value = today;
       });
       const pwInput = document.getElementById('pw-input');
-      if (pwInput) pwInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') loginMember(); });
+      if (pwInput) pwInput.addEventListener('keypress', function(e) { if (e.key === 'Enter' && window.loginMember) window.loginMember(); });
     });
-
-    function loginMember() {
-      if (document.getElementById('pw-input').value.trim() === MEMBER_PW) {
-        localStorage.setItem('hanul_golf_exp', Date.now() + 2592000000);
-        document.getElementById('login-screen').style.display = 'none';
-      } else alert("비밀번호가 일치하지 않습니다.");
-    }
-
-    function toggleAdmin() {
-      if (!isAdmin) {
-        const pw = prompt("관리자 비밀번호를 입력하세요");
-        if (pw === ADMIN_PW) {
-          isAdmin = true;
-          document.body.classList.add('is-admin');
-          document.getElementById('admin-btn').innerText = "관리자 로그아웃";
-          if (window.renderAll) window.renderAll();
-        } else if (pw !== null) alert("비밀번호가 틀렸습니다.");
-      } else {
-        isAdmin = false;
-        document.body.classList.remove('is-admin');
-        document.getElementById('admin-btn').innerText = "관리자 로그인";
-        switchTab('t-handi', document.querySelector('.nav-btn'));
-        if (window.renderAll) window.renderAll();
-      }
-    }
 
     function switchTab(id, btn) {
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
@@ -934,6 +849,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
     import { getDatabase, ref, onValue, push, remove, update, set } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyB10lgpcSe2B8gWyqaPUH6CdaTaTxlxjYM",
@@ -947,6 +863,10 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
+    const auth = getAuth(app);
+
+    const MEMBER_EMAIL = 'member@hanul.golf';
+    const ADMIN_EMAIL = 'admin@hanul.golf';
 
     const DEFAULT_9_PARS = [4,4,3,4,5,4,3,4,5];
     const DEFAULT_PARS = [...DEFAULT_9_PARS, ...DEFAULT_9_PARS];
@@ -971,25 +891,239 @@
     let memberStats = {};
     let memberTotalPoints = {};
     let currentEdit = null;
-
     let liveMode = 'single';
     let currentLiveHole = 1;
     let tourneyMode = 'peoria';
+    let unsubscribes = [];
+    let dbListenersActive = false;
 
+    const authErrorMsg = (err) => {
+      const c = err?.code || '';
+      if (c === 'auth/wrong-password' || c === 'auth/invalid-credential' || c === 'auth/user-not-found') return '비밀번호가 일치하지 않습니다.';
+      if (c === 'auth/too-many-requests') return '비밀번호 입력 시도가 너무 많습니다. 잠시 후 다시 시도하세요.';
+      if (c === 'auth/operation-not-allowed') return 'Firebase 콘솔에서 이메일/비밀번호 로그인을 먼저 켜주세요.';
+      return '로그인 오류: ' + (err?.message || '알 수 없는 오류');
+    };
+
+    // ==========================================
+    // Firebase Authentication 로그인 / 로그아웃
+    // ==========================================
+    window.loginMember = () => {
+      const pw = document.getElementById('pw-input').value.trim();
+      const errEl = document.getElementById('login-err');
+      if (!pw) { errEl.innerText = '비밀번호를 입력하세요.'; return; }
+      errEl.innerText = '확인 중…';
+      signInWithEmailAndPassword(auth, MEMBER_EMAIL, pw)
+        .then(() => { errEl.innerText = ''; })
+        .catch((err) => { errEl.innerText = authErrorMsg(err); });
+    };
+
+    window.loginAdminDirect = () => {
+      const pw = document.getElementById('pw-input').value.trim();
+      const errEl = document.getElementById('login-err');
+      if (!pw) { errEl.innerText = '관리자 비밀번호를 입력한 뒤 버튼을 누르세요.'; return; }
+      errEl.innerText = '관리자 인증 중…';
+      signInWithEmailAndPassword(auth, ADMIN_EMAIL, pw)
+        .then(() => { errEl.innerText = ''; })
+        .catch((err) => { errEl.innerText = authErrorMsg(err); });
+    };
+
+    window.toggleAdmin = () => {
+      if (!window.isAdmin) {
+        const pw = prompt('관리자 비밀번호를 입력하세요');
+        if (pw === null || !pw.trim()) return;
+        signInWithEmailAndPassword(auth, ADMIN_EMAIL, pw.trim())
+          .then(() => alert('관리자 모드로 전환되었습니다.'))
+          .catch((err) => alert(authErrorMsg(err)));
+      } else {
+        if (confirm('관리자 로그아웃 후 로그인 화면으로 돌아갈까요?')) {
+          signOut(auth);
+        }
+      }
+    };
+
+    window.logoutAll = () => {
+      if (confirm('로그아웃 할까요?')) {
+        signOut(auth);
+      }
+    };
+
+    const stopDbListeners = () => {
+      unsubscribes.forEach(fn => { try { fn(); } catch(e) {} });
+      unsubscribes = [];
+      dbListenersActive = false;
+    };
+
+    const startDbListeners = () => {
+      if (dbListenersActive) return;
+      dbListenersActive = true;
+
+      unsubscribes.push(onValue(ref(db, 'courses'), (snap) => {
+        const data = snap.val();
+        allCourses = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })) : [];
+        renderCoursesList();
+        renderLiveCourseSelector();
+      }));
+
+      unsubscribes.push(onValue(ref(db, 'liveConfig'), (snap) => {
+        const val = snap.val();
+        if (val) {
+          liveConfig = {
+            date: val.date || new Date().toISOString().slice(0, 10),
+            courseKey: val.courseKey || '',
+            courseName: val.courseName || '기본 코스',
+            frontIdx: Number(val.frontIdx ?? 0),
+            backIdx: Number(val.backIdx ?? 1),
+            pars: val.pars || [...DEFAULT_PARS]
+          };
+        }
+        renderLiveCourseSelector();
+        renderLiveParStrip();
+        renderLiveInputUI();
+      }));
+
+      unsubscribes.push(onValue(ref(db, 'live'), (snap) => {
+        const data = snap.val();
+        allLive = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })) : [];
+        const sorted = allLive.map(l => ({ ...l, ...getLiveSummary(l) }))
+          .sort((a, b) => (a.played === 0 ? 999 : a.diff) - (b.played === 0 ? 999 : b.diff));
+
+        document.getElementById('live-tbody').innerHTML = sorted.length ? sorted.map((l, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td style="font-size:11px;color:var(--text-muted);">${esc(l.group || '-')}</td>
+            <td>
+              <button onclick="openScorecardModal('live','${l.key}')" style="background:none;border:none;color:#fff;font-weight:800;cursor:pointer;text-decoration:underline dotted rgba(212,175,55,0.6);">
+                ${esc(l.name)}
+              </button>
+              ${l.played === 18 ? '<span class="sub-note" style="color:var(--green-accent);">✅ 자동저장</span>' : ''}
+            </td>
+            <td>${l.played}/18H</td>
+            <td style="color:var(--gold);font-weight:700;">
+              ${l.diffStr} ${l.played > 0 ? `<span class="sub-note">(${l.totalStrokes}타)</span>` : ''}
+            </td>
+            <td class="admin-only">
+              <div class="action-btns">
+                <button class="btn-edit" onclick="openScorecardModal('live','${l.key}')">수정</button>
+                <button class="btn-del" onclick="deleteLive('${l.key}')">삭제</button>
+              </div>
+            </td>
+          </tr>`).join('') : '<tr><td colspan="6">진행 중인 라이브 기록이 없습니다.</td></tr>';
+
+        renderLiveInputUI();
+      }));
+
+      unsubscribes.push(onValue(ref(db, 'members'), (snap) => {
+        registeredMembers = snap.val() || {};
+        window.renderAll();
+      }));
+
+      unsubscribes.push(onValue(ref(db, 'points'), (snap) => {
+        const data = snap.val();
+        allPoints = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || '')) : [];
+        const listEl = document.getElementById('admin-points-list');
+        if (listEl) {
+          listEl.innerHTML = allPoints.length ? allPoints.slice(0, 30).map(p => `
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(30,63,51,0.4);gap:6px;">
+              <div>
+                <b>${esc(p.player)}</b>
+                <span style="color:${p.amount>=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${p.amount>=0?'+':''}${p.amount}P</span>
+                <span class="sub-note">${esc(p.date)} · ${esc(p.reason)}</span>
+              </div>
+              <div class="action-btns">
+                <button class="btn-edit" onclick="openEdit('point','${p.key}')">수정</button>
+                <button class="btn-del" onclick="deleteManualPoint('${p.key}')">삭제</button>
+              </div>
+            </div>`).join('') : '<div style="color:var(--text-muted);">등록된 개별 포인트가 없습니다.</div>';
+        }
+        window.renderAll();
+      }));
+
+      unsubscribes.push(onValue(ref(db, 'rounds'), (snap) => {
+        const data = snap.val();
+        allRounds = data
+          ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+          : [];
+        window.renderAll();
+      }));
+
+      unsubscribes.push(onValue(ref(db, 'finance'), (snap) => {
+        const data = snap.val();
+        allFinance = data
+          ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+          : [];
+        window.renderFinance();
+      }));
+
+      unsubscribes.push(onValue(ref(db, 'tourneyConfig'), (snap) => {
+        tourneyConfigs = snap.val() || {};
+        window.renderTourney();
+      }));
+
+      unsubscribes.push(onValue(ref(db, 'news'), (snap) => {
+        const data = snap.val();
+        allNews = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })).reverse() : [];
+        document.getElementById('news-container').innerHTML = allNews.length ? allNews.map(n => `
+          <div class="card">
+            <div class="card-title">
+              <span>📣 ${esc(n.title)}</span>
+              <span style="font-size:11px;color:var(--text-muted);">${esc(n.date || '')}</span>
+            </div>
+            <div style="font-size:13px;line-height:1.6;white-space:pre-wrap;">${esc(n.body)}</div>
+            <div class="action-btns admin-only" style="margin-top:12px;">
+              <button class="btn-edit" onclick="openEdit('news','${n.key}')">수정</button>
+              <button class="btn-del" onclick="deleteNews('${n.key}')">삭제</button>
+            </div>
+          </div>`).join('') : '<div class="card">등록된 동호회 소식이 없습니다.</div>';
+      }));
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      const loginScreen = document.getElementById('login-screen');
+      const authLoading = document.getElementById('auth-loading');
+      const loginWrap = document.getElementById('login-form-wrap');
+
+      if (authLoading) authLoading.style.display = 'none';
+
+      if (user) {
+        window.isAdmin = (user.email === ADMIN_EMAIL);
+        document.body.classList.toggle('is-admin', window.isAdmin);
+        document.getElementById('admin-btn').innerText = window.isAdmin ? '관리자 로그아웃' : '관리자 로그인';
+        if (!window.isAdmin) {
+          const curActive = document.querySelector('.tab-pane.active');
+          if (curActive && (curActive.id === 't-input' || curActive.id === 't-settings')) {
+            switchTab('t-handi', document.querySelector('.nav-btn'));
+          }
+        }
+        loginScreen.style.display = 'none';
+        if (!dbListenersActive) {
+          startDbListeners();
+        } else {
+          window.renderAll();
+        }
+      } else {
+        stopDbListeners();
+        window.isAdmin = false;
+        document.body.classList.remove('is-admin');
+        document.getElementById('admin-btn').innerText = '관리자 로그인';
+        document.getElementById('pw-input').value = '';
+        document.getElementById('login-err').innerText = '';
+        if (loginWrap) loginWrap.style.display = 'block';
+        loginScreen.style.display = 'flex';
+      }
+    });
+
+    // ==========================================
+    // 유틸 & 계산 로직
+    // ==========================================
     const esc = (str) => String(str ?? '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
     const safeKey = (s) => encodeURIComponent(String(s).trim()).replace(/\./g, '%2E');
 
     const normalizeSubCourses = (c) => {
-      if (!c) return [
-        { name: '전반 (OUT)', pars: [...DEFAULT_9_PARS] },
-        { name: '후반 (IN)', pars: [...DEFAULT_9_PARS] }
-      ];
+      if (!c) return [{ name: '전반 (OUT)', pars: [...DEFAULT_9_PARS] }, { name: '후반 (IN)', pars: [...DEFAULT_9_PARS] }];
       if (Array.isArray(c.subCourses) && c.subCourses.length >= 2) {
         return c.subCourses.map((sc, idx) => ({
           name: sc.name || DEFAULT_COURSE_LABELS[idx] || `${idx + 1}코스`,
@@ -997,10 +1131,7 @@
         }));
       }
       const p = Array.isArray(c.pars) && c.pars.length >= 18 ? c.pars.map(Number) : [...DEFAULT_PARS];
-      return [
-        { name: '전반 (OUT)', pars: p.slice(0, 9) },
-        { name: '후반 (IN)', pars: p.slice(9, 18) }
-      ];
+      return [{ name: '전반 (OUT)', pars: p.slice(0, 9) }, { name: '후반 (IN)', pars: p.slice(9, 18) }];
     };
 
     const getGolfTerm = (score, par) => {
@@ -1038,7 +1169,8 @@
 
     const syncRoundFine = (roundKey, roundObj) => {
       const { over, amount } = calcFineAmount({ ...roundObj, key: roundKey });
-      const fineRef = ref(db, 'finance/fine_' + roundKey);
+      const fineKey = 'fine_' + roundKey;
+      const fineRef = ref(db, 'finance/' + fineKey);
       if (amount > 0) {
         return set(fineRef, {
           date: roundObj.date,
@@ -1049,35 +1181,33 @@
           player: roundObj.player,
           roundKey
         });
-      } else {
+      } else if (allFinance.some(f => f.key === fineKey)) {
         return remove(fineRef);
       }
+      return Promise.resolve();
     };
 
     window.syncAllRoundFines = () => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
-      const promises = allRounds.map(r => syncRoundFine(r.key, r));
-      Promise.all(promises)
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
+      Promise.all(allRounds.map(r => syncRoundFine(r.key, r)))
         .then(() => alert(`총 ${allRounds.length}건의 라운딩 기록 기준 벌금을 동기화했습니다.`))
         .catch(err => alert("동기화 실패: " + err.message));
     };
 
     window.syncMonthHandi = () => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const selMonth = document.getElementById('month-filter').value;
       const targets = allRounds.filter(r => r.date && r.date.startsWith(selMonth));
       if (!targets.length) return alert("해당 월에 라운딩 기록이 없습니다.");
       if (!confirm(`${selMonth}월 기록 ${targets.length}건의 적용 핸디를\n현재 회원 '등록 핸디' 기준으로 재계산(벌금 포함) 할까요?`)) return;
 
-      const promises = targets.map(r => {
+      Promise.all(targets.map(r => {
         const regHandi = getRegisteredHandi(r.player);
         const updatedObj = { ...r, appliedHandi: regHandi };
         delete updatedObj.key;
         return update(ref(db, 'rounds/' + r.key), { appliedHandi: regHandi })
           .then(() => syncRoundFine(r.key, updatedObj));
-      });
-
-      Promise.all(promises)
+      }))
         .then(() => alert(`${selMonth}월 성적 및 벌금이 등록 핸디 기준으로 재계산되었습니다.`))
         .catch(err => alert("재계산 실패: " + err.message));
     };
@@ -1094,13 +1224,11 @@
       const bonusPrizes = [300, 200, 100];
       const rankedPlayers = [];
       const playerAutoPoints = {};
-
       enriched.forEach(r => {
         if (!playerAutoPoints[r.player]) {
           const rankIdx = rankedPlayers.length;
           rankedPlayers.push(r.player);
-          const bonus = rankIdx < 3 ? bonusPrizes[rankIdx] : 0;
-          playerAutoPoints[r.player] = { base: 300, bonus, rank: rankIdx + 1 };
+          playerAutoPoints[r.player] = { base: 300, bonus: rankIdx < 3 ? bonusPrizes[rankIdx] : 0, rank: rankIdx + 1 };
         }
       });
 
@@ -1116,21 +1244,21 @@
       const totals = {};
       const months = new Set();
       allRounds.forEach(r => { if (r.date) months.add(r.date.slice(0, 7)); });
-
       months.forEach(m => {
         const { playerAutoPoints } = computeMonthResults(m);
         Object.entries(playerAutoPoints).forEach(([player, info]) => {
           totals[player] = (totals[player] || 0) + info.base + info.bonus;
         });
       });
-
       allPoints.forEach(p => {
         totals[p.player] = (totals[p.player] || 0) + Number(p.amount);
       });
-
       return totals;
     };
 
+    // ==========================================
+    // 골프장 빌더 (18~54홀, 코스별 이름)
+    // ==========================================
     const readBuilderSubCourses = (containerId) => {
       const container = document.getElementById(containerId);
       if (!container) return [];
@@ -1144,7 +1272,6 @@
     window.renderCourseBuilder = (containerId, numCourses, existingSubCourses = null, sumId = 'course-par-sum') => {
       const container = document.getElementById(containerId);
       if (!container) return;
-
       const currentSnapshot = existingSubCourses || readBuilderSubCourses(containerId);
 
       container.innerHTML = Array.from({length: numCourses}, (_, cIdx) => {
@@ -1185,7 +1312,6 @@
         const sumEl = document.getElementById(sumId);
         if (sumEl) sumEl.innerText = `총 ${totalHoles}홀 · Par ${totalPar}`;
       };
-
       container.querySelectorAll('.sc-par-sel').forEach(s => s.addEventListener('change', updateSums));
       updateSums();
     };
@@ -1217,20 +1343,13 @@
     };
 
     window.deleteCourse = (key) => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const c = allCourses.find(x => x.key === key);
       if (!c) return;
       if (confirm(`'${c.name}' 골프장을 삭제할까요?`)) {
         remove(ref(db, 'courses/' + key)).catch(err => alert("삭제 실패: " + err.message));
       }
     };
-
-    onValue(ref(db, 'courses'), (snap) => {
-      const data = snap.val();
-      allCourses = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })) : [];
-      renderCoursesList();
-      renderLiveCourseSelector();
-    });
 
     const renderCoursesList = () => {
       const listEl = document.getElementById('courses-list');
@@ -1268,10 +1387,7 @@
       const key = document.getElementById('in-course-select').value;
       const wrap = document.getElementById('in-subcourse-wrap');
       const found = allCourses.find(c => c.key === key);
-      if (!found) {
-        wrap.style.display = 'none';
-        return;
-      }
+      if (!found) { wrap.style.display = 'none'; return; }
       const subs = normalizeSubCourses(found);
       const fSel = document.getElementById('in-front-course');
       const bSel = document.getElementById('in-back-course');
@@ -1291,9 +1407,7 @@
       const subs = normalizeSubCourses(found);
       const fIdx = Number(document.getElementById('in-front-course').value || 0);
       const bIdx = Number(document.getElementById('in-back-course').value || 0);
-      const fName = subs[fIdx]?.name || '';
-      const bName = subs[bIdx]?.name || '';
-      document.getElementById('in-course').value = `${found.name} (${fName}→${bName})`;
+      document.getElementById('in-course').value = `${found.name} (${subs[fIdx]?.name || ''}→${subs[bIdx]?.name || ''})`;
     };
 
     const findCourseParsByName = (courseStr) => {
@@ -1317,23 +1431,9 @@
       return DEFAULT_PARS;
     };
 
-    onValue(ref(db, 'liveConfig'), (snap) => {
-      const val = snap.val();
-      if (val) {
-        liveConfig = {
-          date: val.date || new Date().toISOString().slice(0, 10),
-          courseKey: val.courseKey || '',
-          courseName: val.courseName || '기본 코스',
-          frontIdx: Number(val.frontIdx ?? 0),
-          backIdx: Number(val.backIdx ?? 1),
-          pars: val.pars || [...DEFAULT_PARS]
-        };
-      }
-      renderLiveCourseSelector();
-      renderLiveParStrip();
-      renderLiveInputUI();
-    });
-
+    // ==========================================
+    // 라이브 스코어 (개별/조별 + 18홀 자동저장)
+    // ==========================================
     const renderLiveCourseSelector = () => {
       const dateEl = document.getElementById('live-date-input');
       const selEl = document.getElementById('live-course-select');
@@ -1351,10 +1451,7 @@
       const found = allCourses.find(c => c.key === liveConfig.courseKey);
       if (found && subWrap && fSel && bSel) {
         const subs = normalizeSubCourses(found);
-        const opts = subs.map((sc, idx) => {
-          const pSum = sc.pars.reduce((a, b) => a + Number(b), 0);
-          return `<option value="${idx}">${esc(sc.name)} (Par ${pSum})</option>`;
-        }).join('');
+        const opts = subs.map((sc, idx) => `<option value="${idx}">${esc(sc.name)} (Par ${sc.pars.reduce((a,b)=>a+Number(b),0)})</option>`).join('');
         fSel.innerHTML = opts;
         bSel.innerHTML = opts;
         fSel.value = String(Math.min(liveConfig.frontIdx ?? 0, subs.length - 1));
@@ -1376,26 +1473,17 @@
       const courseKey = document.getElementById('live-course-select').value;
       const found = allCourses.find(c => c.key === courseKey);
 
-      let courseName = '기본 코스';
-      let frontIdx = 0;
-      let backIdx = 1;
-      let pars = [...DEFAULT_PARS];
-
+      let courseName = '기본 코스', frontIdx = 0, backIdx = 1, pars = [...DEFAULT_PARS];
       if (found) {
         const subs = normalizeSubCourses(found);
-        if (resetSubIdx) {
-          frontIdx = 0;
-          backIdx = subs.length > 1 ? 1 : 0;
-        } else {
+        if (resetSubIdx) { frontIdx = 0; backIdx = subs.length > 1 ? 1 : 0; }
+        else {
           frontIdx = Math.min(Number(document.getElementById('live-front-course').value || 0), subs.length - 1);
           backIdx = Math.min(Number(document.getElementById('live-back-course').value || 0), subs.length - 1);
         }
-        const fSub = subs[frontIdx];
-        const bSub = subs[backIdx];
-        courseName = `${found.name} (${fSub.name}→${bSub.name})`;
-        pars = [...fSub.pars, ...bSub.pars];
+        courseName = `${found.name} (${subs[frontIdx].name}→${subs[backIdx].name})`;
+        pars = [...subs[frontIdx].pars, ...subs[backIdx].pars];
       }
-
       set(ref(db, 'liveConfig'), { date, courseKey, courseName, frontIdx, backIdx, pars })
         .catch(err => alert("코스 설정 실패: " + err.message));
     };
@@ -1406,26 +1494,12 @@
       const pars = liveConfig.pars || DEFAULT_PARS;
       strip.innerHTML = pars.map((p, idx) => {
         const h = idx + 1;
-        return `
-          <div class="hole-pill ${h === currentLiveHole ? 'active' : ''}" onclick="selectLiveHole(${h})">
-            <b>${h}H</b>
-            <small>P${p}</small>
-          </div>`;
+        return `<div class="hole-pill ${h === currentLiveHole ? 'active' : ''}" onclick="selectLiveHole(${h})"><b>${h}H</b><small>P${p}</small></div>`;
       }).join('');
     };
 
-    window.selectLiveHole = (h) => {
-      currentLiveHole = Math.max(1, Math.min(18, h));
-      renderLiveParStrip();
-      renderLiveInputUI();
-    };
-
-    window.stepLiveHole = (delta) => {
-      let next = currentLiveHole + delta;
-      if (next < 1) next = 18;
-      if (next > 18) next = 1;
-      window.selectLiveHole(next);
-    };
+    window.selectLiveHole = (h) => { currentLiveHole = Math.max(1, Math.min(18, h)); renderLiveParStrip(); renderLiveInputUI(); };
+    window.stepLiveHole = (delta) => { let n = currentLiveHole + delta; if (n < 1) n = 18; if (n > 18) n = 1; window.selectLiveHole(n); };
 
     window.setLiveMode = (mode) => {
       liveMode = mode;
@@ -1437,11 +1511,10 @@
     };
 
     window.saveGroupSetup = () => {
-      const setup = {
+      localStorage.setItem('hanul_live_group', JSON.stringify({
         group: document.getElementById('live-group-name').value,
         players: [1,2,3,4].map(i => document.getElementById('gp-' + i).value)
-      };
-      localStorage.setItem('hanul_live_group', JSON.stringify(setup));
+      }));
       renderLiveInputUI();
     };
 
@@ -1451,13 +1524,23 @@
         if (!raw) return;
         const setup = JSON.parse(raw);
         if (setup.group) document.getElementById('live-group-name').value = setup.group;
-        if (Array.isArray(setup.players)) {
-          setup.players.forEach((p, idx) => {
-            const el = document.getElementById('gp-' + (idx + 1));
-            if (el) el.value = p || '';
-          });
-        }
+        if (Array.isArray(setup.players)) setup.players.forEach((p, idx) => { const el = document.getElementById('gp-' + (idx + 1)); if (el) el.value = p || ''; });
       } catch(e) {}
+    };
+
+    const syncLiveToRoundIfComplete = (pKey, payload) => {
+      const holes = payload.holes || {};
+      const filledCount = Array.from({length: 18}, (_, i) => Number(holes[String(i+1)] || 0)).filter(v => v > 0).length;
+      if (filledCount !== 18) return Promise.resolve();
+      const totalScore = Array.from({length: 18}, (_, i) => Number(holes[String(i+1)])).reduce((a, b) => a + b, 0);
+      const rKey = 'auto_' + payload.date + '_' + pKey;
+      const existRound = allRounds.find(r => r.key === rKey);
+      const appliedHandi = existRound && existRound.appliedHandi !== undefined ? Number(existRound.appliedHandi) : getRegisteredHandi(payload.name);
+      const roundObj = {
+        date: payload.date, course: payload.courseName, player: payload.name, score: totalScore,
+        appliedHandi, holes, pars: payload.pars || liveConfig.pars || DEFAULT_PARS, source: 'live'
+      };
+      return set(ref(db, 'rounds/' + rKey), roundObj).then(() => syncRoundFine(rKey, roundObj));
     };
 
     window.saveLiveHoleScore = (playerName, groupName, holeNum, strokes) => {
@@ -1481,29 +1564,7 @@
       };
 
       set(ref(db, 'live/' + pKey), payload)
-        .then(() => {
-          const filledCount = Array.from({length: 18}, (_, i) => Number(holes[String(i+1)] || 0)).filter(v => v > 0).length;
-          if (filledCount === 18) {
-            const totalScore = Array.from({length: 18}, (_, i) => Number(holes[String(i+1)])).reduce((a, b) => a + b, 0);
-            const rKey = 'auto_' + payload.date + '_' + pKey;
-            const existRound = allRounds.find(r => r.key === rKey);
-            const appliedHandi = existRound && existRound.appliedHandi !== undefined
-              ? Number(existRound.appliedHandi)
-              : getRegisteredHandi(playerName);
-
-            const roundObj = {
-              date: payload.date,
-              course: payload.courseName,
-              player: playerName,
-              score: totalScore,
-              appliedHandi,
-              holes,
-              pars,
-              source: 'live'
-            };
-            set(ref(db, 'rounds/' + rKey), roundObj).then(() => syncRoundFine(rKey, roundObj));
-          }
-        })
+        .then(() => syncLiveToRoundIfComplete(pKey, payload))
         .catch(err => alert("라이브 저장 실패: " + err.message));
     };
 
@@ -1511,9 +1572,19 @@
       const found = allCourses.find(c => c.key === liveConfig.courseKey);
       if (!found) return holeNum <= 9 ? '전반' : '후반';
       const subs = normalizeSubCourses(found);
-      return holeNum <= 9
-        ? (subs[liveConfig.frontIdx]?.name || '전반')
-        : (subs[liveConfig.backIdx]?.name || '후반');
+      return holeNum <= 9 ? (subs[liveConfig.frontIdx]?.name || '전반') : (subs[liveConfig.backIdx]?.name || '후반');
+    };
+
+    const getLiveSummary = (l) => {
+      const pars = l.pars || liveConfig.pars || DEFAULT_PARS;
+      const holes = l.holes || {};
+      let played = 0, totalStrokes = 0, totalParPlayed = 0;
+      for (let h = 1; h <= 18; h++) {
+        const sc = Number(holes[String(h)] || 0);
+        if (sc > 0) { played++; totalStrokes += sc; totalParPlayed += Number(pars[h - 1] || 4); }
+      }
+      const diff = totalStrokes - totalParPlayed;
+      return { played, totalStrokes, diff, diffStr: played === 0 ? '-' : (diff === 0 ? 'E' : (diff > 0 ? `+${diff}` : `${diff}`)) };
     };
 
     window.renderLiveInputUI = () => {
@@ -1532,9 +1603,7 @@
         if (curSingleScore > 0) {
           const t = getGolfTerm(curSingleScore, par);
           sCur.innerHTML = `현재 입력: <b class="${t.cls}">${curSingleScore}타 (${t.text})</b>`;
-        } else {
-          sCur.innerText = singleName ? '아직 미입력' : '회원을 선택하세요';
-        }
+        } else sCur.innerText = singleName ? '아직 미입력' : '회원을 선택하세요';
       }
 
       const qBox = document.getElementById('live-single-quick-btns');
@@ -1544,17 +1613,8 @@
         qBox.innerHTML = candidates.map(s => {
           const t = getGolfTerm(s, par);
           const isSel = curSingleScore === s;
-          return `
-            <button class="q-btn" style="${isSel ? 'border-color:var(--gold);background:rgba(212,175,55,0.22);' : ''}"
-              onclick="onSingleQuickTap(${s})">
-              <span>${s}타</span>
-              <small class="${t.cls}">${t.text}</small>
-            </button>`;
-        }).join('') + `
-          <button class="q-btn" onclick="onSingleCustomTap()">
-            <span>직접입력</span>
-            <small style="color:var(--text-muted);">기타 타수</small>
-          </button>`;
+          return `<button class="q-btn" style="${isSel ? 'border-color:var(--gold);background:rgba(212,175,55,0.22);' : ''}" onclick="onSingleQuickTap(${s})"><span>${s}타</span><small class="${t.cls}">${t.text}</small></button>`;
+        }).join('') + `<button class="q-btn" onclick="onSingleCustomTap()"><span>직접입력</span><small style="color:var(--text-muted);">기타 타수</small></button>`;
       }
 
       const gLabel = document.getElementById('live-group-hole-label');
@@ -1563,194 +1623,102 @@
       if (gList) {
         const groupName = document.getElementById('live-group-name')?.value || '1조';
         const players = [1,2,3,4].map(i => document.getElementById('gp-' + i)?.value).filter(Boolean);
-        if (!players.length) {
-          gList.innerHTML = '<div style="text-align:center;font-size:12px;color:var(--text-muted);padding:14px;">위에서 조원(회원)을 1명 이상 선택하세요.</div>';
-        } else {
-          gList.innerHTML = players.map(pName => {
-            const rec = allLive.find(l => l.key === safeKey(pName));
-            const curS = rec && rec.holes ? Number(rec.holes[String(currentLiveHole)] || 0) : 0;
-            const term = curS > 0 ? getGolfTerm(curS, par) : null;
-            const safeP = esc(pName);
-            return `
-              <div class="group-player-row">
-                <div>
-                  <div style="font-weight:800;font-size:14px;">${safeP}</div>
-                  <div style="font-size:11px;color:var(--text-muted);">
-                    ${rec ? `진행 ${getLiveSummary(rec).played}/18H · ${getLiveSummary(rec).diffStr}` : '대기중'}
+        gList.innerHTML = !players.length
+          ? '<div style="text-align:center;font-size:12px;color:var(--text-muted);padding:14px;">위에서 조원(회원)을 1명 이상 선택하세요.</div>'
+          : players.map(pName => {
+              const rec = allLive.find(l => l.key === safeKey(pName));
+              const curS = rec && rec.holes ? Number(rec.holes[String(currentLiveHole)] || 0) : 0;
+              const term = curS > 0 ? getGolfTerm(curS, par) : null;
+              const safeP = esc(pName);
+              return `
+                <div class="group-player-row">
+                  <div>
+                    <div style="font-weight:800;font-size:14px;">${safeP}</div>
+                    <div style="font-size:11px;color:var(--text-muted);">${rec ? `진행 ${getLiveSummary(rec).played}/18H · ${getLiveSummary(rec).diffStr}` : '대기중'}</div>
                   </div>
-                </div>
-                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
-                  <div class="stepper">
-                    <button class="step-btn" onclick="stepGroupPlayerScore('${safeP}','${esc(groupName)}',-1,${par})">-</button>
-                    <div class="step-val">
-                      ${curS > 0 ? `<b style="font-size:16px;">${curS}</b> <span class="${term.cls}" style="font-size:11px;font-weight:700;">(${term.text})</span>` : `<span style="color:var(--text-muted);font-size:12px;">미입력</span>`}
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+                    <div class="stepper">
+                      <button class="step-btn" onclick="stepGroupPlayerScore('${safeP}','${esc(groupName)}',-1,${par})">-</button>
+                      <div class="step-val">${curS > 0 ? `<b style="font-size:16px;">${curS}</b> <span class="${term.cls}" style="font-size:11px;font-weight:700;">(${term.text})</span>` : `<span style="color:var(--text-muted);font-size:12px;">미입력</span>`}</div>
+                      <button class="step-btn" onclick="stepGroupPlayerScore('${safeP}','${esc(groupName)}',1,${par})">+</button>
                     </div>
-                    <button class="step-btn" onclick="stepGroupPlayerScore('${safeP}','${esc(groupName)}',1,${par})">+</button>
+                    <div style="display:flex;gap:4px;">
+                      <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${Math.max(1,par-1)})">버디</button>
+                      <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par})">파</button>
+                      <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par+1})">보기</button>
+                      <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par+2})">더블</button>
+                    </div>
                   </div>
-                  <div style="display:flex;gap:4px;">
-                    <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${Math.max(1,par-1)})">버디</button>
-                    <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par})">파</button>
-                    <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par+1})">보기</button>
-                    <button class="btn-sm" style="font-size:10px;padding:2px 6px;" onclick="saveLiveHoleScore('${safeP}','${esc(groupName)}',${currentLiveHole},${par+2})">더블</button>
-                  </div>
-                </div>
-              </div>`;
-          }).join('');
-        }
+                </div>`;
+            }).join('');
       }
     };
 
-    window.onSingleQuickTap = (s) => {
-      const name = document.getElementById('live-single-player').value;
-      const group = document.getElementById('live-single-group').value;
-      window.saveLiveHoleScore(name, group, currentLiveHole, s);
-    };
-
+    window.onSingleQuickTap = (s) => window.saveLiveHoleScore(document.getElementById('live-single-player').value, document.getElementById('live-single-group').value, currentLiveHole, s);
     window.onSingleCustomTap = () => {
       const name = document.getElementById('live-single-player').value;
       if (!name) return alert("회원을 먼저 선택하세요.");
       const val = prompt(`${currentLiveHole}홀 타수를 입력하세요`);
-      if (val !== null && val.trim() !== '') {
-        const group = document.getElementById('live-single-group').value;
-        window.saveLiveHoleScore(name, group, currentLiveHole, Number(val));
-      }
+      if (val !== null && val.trim() !== '') window.saveLiveHoleScore(name, document.getElementById('live-single-group').value, currentLiveHole, Number(val));
     };
-
     window.stepGroupPlayerScore = (pName, groupName, delta, par) => {
       const rec = allLive.find(l => l.key === safeKey(pName));
       const cur = rec && rec.holes ? Number(rec.holes[String(currentLiveHole)] || 0) : 0;
-      const next = cur === 0 ? par : Math.max(1, cur + delta);
-      window.saveLiveHoleScore(pName, groupName, currentLiveHole, next);
+      window.saveLiveHoleScore(pName, groupName, currentLiveHole, cur === 0 ? par : Math.max(1, cur + delta));
     };
-
-    const getLiveSummary = (l) => {
-      const pars = l.pars || liveConfig.pars || DEFAULT_PARS;
-      const holes = l.holes || {};
-      let played = 0, totalStrokes = 0, totalParPlayed = 0;
-      for (let h = 1; h <= 18; h++) {
-        const sc = Number(holes[String(h)] || 0);
-        if (sc > 0) {
-          played++;
-          totalStrokes += sc;
-          totalParPlayed += Number(pars[h - 1] || 4);
-        }
-      }
-      const diff = totalStrokes - totalParPlayed;
-      const diffStr = played === 0 ? '-' : (diff === 0 ? 'E' : (diff > 0 ? `+${diff}` : `${diff}`));
-      return { played, totalStrokes, diff, diffStr };
-    };
-
-    onValue(ref(db, 'live'), (snap) => {
-      const data = snap.val();
-      allLive = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })) : [];
-      const sorted = allLive.map(l => ({ ...l, ...getLiveSummary(l) }))
-        .sort((a, b) => (a.played === 0 ? 999 : a.diff) - (b.played === 0 ? 999 : b.diff));
-
-      document.getElementById('live-tbody').innerHTML = sorted.length ? sorted.map((l, i) => `
-        <tr>
-          <td>${i + 1}</td>
-          <td style="font-size:11px;color:var(--text-muted);">${esc(l.group || '-')}</td>
-          <td>
-            <button onclick="openScorecardModal('live','${l.key}')" style="background:none;border:none;color:#fff;font-weight:800;cursor:pointer;text-decoration:underline dotted rgba(212,175,55,0.6);">
-              ${esc(l.name)}
-            </button>
-            ${l.played === 18 ? '<span class="sub-note" style="color:var(--green-accent);">✅ 자동저장</span>' : ''}
-          </td>
-          <td>${l.played}/18H</td>
-          <td style="color:var(--gold);font-weight:700;">
-            ${l.diffStr} ${l.played > 0 ? `<span class="sub-note">(${l.totalStrokes}타)</span>` : ''}
-          </td>
-          <td class="admin-only">
-            <div class="action-btns">
-              <button class="btn-edit" onclick="openScorecardModal('live','${l.key}')">수정</button>
-              <button class="btn-del" onclick="deleteLive('${l.key}')">삭제</button>
-            </div>
-          </td>
-        </tr>`).join('') : '<tr><td colspan="6">진행 중인 라이브 기록이 없습니다.</td></tr>';
-
-      renderLiveInputUI();
-    });
 
     window.deleteLive = (key) => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const l = allLive.find(x => x.key === key);
-      if (!l) return;
-      if (confirm(`'${l.name}'님의 라이브 기록을 삭제할까요?`)) {
+      if (l && confirm(`'${l.name}'님의 라이브 기록을 삭제할까요?`)) {
         remove(ref(db, 'live/' + key)).catch(err => alert("삭제 실패: " + err.message));
       }
     };
 
     window.clearLive = () => {
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       if (confirm("라이브 스코어보드를 전체 초기화할까요? (이미 18홀 완료되어 저장된 정식 기록은 유지됩니다)")) {
-        remove(ref(db, 'live'))
-          .then(() => alert("라이브 보드가 초기화되었습니다."))
-          .catch(err => alert("초기화 실패: " + err.message));
+        remove(ref(db, 'live')).then(() => alert("라이브 보드가 초기화되었습니다.")).catch(err => alert("초기화 실패: " + err.message));
       }
     };
 
+    // ==========================================
+    // 스코어카드 & 공용 수정 모달
+    // ==========================================
     window.openScorecardModal = (sourceType, key) => {
-      let record, pars, holes, title, readOnly = false;
+      let record, pars, holes, title;
       if (sourceType === 'live') {
         record = allLive.find(x => x.key === key);
         if (!record) return;
         pars = record.pars || liveConfig.pars || DEFAULT_PARS;
         holes = record.holes || {};
         title = `⛳ ${record.name} 실시간 스코어카드`;
-        readOnly = !isAdmin;
       } else {
         record = allRounds.find(x => x.key === key);
         if (!record) return;
         pars = record.pars || findCourseParsByName(record.course);
         holes = record.holes || {};
         title = `🏆 ${record.player} · 18홀 스코어 입력/수정`;
-        readOnly = !isAdmin;
       }
-
+      const readOnly = !window.isAdmin;
       currentEdit = { type: 'scorecard_' + sourceType, key, pars };
       document.getElementById('edit-modal-title').innerText = title;
 
-      const makeRow = (start, end) => `
-        <div class="sc-grid">
-          ${Array.from({length: end - start + 1}, (_, idx) => {
-            const h = start + idx;
-            const p = Number(pars[h - 1] || 4);
-            const s = Number(holes[String(h)] || 0);
-            const t = s > 0 ? getGolfTerm(s, p) : null;
-            return `
-              <div class="sc-cell">
-                <div class="h">${h}H</div>
-                <div class="p">P${p}</div>
-                ${readOnly
-                  ? `<div class="s ${t ? t.cls : ''}">${s > 0 ? s : '-'}</div>`
-                  : `<input type="number" class="sc-hole-inp" data-hole="${h}" value="${s > 0 ? s : ''}" min="1" max="20"
-                      style="width:100%;background:#132820;border:1px solid var(--card-border);color:#fff;text-align:center;border-radius:4px;padding:3px 0;font-weight:800;font-size:13px;margin-top:2px;">`
-                }
-              </div>`;
-          }).join('')}
-        </div>`;
+      const makeRow = (start, end) => `<div class="sc-grid">${Array.from({length: end - start + 1}, (_, idx) => {
+        const h = start + idx, p = Number(pars[h - 1] || 4), s = Number(holes[String(h)] || 0), t = s > 0 ? getGolfTerm(s, p) : null;
+        return `<div class="sc-cell"><div class="h">${h}H</div><div class="p">P${p}</div>${readOnly
+          ? `<div class="s ${t ? t.cls : ''}">${s > 0 ? s : '-'}</div>`
+          : `<input type="number" class="sc-hole-inp" data-hole="${h}" value="${s > 0 ? s : ''}" min="1" max="20" style="width:100%;background:#132820;border:1px solid var(--card-border);color:#fff;text-align:center;border-radius:4px;padding:3px 0;font-weight:800;font-size:13px;margin-top:2px;">`
+        }</div>`;
+      }).join('')}</div>`;
 
       const bodyEl = document.getElementById('edit-modal-body');
-      bodyEl.innerHTML = `
-        <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
-          ${esc(record.date || '')} · ${esc(record.courseName || record.course || '')}
-        </div>
-        <div style="font-size:12px;color:var(--gold);margin-bottom:4px;">전반 (1H ~ 9H)</div>
-        ${makeRow(1, 9)}
-        <div style="font-size:12px;color:var(--gold);margin:8px 0 4px;">후반 (10H ~ 18H)</div>
-        ${makeRow(10, 18)}
-        <div id="sc-live-total" style="text-align:right;font-weight:800;color:var(--gold-light);margin-top:6px;"></div>
-      `;
+      bodyEl.innerHTML = `<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">${esc(record.date || '')} · ${esc(record.courseName || record.course || '')}</div><div style="font-size:12px;color:var(--gold);margin-bottom:4px;">전반 (1H ~ 9H)</div>${makeRow(1, 9)}<div style="font-size:12px;color:var(--gold);margin:8px 0 4px;">후반 (10H ~ 18H)</div>${makeRow(10, 18)}<div id="sc-live-total" style="text-align:right;font-weight:800;color:var(--gold-light);margin-top:6px;"></div>`;
 
       const updateTotalPreview = () => {
         let sum = 0, cnt = 0;
-        if (readOnly) {
-          for (let h = 1; h <= 18; h++) { const v = Number(holes[String(h)] || 0); if (v > 0) { sum += v; cnt++; } }
-        } else {
-          bodyEl.querySelectorAll('.sc-hole-inp').forEach(inp => {
-            const v = Number(inp.value || 0);
-            if (v > 0) { sum += v; cnt++; }
-          });
-        }
+        if (readOnly) { for (let h = 1; h <= 18; h++) { const v = Number(holes[String(h)] || 0); if (v > 0) { sum += v; cnt++; } } }
+        else { bodyEl.querySelectorAll('.sc-hole-inp').forEach(inp => { const v = Number(inp.value || 0); if (v > 0) { sum += v; cnt++; } }); }
         document.getElementById('sc-live-total').innerText = `입력 홀: ${cnt}/18H · 합계: ${sum}타`;
       };
       bodyEl.querySelectorAll('.sc-hole-inp').forEach(inp => inp.addEventListener('input', updateTotalPreview));
@@ -1764,369 +1732,165 @@
 
     window.closeEditModal = () => {
       document.getElementById('edit-modal').style.display = 'none';
-      document.getElementById('edit-modal-actions').innerHTML =
-        `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`;
+      document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`;
       currentEdit = null;
     };
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && currentEdit) window.closeEditModal();
-    });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && currentEdit) window.closeEditModal(); });
 
     window.openEdit = (type, key) => {
-      if (!isAdmin) return alert("관리자 로그인 후 이용하세요.");
+      if (!window.isAdmin) return alert("관리자 로그인 후 이용하세요.");
       currentEdit = { type, key };
       const titleEl = document.getElementById('edit-modal-title');
       const bodyEl = document.getElementById('edit-modal-body');
-      document.getElementById('edit-modal-actions').innerHTML =
-        `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`;
+      document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`;
 
       if (type === 'member') {
-        const m = registeredMembers[key];
-        if (!m) return;
+        const m = registeredMembers[key]; if (!m) return;
         titleEl.innerText = "👥 회원 정보 수정";
-        bodyEl.innerHTML = `
-          <div class="form-row"><label>회원 이름</label><input type="text" id="ed-m-name"></div>
-          <div class="form-row"><label>직책</label>
-            <select id="ed-m-role">
-              <option value="회원">일반 회원</option><option value="회장">회장</option>
-              <option value="총무">총무</option><option value="경기이사">경기이사</option>
-            </select>
-          </div>
-          <div class="form-row"><label>등록 핸디 (관리자 지정)</label><input type="number" id="ed-m-handi"></div>
-        `;
+        bodyEl.innerHTML = `<div class="form-row"><label>회원 이름</label><input type="text" id="ed-m-name"></div><div class="form-row"><label>직책</label><select id="ed-m-role"><option value="회원">일반 회원</option><option value="회장">회장</option><option value="총무">총무</option><option value="경기이사">경기이사</option></select></div><div class="form-row"><label>등록 핸디 (관리자 지정)</label><input type="number" id="ed-m-handi"></div>`;
         document.getElementById('ed-m-name').value = m.name || '';
         document.getElementById('ed-m-role').value = m.role || '회원';
         document.getElementById('ed-m-handi').value = m.initHandi ?? 0;
-      }
-      else if (type === 'round') {
-        const r = allRounds.find(x => x.key === key);
-        if (!r) return;
+      } else if (type === 'round') {
+        const r = allRounds.find(x => x.key === key); if (!r) return;
         titleEl.innerText = "✏ 라운딩 스코어 수정";
-        bodyEl.innerHTML = `
-          <div class="form-row"><label>날짜</label><input type="date" id="ed-r-date"></div>
-          <div class="form-row"><label>골프장명</label><input type="text" id="ed-r-course"></div>
-          <div class="form-row"><label>플레이어</label><input type="text" id="ed-r-player"></div>
-          <div class="form-row-2">
-            <div class="form-row"><label>최종 타수</label><input type="number" id="ed-r-score"></div>
-            <div class="form-row"><label>적용 핸디</label><input type="number" id="ed-r-handi"></div>
-          </div>
-        `;
+        bodyEl.innerHTML = `<div class="form-row"><label>날짜</label><input type="date" id="ed-r-date"></div><div class="form-row"><label>골프장명</label><input type="text" id="ed-r-course"></div><div class="form-row"><label>플레이어</label><input type="text" id="ed-r-player"></div><div class="form-row-2"><div class="form-row"><label>최종 타수</label><input type="number" id="ed-r-score"></div><div class="form-row"><label>적용 핸디</label><input type="number" id="ed-r-handi"></div></div>`;
         document.getElementById('ed-r-date').value = r.date || '';
         document.getElementById('ed-r-course').value = r.course || '';
         document.getElementById('ed-r-player').value = r.player || '';
         document.getElementById('ed-r-score').value = r.score ?? '';
         document.getElementById('ed-r-handi').value = getEffectiveRoundHandi(r);
-      }
-      else if (type === 'finance') {
-        const f = allFinance.find(x => x.key === key);
-        if (!f) return;
+      } else if (type === 'finance') {
+        const f = allFinance.find(x => x.key === key); if (!f) return;
         titleEl.innerText = "💰 회비 내역 수정";
-        bodyEl.innerHTML = `
-          <div class="form-row"><label>날짜</label><input type="date" id="ed-f-date"></div>
-          <div class="form-row-2">
-            <div class="form-row"><label>구분</label>
-              <select id="ed-f-cat">
-                <option value="월회비">월회비 (+)</option><option value="년회비">년회비 (+)</option>
-                <option value="벌금">벌금 (+)</option><option value="일반입금">기타입금 (+)</option>
-                <option value="출금">출금 (-)</option>
-              </select>
-            </div>
-            <div class="form-row"><label>회원명 (선택)</label><input type="text" id="ed-f-player"></div>
-          </div>
-          <div class="form-row"><label>내역</label><input type="text" id="ed-f-desc"></div>
-          <div class="form-row"><label>금액 (동)</label><input type="number" id="ed-f-amount"></div>
-        `;
+        bodyEl.innerHTML = `<div class="form-row"><label>날짜</label><input type="date" id="ed-f-date"></div><div class="form-row-2"><div class="form-row"><label>구분</label><select id="ed-f-cat"><option value="월회비">월회비 (+)</option><option value="년회비">년회비 (+)</option><option value="벌금">벌금 (+)</option><option value="일반입금">기타입금 (+)</option><option value="출금">출금 (-)</option></select></div><div class="form-row"><label>회원명 (선택)</label><input type="text" id="ed-f-player"></div></div><div class="form-row"><label>내역</label><input type="text" id="ed-f-desc"></div><div class="form-row"><label>금액 (동)</label><input type="number" id="ed-f-amount"></div>`;
         document.getElementById('ed-f-date').value = f.date || '';
         document.getElementById('ed-f-cat').value = f.category || (f.type === 'out' ? '출금' : '월회비');
         document.getElementById('ed-f-player').value = f.player || '';
         document.getElementById('ed-f-desc').value = f.desc || '';
         document.getElementById('ed-f-amount').value = f.amount ?? 0;
-      }
-      else if (type === 'point') {
-        const p = allPoints.find(x => x.key === key);
-        if (!p) return;
+      } else if (type === 'point') {
+        const p = allPoints.find(x => x.key === key); if (!p) return;
         titleEl.innerText = "⭐ 개별 포인트 수정";
-        bodyEl.innerHTML = `
-          <div class="form-row"><label>날짜</label><input type="date" id="ed-p-date"></div>
-          <div class="form-row"><label>회원명</label><input type="text" id="ed-p-player"></div>
-          <div class="form-row"><label>포인트</label><input type="number" id="ed-p-amount"></div>
-          <div class="form-row"><label>사유</label><input type="text" id="ed-p-reason"></div>
-        `;
+        bodyEl.innerHTML = `<div class="form-row"><label>날짜</label><input type="date" id="ed-p-date"></div><div class="form-row"><label>회원명</label><input type="text" id="ed-p-player"></div><div class="form-row"><label>포인트</label><input type="number" id="ed-p-amount"></div><div class="form-row"><label>사유</label><input type="text" id="ed-p-reason"></div>`;
         document.getElementById('ed-p-date').value = p.date || '';
         document.getElementById('ed-p-player').value = p.player || '';
         document.getElementById('ed-p-amount').value = p.amount ?? 0;
         document.getElementById('ed-p-reason').value = p.reason || '';
-      }
-      else if (type === 'course') {
-        const c = allCourses.find(x => x.key === key);
-        if (!c) return;
+      } else if (type === 'course') {
+        const c = allCourses.find(x => x.key === key); if (!c) return;
         const subs = normalizeSubCourses(c);
-        const holeCnt = subs.length * 9;
         titleEl.innerText = "⛳ 골프장 정보 수정 (최대 54홀)";
-        bodyEl.innerHTML = `
-          <div class="form-row-2">
-            <div class="form-row"><label>골프장 이름</label><input type="text" id="ed-c-name"></div>
-            <div class="form-row"><label>총 홀 수</label>
-              <select id="ed-c-hole-count" onchange="renderCourseBuilder('ed-c-container', Number(this.value)/9, null, 'ed-c-sum')">
-                <option value="18">18홀 (2개 코스)</option>
-                <option value="27">27홀 (3개 코스)</option>
-                <option value="36">36홀 (4개 코스)</option>
-                <option value="45">45홀 (5개 코스)</option>
-                <option value="54">54홀 (6개 코스)</option>
-              </select>
-            </div>
-          </div>
-          <div id="ed-c-container"></div>
-          <div id="ed-c-sum" style="font-size:12px;color:var(--gold-light);margin-top:6px;text-align:right;font-weight:700;"></div>
-        `;
+        bodyEl.innerHTML = `<div class="form-row-2"><div class="form-row"><label>골프장 이름</label><input type="text" id="ed-c-name"></div><div class="form-row"><label>총 홀 수</label><select id="ed-c-hole-count" onchange="renderCourseBuilder('ed-c-container', Number(this.value)/9, null, 'ed-c-sum')"><option value="18">18홀 (2개 코스)</option><option value="27">27홀 (3개 코스)</option><option value="36">36홀 (4개 코스)</option><option value="45">45홀 (5개 코스)</option><option value="54">54홀 (6개 코스)</option></select></div></div><div id="ed-c-container"></div><div id="ed-c-sum" style="font-size:12px;color:var(--gold-light);margin-top:6px;text-align:right;font-weight:700;"></div>`;
         document.getElementById('ed-c-name').value = c.name || '';
-        document.getElementById('ed-c-hole-count').value = String(holeCnt);
+        document.getElementById('ed-c-hole-count').value = String(subs.length * 9);
         window.renderCourseBuilder('ed-c-container', subs.length, subs, 'ed-c-sum');
-      }
-      else if (type === 'news') {
-        const n = allNews.find(x => x.key === key);
-        if (!n) return;
+      } else if (type === 'news') {
+        const n = allNews.find(x => x.key === key); if (!n) return;
         titleEl.innerText = "📣 소식/공지 수정";
-        bodyEl.innerHTML = `
-          <div class="form-row"><label>날짜</label><input type="date" id="ed-n-date"></div>
-          <div class="form-row"><label>제목</label><input type="text" id="ed-n-title"></div>
-          <div class="form-row"><label>내용</label><textarea id="ed-n-body" rows="4"></textarea></div>
-        `;
+        bodyEl.innerHTML = `<div class="form-row"><label>날짜</label><input type="date" id="ed-n-date"></div><div class="form-row"><label>제목</label><input type="text" id="ed-n-title"></div><div class="form-row"><label>내용</label><textarea id="ed-n-body" rows="4"></textarea></div>`;
         document.getElementById('ed-n-date').value = n.date || new Date().toISOString().slice(0, 10);
         document.getElementById('ed-n-title').value = n.title || '';
         document.getElementById('ed-n-body').value = n.body || '';
       }
-
       document.getElementById('edit-modal').style.display = 'flex';
     };
 
     window.submitEdit = () => {
-      if (!currentEdit || !isAdmin) return;
+      if (!currentEdit || !window.isAdmin) return;
       const { type, key } = currentEdit;
 
       if (type === 'member') {
-        const name = document.getElementById('ed-m-name').value.trim();
-        const role = document.getElementById('ed-m-role').value;
-        const initHandi = Number(document.getElementById('ed-m-handi').value) || 0;
+        const name = document.getElementById('ed-m-name').value.trim(), role = document.getElementById('ed-m-role').value, initHandi = Number(document.getElementById('ed-m-handi').value) || 0;
         if (!name) return alert("회원 이름을 입력하세요.");
-        update(ref(db, 'members/' + key), { name, role, initHandi })
-          .then(() => window.closeEditModal())
-          .catch(err => alert("수정 실패: " + err.message));
-      }
-      else if (type === 'round') {
-        const date = document.getElementById('ed-r-date').value;
-        const course = document.getElementById('ed-r-course').value.trim();
-        const player = document.getElementById('ed-r-player').value.trim();
-        const score = Number(document.getElementById('ed-r-score').value);
-        const appliedHandi = Number(document.getElementById('ed-r-handi').value);
+        update(ref(db, 'members/' + key), { name, role, initHandi }).then(() => window.closeEditModal()).catch(err => alert("수정 실패: " + err.message));
+      } else if (type === 'round') {
+        const date = document.getElementById('ed-r-date').value, course = document.getElementById('ed-r-course').value.trim(), player = document.getElementById('ed-r-player').value.trim(), score = Number(document.getElementById('ed-r-score').value), appliedHandi = Number(document.getElementById('ed-r-handi').value);
         if (!date || !course || !player || !score) return alert("모든 항목을 입력하세요.");
         const updated = { date, course, player, score, appliedHandi: isNaN(appliedHandi) ? 0 : appliedHandi };
-        update(ref(db, 'rounds/' + key), updated)
-          .then(() => syncRoundFine(key, updated))
-          .then(() => window.closeEditModal())
-          .catch(err => alert("수정 실패: " + err.message));
-      }
-      else if (type === 'scorecard_live') {
-        const rec = allLive.find(x => x.key === key);
-        if (!rec) return;
+        update(ref(db, 'rounds/' + key), updated).then(() => syncRoundFine(key, updated)).then(() => window.closeEditModal()).catch(err => alert("수정 실패: " + err.message));
+      } else if (type === 'scorecard_live') {
+        const rec = allLive.find(x => x.key === key); if (!rec) return;
         const holes = {};
-        document.querySelectorAll('#edit-modal-body .sc-hole-inp').forEach(inp => {
-          const v = Number(inp.value || 0);
-          if (v > 0) holes[inp.dataset.hole] = v;
-        });
-        update(ref(db, 'live/' + key), { holes })
-          .then(() => window.closeEditModal())
-          .catch(err => alert("저장 실패: " + err.message));
-      }
-      else if (type === 'scorecard_round') {
-        const rec = allRounds.find(x => x.key === key);
-        if (!rec) return;
-        const holes = {};
-        let sum = 0, cnt = 0;
-        document.querySelectorAll('#edit-modal-body .sc-hole-inp').forEach(inp => {
-          const v = Number(inp.value || 0);
-          if (v > 0) { holes[inp.dataset.hole] = v; sum += v; cnt++; }
-        });
+        document.querySelectorAll('#edit-modal-body .sc-hole-inp').forEach(inp => { const v = Number(inp.value || 0); if (v > 0) holes[inp.dataset.hole] = v; });
+        const updatedLive = { ...rec, holes };
+        update(ref(db, 'live/' + key), { holes }).then(() => syncLiveToRoundIfComplete(key, updatedLive)).then(() => window.closeEditModal()).catch(err => alert("저장 실패: " + err.message));
+      } else if (type === 'scorecard_round') {
+        const rec = allRounds.find(x => x.key === key); if (!rec) return;
+        const holes = {}; let sum = 0, cnt = 0;
+        document.querySelectorAll('#edit-modal-body .sc-hole-inp').forEach(inp => { const v = Number(inp.value || 0); if (v > 0) { holes[inp.dataset.hole] = v; sum += v; cnt++; } });
         if (cnt > 0 && cnt < 18) return alert(`현재 ${cnt}개 홀만 입력되었습니다. 18홀을 모두 입력하세요.`);
-        const pars = rec.pars || findCourseParsByName(rec.course);
-        const newScore = cnt === 18 ? sum : rec.score;
-        const updated = { ...rec, holes, pars, score: newScore };
-        delete updated.key;
-        update(ref(db, 'rounds/' + key), { holes, pars, score: newScore })
-          .then(() => syncRoundFine(key, updated))
-          .then(() => window.closeEditModal())
-          .catch(err => alert("저장 실패: " + err.message));
-      }
-      else if (type === 'finance') {
-        const date = document.getElementById('ed-f-date').value;
-        const category = document.getElementById('ed-f-cat').value;
-        const player = document.getElementById('ed-f-player').value.trim();
-        const desc = document.getElementById('ed-f-desc').value.trim();
-        const amount = Number(document.getElementById('ed-f-amount').value);
+        const pars = rec.pars || findCourseParsByName(rec.course), newScore = cnt === 18 ? sum : rec.score;
+        const updated = { ...rec, holes, pars, score: newScore }; delete updated.key;
+        update(ref(db, 'rounds/' + key), { holes, pars, score: newScore }).then(() => syncRoundFine(key, updated)).then(() => window.closeEditModal()).catch(err => alert("저장 실패: " + err.message));
+      } else if (type === 'finance') {
+        const date = document.getElementById('ed-f-date').value, category = document.getElementById('ed-f-cat').value, player = document.getElementById('ed-f-player').value.trim(), desc = document.getElementById('ed-f-desc').value.trim(), amount = Number(document.getElementById('ed-f-amount').value);
         if (!date || !desc || !amount) return alert("모든 항목을 입력하세요.");
-        const finType = category === '출금' ? 'out' : 'in';
-        const year = date.slice(0, 4);
-        update(ref(db, 'finance/' + key), { date, category, player, desc, type: finType, amount, year })
-          .then(() => window.closeEditModal())
-          .catch(err => alert("수정 실패: " + err.message));
-      }
-      else if (type === 'point') {
-        const date = document.getElementById('ed-p-date').value;
-        const player = document.getElementById('ed-p-player').value.trim();
-        const amount = Number(document.getElementById('ed-p-amount').value);
-        const reason = document.getElementById('ed-p-reason').value.trim();
+        update(ref(db, 'finance/' + key), { date, category, player, desc, type: category === '출금' ? 'out' : 'in', amount, year: date.slice(0, 4) }).then(() => window.closeEditModal()).catch(err => alert("수정 실패: " + err.message));
+      } else if (type === 'point') {
+        const date = document.getElementById('ed-p-date').value, player = document.getElementById('ed-p-player').value.trim(), amount = Number(document.getElementById('ed-p-amount').value), reason = document.getElementById('ed-p-reason').value.trim();
         if (!date || !player || isNaN(amount)) return alert("필수 항목을 입력하세요.");
-        update(ref(db, 'points/' + key), { date, player, amount, reason })
-          .then(() => window.closeEditModal())
-          .catch(err => alert("수정 실패: " + err.message));
-      }
-      else if (type === 'course') {
-        const name = document.getElementById('ed-c-name').value.trim();
-        if (!name) return alert("골프장 이름을 입력하세요.");
+        update(ref(db, 'points/' + key), { date, player, amount, reason }).then(() => window.closeEditModal()).catch(err => alert("수정 실패: " + err.message));
+      } else if (type === 'course') {
+        const name = document.getElementById('ed-c-name').value.trim(); if (!name) return alert("골프장 이름을 입력하세요.");
         const subCourses = readBuilderSubCourses('ed-c-container');
-        const holeCount = subCourses.length * 9;
-        const pars = subCourses.flatMap(sc => sc.pars);
-        update(ref(db, 'courses/' + key), { name, holeCount, subCourses, pars })
-          .then(() => window.closeEditModal())
-          .catch(err => alert("수정 실패: " + err.message));
-      }
-      else if (type === 'news') {
-        const date = document.getElementById('ed-n-date').value;
-        const title = document.getElementById('ed-n-title').value.trim();
-        const body = document.getElementById('ed-n-body').value.trim();
+        update(ref(db, 'courses/' + key), { name, holeCount: subCourses.length * 9, subCourses, pars: subCourses.flatMap(sc => sc.pars) }).then(() => window.closeEditModal()).catch(err => alert("수정 실패: " + err.message));
+      } else if (type === 'news') {
+        const date = document.getElementById('ed-n-date').value, title = document.getElementById('ed-n-title').value.trim(), body = document.getElementById('ed-n-body').value.trim();
         if (!title || !body) return alert("제목과 내용을 입력하세요.");
-        update(ref(db, 'news/' + key), { date, title, body })
-          .then(() => window.closeEditModal())
-          .catch(err => alert("수정 실패: " + err.message));
-      }
-      else if (type === 'hidden_holes') {
+        update(ref(db, 'news/' + key), { date, title, body }).then(() => window.closeEditModal()).catch(err => alert("수정 실패: " + err.message));
+      } else if (type === 'hidden_holes') {
         const sel = Array.from(document.querySelectorAll('.hh-btn.selected')).map(b => Number(b.dataset.hole));
         if (sel.length !== 12) return alert(`정확히 12개 홀을 선택해야 합니다. (현재 ${sel.length}개)`);
-        set(ref(db, 'tourneyConfig/' + key), { hiddenHoles: sel.sort((a, b) => a - b) })
-          .then(() => window.closeEditModal())
-          .catch(err => alert("저장 실패: " + err.message));
+        set(ref(db, 'tourneyConfig/' + key), { hiddenHoles: sel.sort((a, b) => a - b) }).then(() => window.closeEditModal()).catch(err => alert("저장 실패: " + err.message));
       }
     };
 
+    // ==========================================
+    // CRUD 핸들러 & 화면 렌더링
+    // ==========================================
     window.saveMember = () => {
-      const name = document.getElementById('m-name').value.trim();
-      const role = document.getElementById('m-role').value;
-      const initHandi = Number(document.getElementById('m-handi').value) || 0;
+      const name = document.getElementById('m-name').value.trim(), role = document.getElementById('m-role').value, initHandi = Number(document.getElementById('m-handi').value) || 0;
       if (!name) return alert("회원 이름을 입력하세요.");
-
-      push(ref(db, 'members'), { name, role, initHandi })
-        .then(() => {
-          alert(`${name} 회원이 등록되었습니다!`);
-          document.getElementById('m-name').value = "";
-        })
-        .catch(err => alert("회원 저장 실패: " + err.message));
+      push(ref(db, 'members'), { name, role, initHandi }).then(() => { alert(`${name} 회원이 등록되었습니다!`); document.getElementById('m-name').value = ""; }).catch(err => alert("회원 저장 실패: " + err.message));
     };
-
     window.deleteMember = (key) => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const m = registeredMembers[key];
-      if (!m) return;
-      if (confirm(`'${m.name}' 회원을 명단에서 삭제할까요?`)) {
-        remove(ref(db, 'members/' + key)).catch(err => alert("삭제 실패: " + err.message));
-      }
+      if (m && confirm(`'${m.name}' 회원을 명단에서 삭제할까요?`)) remove(ref(db, 'members/' + key)).catch(err => alert("삭제 실패: " + err.message));
     };
-
-    onValue(ref(db, 'members'), (snap) => {
-      registeredMembers = snap.val() || {};
-      window.renderAll();
-    });
 
     window.saveManualPoint = () => {
-      const date = document.getElementById('pt-date').value;
-      const player = document.getElementById('pt-player').value;
-      const amount = Number(document.getElementById('pt-amount').value);
-      const reason = document.getElementById('pt-reason').value.trim();
+      const date = document.getElementById('pt-date').value, player = document.getElementById('pt-player').value, amount = Number(document.getElementById('pt-amount').value), reason = document.getElementById('pt-reason').value.trim();
       if (!date || !player || !amount || !reason) return alert("날짜, 회원, 포인트, 사유를 모두 입력하세요.");
-
-      push(ref(db, 'points'), { date, player, amount, reason })
-        .then(() => {
-          alert(`${player}님에게 ${amount > 0 ? '+' : ''}${amount}P 입력되었습니다.`);
-          document.getElementById('pt-amount').value = "";
-          document.getElementById('pt-reason').value = "";
-        })
-        .catch(err => alert("포인트 저장 실패: " + err.message));
+      push(ref(db, 'points'), { date, player, amount, reason }).then(() => { alert(`${player}님에게 ${amount > 0 ? '+' : ''}${amount}P 입력되었습니다.`); document.getElementById('pt-amount').value = ""; document.getElementById('pt-reason').value = ""; }).catch(err => alert("포인트 저장 실패: " + err.message));
     };
-
     window.deleteManualPoint = (key) => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const p = allPoints.find(x => x.key === key);
-      if (!p) return;
-      if (confirm(`${p.player} (${p.amount}P / ${p.reason}) 내역을 삭제할까요?`)) {
-        remove(ref(db, 'points/' + key)).catch(err => alert("삭제 실패: " + err.message));
-      }
+      if (p && confirm(`${p.player} (${p.amount}P / ${p.reason}) 내역을 삭제할까요?`)) remove(ref(db, 'points/' + key)).catch(err => alert("삭제 실패: " + err.message));
     };
-
-    onValue(ref(db, 'points'), (snap) => {
-      const data = snap.val();
-      allPoints = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || '')) : [];
-      const listEl = document.getElementById('admin-points-list');
-      if (listEl) {
-        listEl.innerHTML = allPoints.length ? allPoints.slice(0, 30).map(p => `
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(30,63,51,0.4);gap:6px;">
-            <div>
-              <b>${esc(p.player)}</b>
-              <span style="color:${p.amount>=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${p.amount>=0?'+':''}${p.amount}P</span>
-              <span class="sub-note">${esc(p.date)} · ${esc(p.reason)}</span>
-            </div>
-            <div class="action-btns">
-              <button class="btn-edit" onclick="openEdit('point','${p.key}')">수정</button>
-              <button class="btn-del" onclick="deleteManualPoint('${p.key}')">삭제</button>
-            </div>
-          </div>`).join('') : '<div style="color:var(--text-muted);">등록된 개별 포인트가 없습니다.</div>';
-      }
-      window.renderAll();
-    });
 
     window.saveRound = () => {
-      const date = document.getElementById('in-date').value;
-      const course = document.getElementById('in-course').value.trim();
-      const player = document.getElementById('in-player').value.trim();
-      const score = Number(document.getElementById('in-score').value);
+      const date = document.getElementById('in-date').value, course = document.getElementById('in-course').value.trim(), player = document.getElementById('in-player').value.trim(), score = Number(document.getElementById('in-score').value);
       if (!date || !course || !player || !score) return alert("모두 입력하세요.");
-
-      const appliedHandi = getRegisteredHandi(player);
-      const pars = findCourseParsByName(course);
-      const roundObj = { date, course, player, score, appliedHandi, pars };
-
+      const roundObj = { date, course, player, score, appliedHandi: getRegisteredHandi(player), pars: findCourseParsByName(course) };
       push(ref(db, 'rounds'), roundObj)
         .then((newRef) => syncRoundFine(newRef.key, roundObj))
         .then(() => {
-          if (score <= 79) {
-            document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`;
-            document.getElementById('achievement-modal').style.display = 'flex';
-          } else {
-            alert("저장 완료! (등록 핸디 기준 벌금 자동 반영)");
-          }
-          document.getElementById('in-player').value = "";
-          document.getElementById('in-score').value = "";
+          if (score <= 79) { document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`; document.getElementById('achievement-modal').style.display = 'flex'; }
+          else alert("저장 완료! (등록 핸디 기준 벌금 자동 반영)");
+          document.getElementById('in-player').value = ""; document.getElementById('in-score').value = "";
         })
         .catch(err => alert("스코어 저장 실패: " + err.message));
     };
-
     window.deleteRound = (key) => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const r = allRounds.find(x => x.key === key);
-      if (!r) return;
-      if (confirm(`${r.date} ${r.course}\n${r.player} (${r.score}타) 기록을 삭제할까요?\n(연동된 자동 벌금 내역도 함께 삭제됩니다)`)) {
-        remove(ref(db, 'rounds/' + key))
-          .then(() => remove(ref(db, 'finance/fine_' + key)))
-          .catch(err => alert("삭제 실패: " + err.message));
+      if (r && confirm(`${r.date} ${r.course}\n${r.player} (${r.score}타) 기록을 삭제할까요?\n(연동된 자동 벌금 내역도 함께 삭제됩니다)`)) {
+        remove(ref(db, 'rounds/' + key)).then(() => remove(ref(db, 'finance/fine_' + key))).catch(err => alert("삭제 실패: " + err.message));
       }
     };
-
-    onValue(ref(db, 'rounds'), (snap) => {
-      const data = snap.val();
-      allRounds = data
-        ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || ''))
-        : [];
-      window.renderAll();
-    });
 
     window.renderHandiRank = () => {
       const selYear = document.getElementById('handi-year-filter')?.value || 'all';
@@ -2134,23 +1898,15 @@
       if (subLbl) subLbl.innerText = `72타 기준 자동산출 (${selYear === 'all' ? '전체 시즌' : selYear + '년'})`;
 
       const periodMap = {};
-      Object.entries(registeredMembers).forEach(([key, m]) => {
-        periodMap[m.name] = { regHandi: Number(m.initHandi ?? 18), count: 0, total: 0 };
-      });
-
+      Object.entries(registeredMembers).forEach(([, m]) => { periodMap[m.name] = { regHandi: Number(m.initHandi ?? 18), count: 0, total: 0 }; });
       allRounds.forEach(r => {
         if (selYear !== 'all' && !(r.date && r.date.startsWith(selYear))) return;
-        if (!periodMap[r.player]) {
-          periodMap[r.player] = { regHandi: 18, count: 0, total: 0 };
-        }
-        periodMap[r.player].count += 1;
-        periodMap[r.player].total += Number(r.score);
+        if (!periodMap[r.player]) periodMap[r.player] = { regHandi: 18, count: 0, total: 0 };
+        periodMap[r.player].count += 1; periodMap[r.player].total += Number(r.score);
       });
 
       const list = Object.entries(periodMap).map(([name, s]) => {
-        const has = s.count > 0;
-        const avg = has ? Number((s.total / s.count).toFixed(1)) : null;
-        const handi = has ? Math.max(0, Math.round(avg - 72)) : null;
+        const has = s.count > 0, avg = has ? Number((s.total / s.count).toFixed(1)) : null, handi = has ? Math.max(0, Math.round(avg - 72)) : null;
         return { name, avg, handi, count: s.count, regHandi: s.regHandi };
       }).sort((a, b) => {
         if (a.count > 0 && b.count === 0) return -1;
@@ -2162,27 +1918,15 @@
       let rankNum = 0;
       document.getElementById('handi-tbody').innerHTML = list.length ? list.map(m => {
         if (m.count > 0) rankNum++;
-        return `
-          <tr>
-            <td>${m.count > 0 ? `<span class="rank-badge ${rankNum<=3?'rank-'+rankNum:''}">${rankNum}</span>` : '-'}</td>
-            <td style="font-weight:700;">${esc(m.name)}</td>
-            <td>${m.avg !== null ? m.avg + '타' : '-'}</td>
-            <td style="color:var(--gold);font-weight:700;">${m.handi !== null ? m.handi : `<span style="color:var(--text-muted);font-size:11px;">-</span>`}</td>
-            <td>${m.count}회</td>
-          </tr>`;
+        return `<tr><td>${m.count > 0 ? `<span class="rank-badge ${rankNum<=3?'rank-'+rankNum:''}">${rankNum}</span>` : '-'}</td><td style="font-weight:700;">${esc(m.name)}</td><td>${m.avg !== null ? m.avg + '타' : '-'}</td><td style="color:var(--gold);font-weight:700;">${m.handi !== null ? m.handi : `<span style="color:var(--text-muted);font-size:11px;">-</span>`}</td><td>${m.count}회</td></tr>`;
       }).join('') : '<tr><td colspan="5">등록된 회원이 없습니다.</td></tr>';
     };
 
     window.renderAll = () => {
       memberStats = {};
-      Object.entries(registeredMembers).forEach(([key, m]) => {
-        memberStats[m.name] = { key, role: m.role || '회원', regHandi: Number(m.initHandi ?? 18), scores: [], total: 0, best: '-' };
-      });
-
+      Object.entries(registeredMembers).forEach(([key, m]) => { memberStats[m.name] = { key, role: m.role || '회원', regHandi: Number(m.initHandi ?? 18), scores: [], total: 0, best: '-' }; });
       allRounds.forEach(r => {
-        if (!memberStats[r.player]) {
-          memberStats[r.player] = { key: null, role: '회원', regHandi: 18, scores: [], total: 0, best: 999 };
-        }
+        if (!memberStats[r.player]) memberStats[r.player] = { key: null, role: '회원', regHandi: 18, scores: [], total: 0, best: 999 };
         if (memberStats[r.player].best === '-') memberStats[r.player].best = 999;
         memberStats[r.player].scores.push(r);
         memberStats[r.player].total += Number(r.score);
@@ -2190,7 +1934,6 @@
       });
 
       memberTotalPoints = computeAllMemberPoints();
-
       const years = new Set([new Date().toISOString().slice(0, 4)]);
       allRounds.forEach(r => { if (r.date) years.add(r.date.slice(0, 4)); });
       allPoints.forEach(p => { if (p.date) years.add(p.date.slice(0, 4)); });
@@ -2199,16 +1942,14 @@
       const hyEl = document.getElementById('handi-year-filter');
       if (hyEl) {
         const curHY = hyEl.value || 'all';
-        hyEl.innerHTML = '<option value="all">전체 시즌</option>' +
-          sortedYears.map(y => `<option value="${y}">${y}년</option>`).join('');
+        hyEl.innerHTML = '<option value="all">전체 시즌</option>' + sortedYears.map(y => `<option value="${y}">${y}년</option>`).join('');
         hyEl.value = (curHY === 'all' || sortedYears.includes(curHY)) ? curHY : 'all';
       }
       window.renderHandiRank();
 
-      const allMembersList = Object.entries(memberStats).map(([name, s]) => {
-        const pts = memberTotalPoints[name] || 0;
-        return { name, key: s.key, role: s.role, regHandi: s.regHandi, count: s.scores.length, best: s.best, points: pts };
-      }).sort((a, b) => a.regHandi - b.regHandi);
+      const allMembersList = Object.entries(memberStats).map(([name, s]) => ({
+        name, key: s.key, role: s.role, regHandi: s.regHandi, count: s.scores.length, best: s.best, points: memberTotalPoints[name] || 0
+      })).sort((a, b) => a.regHandi - b.regHandi);
 
       document.getElementById('member-count').innerText = `총 ${allMembersList.length}명`;
       document.getElementById('members-tbody').innerHTML = allMembersList.length ? allMembersList.map(m => `
@@ -2218,19 +1959,11 @@
           <td>${m.best !== '-' ? m.best+'타' : '-'}</td>
           <td style="color:var(--gold);font-weight:700;">${m.regHandi}</td>
           <td style="color:var(--green-accent);font-weight:800;">${m.points.toLocaleString()} P</td>
-          <td class="admin-only">
-            ${m.key ? `<div class="action-btns"><button class="btn-edit" onclick="openEdit('member','${m.key}')">수정</button><button class="btn-del" onclick="deleteMember('${m.key}')">삭제</button></div>` : '-'}
-          </td>
+          <td class="admin-only">${m.key ? `<div class="action-btns"><button class="btn-edit" onclick="openEdit('member','${m.key}')">수정</button><button class="btn-del" onclick="deleteMember('${m.key}')">삭제</button></div>` : '-'}</td>
         </tr>`).join('') : '<tr><td colspan="6">등록된 회원이 없습니다.</td></tr>';
 
       const optionsHtml = allMembersList.map(m => `<option value="${esc(m.name)}">${esc(m.name)}</option>`).join('');
-      const updateSelect = (id, placeholder) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const cur = el.value;
-        el.innerHTML = `<option value="">${placeholder}</option>` + optionsHtml;
-        el.value = cur;
-      };
+      const updateSelect = (id, placeholder) => { const el = document.getElementById(id); if (!el) return; const cur = el.value; el.innerHTML = `<option value="">${placeholder}</option>` + optionsHtml; el.value = cur; };
       updateSelect('personal-select', '회원을 선택하세요');
       updateSelect('in-player-select', '-- 등록된 회원 중 선택 --');
       updateSelect('pt-player', '-- 회원 선택 --');
@@ -2242,36 +1975,20 @@
       const selMonth = document.getElementById('month-filter').value;
       const { enriched, playerAutoPoints, playerManualPoints } = computeMonthResults(selMonth);
       document.getElementById('monthly-tbody').innerHTML = enriched.length ? enriched.map((r, i) => {
-        const autoP = playerAutoPoints[r.player];
-        const manP = playerManualPoints[r.player] || 0;
-        const autoSum = autoP ? (autoP.base + autoP.bonus) : 0;
-        const totalMonthPts = autoSum + manP;
+        const autoP = playerAutoPoints[r.player], manP = playerManualPoints[r.player] || 0;
+        const totalMonthPts = (autoP ? (autoP.base + autoP.bonus) : 0) + manP;
         const vsStr = r.vsHandi === 0 ? 'E' : (r.vsHandi > 0 ? `+${r.vsHandi}` : `${r.vsHandi}`);
         const ptDetail = [];
-        if (autoP) {
-          ptDetail.push(`참가${autoP.base}`);
-          if (autoP.bonus > 0) ptDetail.push(`${autoP.rank}위+${autoP.bonus}`);
-        }
+        if (autoP) { ptDetail.push(`참가${autoP.base}`); if (autoP.bonus > 0) ptDetail.push(`${autoP.rank}위+${autoP.bonus}`); }
         if (manP !== 0) ptDetail.push(`개별${manP > 0 ? '+'+manP : manP}`);
         return `
           <tr>
             <td><span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span></td>
             <td><b>${esc(r.player)}</b><span class="sub-note">${esc(r.course)}</span></td>
             <td><b>${r.actualScore}타</b></td>
-            <td style="color:${r.vsHandi <= 0 ? 'var(--green-accent)' : 'var(--red-accent)'};font-weight:700;">
-              ${vsStr}
-              <span class="sub-note">(H${r.handi})</span>
-            </td>
-            <td style="color:var(--gold);font-weight:800;">
-              ${totalMonthPts.toLocaleString()} P
-              <span class="sub-note">${ptDetail.join(' / ')}</span>
-            </td>
-            <td class="admin-only">
-              <div class="action-btns">
-                <button class="btn-edit" onclick="openEdit('round','${r.key}')">수정</button>
-                <button class="btn-del" onclick="deleteRound('${r.key}')">삭제</button>
-              </div>
-            </td>
+            <td style="color:${r.vsHandi <= 0 ? 'var(--green-accent)' : 'var(--red-accent)'};font-weight:700;">${vsStr}<span class="sub-note">(H${r.handi})</span></td>
+            <td style="color:var(--gold);font-weight:800;">${totalMonthPts.toLocaleString()} P<span class="sub-note">${ptDetail.join(' / ')}</span></td>
+            <td class="admin-only"><div class="action-btns"><button class="btn-edit" onclick="openEdit('round','${r.key}')">수정</button><button class="btn-del" onclick="deleteRound('${r.key}')">삭제</button></div></td>
           </tr>`;
       }).join('') : '<tr><td colspan="6">해당 월의 기록이 없습니다.</td></tr>';
 
@@ -2294,8 +2011,7 @@
       const pyEl = document.getElementById('personal-year');
       if (pyEl) {
         const curY = pyEl.value || 'all';
-        pyEl.innerHTML = '<option value="all">전체 연도</option>' +
-          sortedYears.map(y => `<option value="${y}">${y}년</option>`).join('');
+        pyEl.innerHTML = '<option value="all">전체 연도</option>' + sortedYears.map(y => `<option value="${y}">${y}년</option>`).join('');
         pyEl.value = (curY === 'all' || sortedYears.includes(curY)) ? curY : 'all';
       }
 
@@ -2303,14 +2019,8 @@
       const tSel = document.getElementById('tourney-date-select');
       if (tSel) {
         const prevDate = tSel.value;
-        tSel.innerHTML = tDates.length
-          ? tDates.map(d => `<option value="${d}">${d}</option>`).join('')
-          : '<option value="">날짜 없음</option>';
-        if (prevDate && tDates.includes(prevDate)) {
-          tSel.value = prevDate;
-        } else if (tDates.length) {
-          tSel.value = tDates[0];
-        }
+        tSel.innerHTML = tDates.length ? tDates.map(d => `<option value="${d}">${d}</option>`).join('') : '<option value="">날짜 없음</option>';
+        tSel.value = (prevDate && tDates.includes(prevDate)) ? prevDate : (tDates[0] || '');
       }
 
       window.renderPersonal();
@@ -2320,138 +2030,69 @@
     };
 
     window.renderPersonal = () => {
-      const name = document.getElementById('personal-select').value;
-      const year = document.getElementById('personal-year').value;
-      const s = memberStats[name];
-
+      const name = document.getElementById('personal-select').value, year = document.getElementById('personal-year').value, s = memberStats[name];
       if (!s) {
-        document.getElementById('personal-stats').innerHTML = `
-          <div class="stat-box"><div class="lbl">평균 타수</div><div class="val">-</div></div>
-          <div class="stat-box"><div class="lbl">베스트</div><div class="val">-</div></div>
-          <div class="stat-box"><div class="lbl">등록 핸디</div><div class="val">-</div></div>
-          <div class="stat-box"><div class="lbl">누적 포인트</div><div class="val">-</div></div>`;
+        document.getElementById('personal-stats').innerHTML = `<div class="stat-box"><div class="lbl">평균 타수</div><div class="val">-</div></div><div class="stat-box"><div class="lbl">베스트</div><div class="val">-</div></div><div class="stat-box"><div class="lbl">등록 핸디</div><div class="val">-</div></div><div class="stat-box"><div class="lbl">누적 포인트</div><div class="val">-</div></div>`;
         document.getElementById('personal-monthly-tbody').innerHTML = '<tr><td colspan="6">회원을 선택하세요.</td></tr>';
         document.getElementById('personal-points-tbody').innerHTML = '<tr><td colspan="3">회원을 선택하세요.</td></tr>';
         return;
       }
 
       const filteredRounds = s.scores.filter(r => year === 'all' || (r.date && r.date.startsWith(year)));
-      const hasFiltered = filteredRounds.length > 0;
-      const avg = hasFiltered ? (filteredRounds.reduce((a, r) => a + Number(r.score), 0) / filteredRounds.length).toFixed(1) : '-';
-      const best = hasFiltered ? Math.min(...filteredRounds.map(r => Number(r.score))) : '-';
-      const regHandi = s.regHandi;
+      const avg = filteredRounds.length ? (filteredRounds.reduce((a, r) => a + Number(r.score), 0) / filteredRounds.length).toFixed(1) : '-';
+      const best = filteredRounds.length ? Math.min(...filteredRounds.map(r => Number(r.score))) : '-';
 
       const monthsInRounds = new Set(filteredRounds.map(r => r.date.slice(0, 7)));
-      let autoPtsSum = 0;
-      const monthPointCache = {};
-      monthsInRounds.forEach(m => {
-        const res = computeMonthResults(m);
-        monthPointCache[m] = res;
-        const ap = res.playerAutoPoints[name];
-        if (ap) autoPtsSum += (ap.base + ap.bonus);
-      });
+      let autoPtsSum = 0; const monthPointCache = {};
+      monthsInRounds.forEach(m => { const res = computeMonthResults(m); monthPointCache[m] = res; const ap = res.playerAutoPoints[name]; if (ap) autoPtsSum += (ap.base + ap.bonus); });
       const manualPtsList = allPoints.filter(p => p.player === name && (year === 'all' || (p.date && p.date.startsWith(year))));
-      const manualPtsSum = manualPtsList.reduce((a, p) => a + Number(p.amount), 0);
-      const totalPts = autoPtsSum + manualPtsSum;
+      const totalPts = autoPtsSum + manualPtsList.reduce((a, p) => a + Number(p.amount), 0);
 
-      document.getElementById('personal-stats').innerHTML = `
-        <div class="stat-box"><div class="lbl">평균 타수</div><div class="val">${avg}</div></div>
-        <div class="stat-box"><div class="lbl">베스트</div><div class="val">${best}</div></div>
-        <div class="stat-box"><div class="lbl">등록 핸디</div><div class="val">${regHandi}</div></div>
-        <div class="stat-box"><div class="lbl">${year==='all'?'누적':year+'년'} 포인트</div><div class="val" style="color:var(--green-accent);">${totalPts.toLocaleString()}P</div></div>`;
+      document.getElementById('personal-stats').innerHTML = `<div class="stat-box"><div class="lbl">평균 타수</div><div class="val">${avg}</div></div><div class="stat-box"><div class="lbl">베스트</div><div class="val">${best}</div></div><div class="stat-box"><div class="lbl">등록 핸디</div><div class="val">${s.regHandi}</div></div><div class="stat-box"><div class="lbl">${year==='all'?'누적':year+'년'} 포인트</div><div class="val" style="color:var(--green-accent);">${totalPts.toLocaleString()}P</div></div>`;
 
       document.getElementById('personal-monthly-tbody').innerHTML = filteredRounds.length ? filteredRounds.map(r => {
-        const actualScore = Number(r.score);
-        const handi = getEffectiveRoundHandi(r);
-        const vsHandi = actualScore - (72 + handi);
+        const actualScore = Number(r.score), handi = getEffectiveRoundHandi(r), vsHandi = actualScore - (72 + handi);
         const vsStr = vsHandi === 0 ? 'E' : (vsHandi > 0 ? `+${vsHandi}` : `${vsHandi}`);
-        const mStr = r.date.slice(0, 7);
-        const ap = monthPointCache[mStr]?.playerAutoPoints[name];
-        const mPts = ap ? (ap.base + ap.bonus) : 0;
+        const ap = monthPointCache[r.date.slice(0, 7)]?.playerAutoPoints[name], mPts = ap ? (ap.base + ap.bonus) : 0;
         const { amount: fineAmt } = calcFineAmount(r);
-        return `
-          <tr>
-            <td>${esc(r.date)}</td>
-            <td>${esc(r.course)}</td>
-            <td><b>${actualScore}타</b></td>
-            <td style="color:${vsHandi<=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${vsStr}<span class="sub-note">(H${handi})</span></td>
-            <td style="color:var(--gold);font-weight:700;">+${mPts}P</td>
-            <td style="color:${fineAmt>0?'var(--red-accent)':'var(--text-muted)'};">${fineAmt > 0 ? (fineAmt/10000)+'만동' : '-'}</td>
-          </tr>`;
+        return `<tr><td>${esc(r.date)}</td><td>${esc(r.course)}</td><td><b>${actualScore}타</b></td><td style="color:${vsHandi<=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${vsStr}<span class="sub-note">(H${handi})</span></td><td style="color:var(--gold);font-weight:700;">+${mPts}P</td><td style="color:${fineAmt>0?'var(--red-accent)':'var(--text-muted)'};">${fineAmt > 0 ? (fineAmt/10000)+'만동' : '-'}</td></tr>`;
       }).join('') : '<tr><td colspan="6">해당 기간 라운딩 기록이 없습니다.</td></tr>';
 
-      document.getElementById('personal-points-tbody').innerHTML = manualPtsList.length ? manualPtsList.map(p => `
-        <tr>
-          <td>${esc(p.date)}</td>
-          <td>${esc(p.reason)}</td>
-          <td style="color:${p.amount>=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${p.amount>=0?'+':''}${p.amount}P</td>
-        </tr>`).join('') : '<tr><td colspan="3">개별 지급/차감 내역이 없습니다.</td></tr>';
+      document.getElementById('personal-points-tbody').innerHTML = manualPtsList.length ? manualPtsList.map(p => `<tr><td>${esc(p.date)}</td><td>${esc(p.reason)}</td><td style="color:${p.amount>=0?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${p.amount>=0?'+':''}${p.amount}P</td></tr>`).join('') : '<tr><td colspan="3">개별 지급/차감 내역이 없습니다.</td></tr>';
     };
 
     window.toggleFinFields = () => {
-      const cat = document.getElementById('f-category').value;
-      const pWrap = document.getElementById('f-player-wrap');
+      const cat = document.getElementById('f-category').value, pWrap = document.getElementById('f-player-wrap');
       if (pWrap) pWrap.style.opacity = (cat === '년회비' || cat === '벌금' || cat === '월회비') ? '1' : '0.4';
     };
 
     window.saveFin = () => {
-      const date = document.getElementById('f-date').value;
-      const category = document.getElementById('f-category').value;
-      const player = document.getElementById('f-player').value;
-      const descInput = document.getElementById('f-desc').value.trim();
-      const amount = Number(document.getElementById('f-amount').value);
+      const date = document.getElementById('f-date').value, category = document.getElementById('f-category').value, player = document.getElementById('f-player').value, descInput = document.getElementById('f-desc').value.trim(), amount = Number(document.getElementById('f-amount').value);
       if (!date || !amount) return alert("날짜와 금액을 입력하세요.");
       if (category === '년회비' && !player) return alert("년회비는 회원을 선택해야 합니다.");
-
-      const desc = descInput || (player ? `${player} ${category}` : category);
-      const type = category === '출금' ? 'out' : 'in';
-      const year = date.slice(0, 4);
-
-      push(ref(db, 'finance'), { date, desc, type, amount, category, player, year })
-        .then(() => {
-          alert("회비 내역이 저장되었습니다!");
-          document.getElementById('f-desc').value = "";
-          document.getElementById('f-amount').value = "";
-        })
+      push(ref(db, 'finance'), { date, desc: descInput || (player ? `${player} ${category}` : category), type: category === '출금' ? 'out' : 'in', amount, category, player, year: date.slice(0, 4) })
+        .then(() => { alert("회비 내역이 저장되었습니다!"); document.getElementById('f-desc').value = ""; document.getElementById('f-amount').value = ""; })
         .catch(err => alert("회비 저장 실패: " + err.message));
     };
 
     window.quickMarkAnnualFee = (playerName) => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const year = document.getElementById('fee-year-select').value || new Date().toISOString().slice(0, 4);
       const val = prompt(`${playerName}님의 ${year}년 년회비 납부 금액(동)을 입력하세요`, "2000000");
       if (val === null) return;
       const amount = Number(val);
       if (!amount || amount <= 0) return alert("올바른 금액을 입력하세요.");
-
-      const feeKey = `annual_${year}_${safeKey(playerName)}`;
-      set(ref(db, 'finance/' + feeKey), {
-        date: `${year}-${new Date().toISOString().slice(5, 10)}`,
-        desc: `[년회비] ${playerName} (${year}년)`,
-        type: 'in',
-        amount,
-        category: '년회비',
-        player: playerName,
-        year
+      set(ref(db, 'finance/' + `annual_${year}_${safeKey(playerName)}`), {
+        date: `${year}-${new Date().toISOString().slice(5, 10)}`, desc: `[년회비] ${playerName} (${year}년)`,
+        type: 'in', amount, category: '년회비', player: playerName, year
       }).catch(err => alert("저장 실패: " + err.message));
     };
 
     window.deleteFin = (key) => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const f = allFinance.find(x => x.key === key);
-      if (!f) return;
-      if (confirm(`'${f.desc}' (${Number(f.amount).toLocaleString()}동) 내역을 삭제할까요?`)) {
-        remove(ref(db, 'finance/' + key)).catch(err => alert("삭제 실패: " + err.message));
-      }
+      if (f && confirm(`'${f.desc}' (${Number(f.amount).toLocaleString()}동) 내역을 삭제할까요?`)) remove(ref(db, 'finance/' + key)).catch(err => alert("삭제 실패: " + err.message));
     };
-
-    onValue(ref(db, 'finance'), (snap) => {
-      const data = snap.val();
-      allFinance = data
-        ? Object.entries(data).map(([key, val]) => ({ key, ...val })).sort((a, b) => (b.date || '').localeCompare(a.date || ''))
-        : [];
-      window.renderFinance();
-    });
 
     window.renderFinance = () => {
       let balance = 0;
@@ -2467,53 +2108,19 @@
         feeYearEl.value = curY;
       }
 
-      const selYear = feeYearEl ? feeYearEl.value : new Date().toISOString().slice(0, 4);
-      const membersArr = Object.values(registeredMembers);
-      const feeTbody = document.getElementById('annual-fee-tbody');
+      const selYear = feeYearEl ? feeYearEl.value : new Date().toISOString().slice(0, 4), membersArr = Object.values(registeredMembers), feeTbody = document.getElementById('annual-fee-tbody');
       if (feeTbody) {
         feeTbody.innerHTML = membersArr.length ? membersArr.map(m => {
-          const paidEntries = allFinance.filter(f =>
-            f.category === '년회비' && f.player === m.name && ((f.year && String(f.year) === selYear) || (f.date && f.date.startsWith(selYear)))
-          );
-          const paidSum = paidEntries.reduce((a, b) => a + Number(b.amount), 0);
-          return `
-            <tr>
-              <td><b>${esc(m.name)}</b></td>
-              <td>${paidSum > 0 ? '<span class="badge-paid">납부완료</span>' : '<span class="badge-unpaid">미납</span>'}</td>
-              <td style="color:${paidSum > 0 ? 'var(--green-accent)' : 'var(--text-muted)'};font-weight:700;">
-                ${paidSum > 0 ? paidSum.toLocaleString() + '동' : '-'}
-              </td>
-              <td class="admin-only">
-                <button class="btn-edit" onclick="quickMarkAnnualFee('${esc(m.name)}')">${paidSum > 0 ? '수정' : '납부입력'}</button>
-              </td>
-            </tr>`;
+          const paidSum = allFinance.filter(f => f.category === '년회비' && f.player === m.name && ((f.year && String(f.year) === selYear) || (f.date && f.date.startsWith(selYear)))).reduce((a, b) => a + Number(b.amount), 0);
+          return `<tr><td><b>${esc(m.name)}</b></td><td>${paidSum > 0 ? '<span class="badge-paid">납부완료</span>' : '<span class="badge-unpaid">미납</span>'}</td><td style="color:${paidSum > 0 ? 'var(--green-accent)' : 'var(--text-muted)'};font-weight:700;">${paidSum > 0 ? paidSum.toLocaleString() + '동' : '-'}</td><td class="admin-only"><button class="btn-edit" onclick="quickMarkAnnualFee('${esc(m.name)}')">${paidSum > 0 ? '수정' : '납부입력'}</button></td></tr>`;
         }).join('') : '<tr><td colspan="4">등록된 회원이 없습니다.</td></tr>';
       }
 
       document.getElementById('fin-tbody').innerHTML = allFinance.length ? allFinance.map(f => {
         const cat = f.category || (f.type === 'out' ? '출금' : '입금');
-        return `
-          <tr>
-            <td>${esc(f.date)}</td>
-            <td><span class="role-badge">${esc(cat)}</span></td>
-            <td>${esc(f.desc)}</td>
-            <td style="color:${f.type==='in'?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">
-              ${f.type==='in'?'+':'-'}${Number(f.amount).toLocaleString()}동
-            </td>
-            <td class="admin-only">
-              <div class="action-btns">
-                <button class="btn-edit" onclick="openEdit('finance','${f.key}')">수정</button>
-                <button class="btn-del" onclick="deleteFin('${f.key}')">삭제</button>
-              </div>
-            </td>
-          </tr>`;
+        return `<tr><td>${esc(f.date)}</td><td><span class="role-badge">${esc(cat)}</span></td><td>${esc(f.desc)}</td><td style="color:${f.type==='in'?'var(--green-accent)':'var(--red-accent)'};font-weight:700;">${f.type==='in'?'+':'-'}${Number(f.amount).toLocaleString()}동</td><td class="admin-only"><div class="action-btns"><button class="btn-edit" onclick="openEdit('finance','${f.key}')">수정</button><button class="btn-del" onclick="deleteFin('${f.key}')">삭제</button></div></td></tr>`;
       }).join('') : '<tr><td colspan="5">회비 내역이 없습니다.</td></tr>';
     };
-
-    onValue(ref(db, 'tourneyConfig'), (snap) => {
-      tourneyConfigs = snap.val() || {};
-      window.renderTourney();
-    });
 
     window.setTourneyMode = (mode) => {
       tourneyMode = mode;
@@ -2523,176 +2130,78 @@
     };
 
     const pickBalancedHiddenHoles = (pars = DEFAULT_PARS) => {
-      const front = [1,2,3,4,5,6,7,8,9];
-      const back = [10,11,12,13,14,15,16,17,18];
-      const totalPar = pars.reduce((a, b) => a + Number(b), 0);
-      const target = Math.round(totalPar * 12 / 18);
-      const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
-
-      let bestSet = [1,2,4,6,7,9, 10,12,13,15,16,18];
-      let bestDiff = 999;
+      const front = [1,2,3,4,5,6,7,8,9], back = [10,11,12,13,14,15,16,17,18], target = Math.round(pars.reduce((a, b) => a + Number(b), 0) * 12 / 18), shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+      let bestSet = [1,2,4,6,7,9, 10,12,13,15,16,18], bestDiff = 999;
       for (let attempt = 0; attempt < 80; attempt++) {
         const pick = [...shuffle(front).slice(0, 6), ...shuffle(back).slice(0, 6)];
-        const sum = pick.reduce((a, h) => a + Number(pars[h - 1] || 4), 0);
-        const diff = Math.abs(sum - target);
-        if (diff < bestDiff) {
-          bestDiff = diff;
-          bestSet = pick;
-          if (diff === 0) break;
-        }
+        const diff = Math.abs(pick.reduce((a, h) => a + Number(pars[h - 1] || 4), 0) - target);
+        if (diff < bestDiff) { bestDiff = diff; bestSet = pick; if (diff === 0) break; }
       }
       return bestSet.sort((a, b) => a - b);
     };
 
     window.randomizeHiddenHoles = () => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const date = document.getElementById('tourney-date-select').value;
       if (!date) return alert("대회 날짜가 없습니다.");
-      const dayRounds = allRounds.filter(r => r.date === date);
-      const sampleRound = dayRounds[0];
-      const samplePars = sampleRound?.pars || findCourseParsByName(sampleRound?.course) || DEFAULT_PARS;
-      const hiddenHoles = pickBalancedHiddenHoles(samplePars);
-      set(ref(db, 'tourneyConfig/' + date), { hiddenHoles })
-        .catch(err => alert("저장 실패: " + err.message));
+      const sampleRound = allRounds.find(r => r.date === date);
+      set(ref(db, 'tourneyConfig/' + date), { hiddenHoles: pickBalancedHiddenHoles(sampleRound?.pars || findCourseParsByName(sampleRound?.course) || DEFAULT_PARS) }).catch(err => alert("저장 실패: " + err.message));
     };
 
     window.openHiddenHolesModal = () => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const date = document.getElementById('tourney-date-select').value;
       if (!date) return alert("대회 날짜가 없습니다.");
       const cur = tourneyConfigs[date]?.hiddenHoles || [1,2,4,6,7,9, 10,12,13,15,16,18];
-
       currentEdit = { type: 'hidden_holes', key: date };
       document.getElementById('edit-modal-title').innerText = `⚙ ${date} 히든 12홀 선택`;
-      document.getElementById('edit-modal-body').innerHTML = `
-        <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
-          신페리오 핸디 계산에 사용할 <b>숨김 홀 12개</b>를 선택하세요.
-        </div>
-        <div id="hh-count" style="font-size:13px;font-weight:800;color:var(--gold);margin-bottom:6px;">선택됨: ${cur.length} / 12홀</div>
-        <div class="hidden-hole-grid">
-          ${Array.from({length: 18}, (_, i) => {
-            const h = i + 1;
-            return `<button type="button" class="hh-btn ${cur.includes(h)?'selected':''}" data-hole="${h}" onclick="toggleHiddenHoleBtn(this)">${h}H</button>`;
-          }).join('')}
-        </div>`;
-      document.getElementById('edit-modal-actions').innerHTML =
-        `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">12홀 저장</button>`;
+      document.getElementById('edit-modal-body').innerHTML = `<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">신페리오 핸디 계산에 사용할 <b>숨김 홀 12개</b>를 선택하세요.</div><div id="hh-count" style="font-size:13px;font-weight:800;color:var(--gold);margin-bottom:6px;">선택됨: ${cur.length} / 12홀</div><div class="hidden-hole-grid">${Array.from({length: 18}, (_, i) => `<button type="button" class="hh-btn ${cur.includes(i+1)?'selected':''}" data-hole="${i+1}" onclick="toggleHiddenHoleBtn(this)">${i+1}H</button>`).join('')}</div>`;
+      document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">12홀 저장</button>`;
       document.getElementById('edit-modal').style.display = 'flex';
     };
 
-    window.toggleHiddenHoleBtn = (btn) => {
-      btn.classList.toggle('selected');
-      const cnt = document.querySelectorAll('.hh-btn.selected').length;
-      document.getElementById('hh-count').innerText = `선택됨: ${cnt} / 12홀`;
-    };
+    window.toggleHiddenHoleBtn = (btn) => { btn.classList.toggle('selected'); document.getElementById('hh-count').innerText = `선택됨: ${document.querySelectorAll('.hh-btn.selected').length} / 12홀`; };
 
     window.renderTourney = () => {
-      const selDate = document.getElementById('tourney-date-select')?.value;
-      const metaEl = document.getElementById('tourney-title-meta');
-      const tbody = document.getElementById('tourney-tbody');
-      const adminBar = document.getElementById('peoria-admin-bar');
-
-      if (!selDate || !allRounds.length) {
-        if (metaEl) metaEl.innerText = '';
-        if (tbody) tbody.innerHTML = '<tr><td colspan="6">대회 데이터가 없습니다.</td></tr>';
-        return;
-      }
+      const selDate = document.getElementById('tourney-date-select')?.value, metaEl = document.getElementById('tourney-title-meta'), tbody = document.getElementById('tourney-tbody'), adminBar = document.getElementById('peoria-admin-bar');
+      if (!selDate || !allRounds.length) { if (metaEl) metaEl.innerText = ''; if (tbody) tbody.innerHTML = '<tr><td colspan="6">대회 데이터가 없습니다.</td></tr>'; return; }
 
       const dayRounds = allRounds.filter(r => r.date === selDate);
-      const coursesText = Array.from(new Set(dayRounds.map(r => r.course).filter(Boolean))).join(', ');
-      if (metaEl) metaEl.innerText = `(${selDate} · ${coursesText || '골프장 미상'})`;
-
+      if (metaEl) metaEl.innerText = `(${selDate} · ${Array.from(new Set(dayRounds.map(r => r.course).filter(Boolean))).join(', ') || '골프장 미상'})`;
       if (adminBar) adminBar.style.display = tourneyMode === 'peoria' ? '' : 'none';
 
-      const defaultHidden = [1,2,4,6,7,9, 10,12,13,15,16,18];
-      const hiddenHoles = tourneyConfigs[selDate]?.hiddenHoles || defaultHidden;
+      const hiddenHoles = tourneyConfigs[selDate]?.hiddenHoles || [1,2,4,6,7,9, 10,12,13,15,16,18];
       const hhLabel = document.getElementById('peoria-hidden-label');
       if (hhLabel) hhLabel.innerText = `히든 12홀: ${hiddenHoles.map(h => h + 'H').join(', ')}`;
 
       if (tourneyMode === 'peoria') {
         const rows = dayRounds.map(r => {
-          const pars = r.pars || findCourseParsByName(r.course);
-          const totalPar = pars.reduce((a, b) => a + Number(b), 0);
+          const totalPar = (r.pars || findCourseParsByName(r.course)).reduce((a, b) => a + Number(b), 0);
           const has18 = r.holes && Array.from({length: 18}, (_, i) => Number(r.holes[String(i+1)] || 0)).every(v => v > 0);
           if (has18) {
-            const hiddenSum = hiddenHoles.reduce((a, h) => a + Number(r.holes[String(h)]), 0);
-            const handi = Number((((hiddenSum * 1.5) - totalPar) * 0.8).toFixed(1));
-            const net = Number((Number(r.score) - handi).toFixed(1));
-            return { ...r, has18: true, handi, net };
+            const handi = Number((((hiddenHoles.reduce((a, h) => a + Number(r.holes[String(h)]), 0) * 1.5) - totalPar) * 0.8).toFixed(1));
+            return { ...r, has18: true, handi, net: Number((Number(r.score) - handi).toFixed(1)) };
           }
           return { ...r, has18: false, handi: null, net: 9999 };
         }).sort((a, b) => (a.net - b.net) || (a.score - b.score));
 
-        tbody.innerHTML = rows.length ? rows.map((t, i) => `
-          <tr>
-            <td>${t.has18 ? `<span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span>` : '-'}</td>
-            <td><b>${esc(t.player)}</b></td>
-            <td>${t.score}</td>
-            <td>${t.has18 ? `-${t.handi}` : '<span style="font-size:11px;color:var(--text-muted);">18홀 미입력</span>'}</td>
-            <td style="color:var(--gold);font-weight:800;">${t.has18 ? t.net : '-'}</td>
-            <td class="admin-only">
-              <button class="btn-edit" onclick="openScorecardModal('round','${t.key}')">${t.has18 ? '수정' : '18홀입력'}</button>
-            </td>
-          </tr>`).join('') : '<tr><td colspan="6">해당 날짜 기록이 없습니다.</td></tr>';
+        tbody.innerHTML = rows.length ? rows.map((t, i) => `<tr><td>${t.has18 ? `<span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span>` : '-'}</td><td><b>${esc(t.player)}</b></td><td>${t.score}</td><td>${t.has18 ? `-${t.handi}` : '<span style="font-size:11px;color:var(--text-muted);">18홀 미입력</span>'}</td><td style="color:var(--gold);font-weight:800;">${t.has18 ? t.net : '-'}</td><td class="admin-only"><button class="btn-edit" onclick="openScorecardModal('round','${t.key}')">${t.has18 ? '수정' : '18홀입력'}</button></td></tr>`).join('') : '<tr><td colspan="6">해당 날짜 기록이 없습니다.</td></tr>';
       } else {
-        const rows = dayRounds.map(r => {
-          const h = getEffectiveRoundHandi(r);
-          return { ...r, handi: h, net: Number(r.score) - h };
-        }).sort((a, b) => (a.net - b.net) || (a.score - b.score));
-
-        tbody.innerHTML = rows.length ? rows.map((t, i) => `
-          <tr>
-            <td><span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span></td>
-            <td><b>${esc(t.player)}</b></td>
-            <td>${t.score}</td>
-            <td>-${t.handi}</td>
-            <td style="color:var(--gold);font-weight:800;">${t.net}</td>
-            <td class="admin-only">
-              <button class="btn-edit" onclick="openScorecardModal('round','${t.key}')">18홀</button>
-            </td>
-          </tr>`).join('') : '<tr><td colspan="6">해당 날짜 기록이 없습니다.</td></tr>';
+        const rows = dayRounds.map(r => { const h = getEffectiveRoundHandi(r); return { ...r, handi: h, net: Number(r.score) - h }; }).sort((a, b) => (a.net - b.net) || (a.score - b.score));
+        tbody.innerHTML = rows.length ? rows.map((t, i) => `<tr><td><span class="rank-badge ${i<3?'rank-'+(i+1):''}">${i+1}</span></td><td><b>${esc(t.player)}</b></td><td>${t.score}</td><td>-${t.handi}</td><td style="color:var(--gold);font-weight:800;">${t.net}</td><td class="admin-only"><button class="btn-edit" onclick="openScorecardModal('round','${t.key}')">18홀</button></td></tr>`).join('') : '<tr><td colspan="6">해당 날짜 기록이 없습니다.</td></tr>';
       }
     };
 
     window.saveNews = () => {
-      const title = document.getElementById('n-title').value.trim();
-      const body = document.getElementById('n-body').value.trim();
+      const title = document.getElementById('n-title').value.trim(), body = document.getElementById('n-body').value.trim();
       if (!title || !body) return alert("제목과 내용을 입력하세요.");
-
-      push(ref(db, 'news'), { title, body, date: new Date().toISOString().slice(0, 10) })
-        .then(() => {
-          alert("소식이 등록되었습니다!");
-          document.getElementById('n-title').value = "";
-          document.getElementById('n-body').value = "";
-        })
-        .catch(err => alert("소식 등록 실패: " + err.message));
+      push(ref(db, 'news'), { title, body, date: new Date().toISOString().slice(0, 10) }).then(() => { alert("소식이 등록되었습니다!"); document.getElementById('n-title').value = ""; document.getElementById('n-body').value = ""; }).catch(err => alert("소식 등록 실패: " + err.message));
     };
-
     window.deleteNews = (key) => {
-      if (!isAdmin) return alert("관리자 권한이 필요합니다.");
+      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
       const n = allNews.find(x => x.key === key);
-      if (!n) return;
-      if (confirm(`'${n.title}' 소식을 삭제할까요?`)) {
-        remove(ref(db, 'news/' + key)).catch(err => alert("삭제 실패: " + err.message));
-      }
+      if (n && confirm(`'${n.title}' 소식을 삭제할까요?`)) remove(ref(db, 'news/' + key)).catch(err => alert("삭제 실패: " + err.message));
     };
-
-    onValue(ref(db, 'news'), (snap) => {
-      const data = snap.val();
-      allNews = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })).reverse() : [];
-      document.getElementById('news-container').innerHTML = allNews.length ? allNews.map(n => `
-        <div class="card">
-          <div class="card-title">
-            <span>📣 ${esc(n.title)}</span>
-            <span style="font-size:11px;color:var(--text-muted);">${esc(n.date || '')}</span>
-          </div>
-          <div style="font-size:13px;line-height:1.6;white-space:pre-wrap;">${esc(n.body)}</div>
-          <div class="action-btns admin-only" style="margin-top:12px;">
-            <button class="btn-edit" onclick="openEdit('news','${n.key}')">수정</button>
-            <button class="btn-del" onclick="deleteNews('${n.key}')">삭제</button>
-          </div>
-        </div>`).join('') : '<div class="card">등록된 동호회 소식이 없습니다.</div>';
-    });
   </script>
 </body>
 </html>
