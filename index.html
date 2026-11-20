@@ -1,3 +1,20 @@
+질문하신 부분부터 말씀드리면, 기능상이나 기술상 아무 문제 없습니다! 유일한 차이점은 스마트폰에서 확대된 사진을 두 손가락으로 더 키우려다
+실수로 화면을 톡 건드리면 닫힐 수 있다는 정도뿐이고, 한 손으로 가볍게 보고 한 번 더 누르거나 뒤로가기로 바로 닫을 수 있어 오히려
+실사용에서는 매우 편합니다.
+
+반영된 뒤로가기 & 사진 닫기 동작
+
+1.  사진 확대 화면 (#img-lightbox)
+      - 사진 한 번 더 터치, 우측 상단 ✕ 닫기 버튼, 폰 뒤로가기 버튼 중 무엇을 누르든 사진만 닫히고 보던 라이브 화면 그대로
+        남습니다. (내부 히스토리도 자동으로 정리되어 뒤로가기가 꼬이지 않습니다.)
+2.  스코어카드 · 수정 창 · 안내 팝업
+      - 팝업이 열려 있을 때 폰 뒤로가기를 눌러도 앱이 꺼지지 않고 팝업만 닫힙니다.
+3.  기본 화면에서 뒤로가기 (방식 B 적용)
+      - 기본 화면에서 뒤로가기를 1번 누르면 화면 아래에 "뒤로가기를 한 번 더 누르면 종료됩니다" 안내가 2초간 뜹니다.
+      - 2초 안에 한 번 더 뒤로가기를 누를 때만 앱에서 빠져나갑니다.
+
+완성본 index.html 전체 코드
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -101,7 +118,6 @@
     .seg-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--card-border); background: #0b1914; color: var(--text-muted); font-weight: 700; font-size: 13px; cursor: pointer; }
     .seg-btn.active { background: var(--gold); color: #0b1914; border-color: var(--gold); }
 
-    /* 골프장 9홀 코스 & 사진 URL 입력 */
     .sub-course-box { background: rgba(11, 25, 20, 0.7); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px; margin-bottom: 10px; }
     .sub-course-header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
     .sub-course-header input { flex: 1; min-width: 110px; padding: 7px 9px; border-radius: 6px; border: 1px solid var(--card-border); background: #0b1914; color: #fff; font-size: 13px; font-weight: 700; }
@@ -118,7 +134,6 @@
     .hole-img-row span { font-size: 11px; font-weight: 800; color: var(--gold); min-width: 28px; }
     .hole-img-row input { flex: 1; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--card-border); background: #0b1914; color: #fff; font-size: 12px; }
 
-    /* 코스 안내 탭 카드 */
     .guide-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
     .guide-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
     .guide-hole-card { background: #0b1914; border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
@@ -127,12 +142,10 @@
     .guide-img-fallback { padding: 14px; text-align: center; font-size: 12px; color: var(--text-muted); }
     .guide-img-fallback a { color: var(--gold); font-weight: 700; }
 
-    /* 라이브 내 현재 홀 사진 박스 */
     #live-hole-photo-box { margin-top: 12px; background: #0b1914; border: 1px solid rgba(212, 175, 55, 0.45); border-radius: 10px; padding: 10px 12px; display: none; }
     .live-photo-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
     .live-photo-img { width: 100%; max-height: 220px; object-fit: contain; margin-top: 8px; border-radius: 8px; cursor: zoom-in; background: #07120e; display: block; }
 
-    /* 라이브 홀 바 & 스코어 용어 색상 */
     .live-course-strip { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; margin: 10px 0; }
     .hole-pill { background: #0b1914; border: 1px solid var(--card-border); border-radius: 6px; padding: 5px 2px; text-align: center; cursor: pointer; font-size: 11px; }
     .hole-pill b { display: block; font-size: 11px; color: #fff; }
@@ -181,9 +194,15 @@
     .edit-card-title { font-size: 16px; font-weight: 800; color: var(--gold-light); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
     .edit-actions { display: flex; gap: 8px; margin-top: 16px; }
 
-    #img-lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 10005; flex-direction: column; justify-content: center; align-items: center; padding: 16px; }
-    #img-lightbox img { max-width: 96%; max-height: 78vh; border-radius: 10px; border: 1.5px solid var(--gold); object-fit: contain; background: #07120e; }
+    /* 사진 확대 라이트박스 */
+    #img-lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 10005; flex-direction: column; justify-content: center; align-items: center; padding: 16px; }
+    .lightbox-close-btn { position: fixed; top: 16px; right: 16px; background: rgba(255,255,255,0.16); color: #fff; border: 1px solid rgba(255,255,255,0.35); padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 800; cursor: pointer; }
+    #img-lightbox img { max-width: 96%; max-height: 76vh; border-radius: 10px; border: 1.5px solid var(--gold); object-fit: contain; background: #07120e; }
     #img-lightbox-caption { color: var(--gold-light); font-size: 14px; font-weight: 700; margin-top: 10px; text-align: center; }
+
+    /* 뒤로가기 2회 종료 토스트 메시지 */
+    #back-exit-toast { position: fixed; left: 50%; bottom: 78px; transform: translateX(-50%) translateY(14px); background: rgba(10, 22, 17, 0.96); color: #fff; border: 1px solid var(--gold); padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 700; z-index: 10010; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; white-space: nowrap; box-shadow: 0 8px 20px rgba(0,0,0,0.55); }
+    #back-exit-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     .hidden-hole-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 10px 0; }
     .hh-btn { padding: 8px 4px; border-radius: 6px; border: 1px solid var(--card-border); background: #0b1914; color: var(--text-muted); font-size: 12px; font-weight: 700; cursor: pointer; }
@@ -274,7 +293,6 @@
   </nav>
 
   <div class="content">
-    <!-- 1. 핸디 순위 -->
     <div id="t-handi" class="tab-pane active">
       <div class="card">
         <div class="card-title">
@@ -293,7 +311,6 @@
       </div>
     </div>
 
-    <!-- 2. 월별 성적 -->
     <div id="t-monthly" class="tab-pane">
       <div class="card">
         <div class="card-title">
@@ -313,13 +330,9 @@
       </div>
     </div>
 
-    <!-- 3. 라이브 -->
     <div id="t-live" class="tab-pane">
       <div class="card">
-        <div class="card-title">
-          <span>⛳ 실시간 라운드 설정</span>
-          <span class="live-badge">LIVE AUTO SAVE</span>
-        </div>
+        <div class="card-title"><span>⛳ 실시간 라운드 설정</span><span class="live-badge">LIVE AUTO SAVE</span></div>
         <div class="form-row-2">
           <div class="form-row" style="margin-bottom:8px;"><label>라운드 날짜</label><input type="date" id="live-date-input" onchange="updateLiveConfig(true)"></div>
           <div class="form-row" style="margin-bottom:8px;"><label>골프장 선택</label><select id="live-course-select" onchange="updateLiveConfig(true)"><option value="">기본 코스 (Par 72)</option></select></div>
@@ -333,10 +346,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <span>📝 실시간 스코어 입력</span>
-          <span style="font-size:11px; color:var(--text-muted);">18홀 완료 시 정식기록·벌금 자동저장</span>
-        </div>
+        <div class="card-title"><span>📝 실시간 스코어 입력</span><span style="font-size:11px; color:var(--text-muted);">18홀 완료 시 정식기록·벌금 자동저장</span></div>
         <div class="seg-tabs">
           <button class="seg-btn active" id="btn-mode-single" onclick="setLiveMode('single')">개별 입력</button>
           <button class="seg-btn" id="btn-mode-group" onclick="setLiveMode('group')">조별 입력 (최대 4명)</button>
@@ -378,7 +388,6 @@
           <div id="live-group-players-list"></div>
         </div>
 
-        <!-- 현재 홀 사진 자동 표시 박스 -->
         <div id="live-hole-photo-box">
           <div class="live-photo-head">
             <span id="live-photo-title" style="font-size:13px; font-weight:800; color:var(--gold-light);">📷 홀 모양</span>
@@ -389,10 +398,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <span>🏆 실시간 순위표</span>
-          <span style="font-size:11px; color:var(--text-muted);">이름 클릭 시 1~18홀 상세확인</span>
-        </div>
+        <div class="card-title"><span>🏆 실시간 순위표</span><span style="font-size:11px; color:var(--text-muted);">이름 클릭 시 1~18홀 상세확인</span></div>
         <div class="table-wrap">
           <table>
             <thead><tr><th>순위</th><th>조</th><th>플레이어</th><th>진행</th><th>현재 스코어</th><th class="admin-only">관리</th></tr></thead>
@@ -402,28 +408,17 @@
       </div>
     </div>
 
-    <!-- 4. 코스 안내 (홀 모양 사진 뷰어) -->
     <div id="t-guide" class="tab-pane">
       <div class="card">
-        <div class="card-title">
-          <span>🗺 골프장 코스 안내 (홀 모양)</span>
-          <span style="font-size:11px; color:var(--text-muted);">사진 클릭 시 크게 확대</span>
-        </div>
-        <div class="form-row">
-          <label>골프장 선택</label>
-          <select id="guide-course-select" onchange="renderCourseGuide()"><option value="">-- 골프장을 선택하세요 --</option></select>
-        </div>
+        <div class="card-title"><span>🗺 골프장 코스 안내 (홀 모양)</span><span style="font-size:11px; color:var(--text-muted);">사진 클릭 시 크게 확대</span></div>
+        <div class="form-row"><label>골프장 선택</label><select id="guide-course-select" onchange="renderCourseGuide()"><option value="">-- 골프장을 선택하세요 --</option></select></div>
         <div class="guide-tabs" id="guide-subcourse-tabs"></div>
-        <div class="guide-grid" id="guide-holes-container">
-          <div style="font-size:13px; color:var(--text-muted);">등록된 골프장을 선택하면 홀별 파와 사진을 볼 수 있습니다.</div>
-        </div>
+        <div class="guide-grid" id="guide-holes-container"><div style="font-size:13px; color:var(--text-muted);">등록된 골프장을 선택하면 홀별 파와 사진을 볼 수 있습니다.</div></div>
       </div>
     </div>
 
-    <!-- 5. 라운딩 목록 -->
     <div id="t-rounds" class="tab-pane"><div id="rounds-container"><div class="card">기록을 불러오는 중…</div></div></div>
 
-    <!-- 6. 개인별 성적 -->
     <div id="t-personal" class="tab-pane">
       <div class="card">
         <div class="card-title"><span>🎒 개인별 성적 & 포인트 조회</span></div>
@@ -438,81 +433,45 @@
           <div class="stat-box"><div class="lbl">누적 포인트</div><div class="val">-</div></div>
         </div>
       </div>
-
       <div class="card">
         <div class="card-title"><span>📅 월별 라운딩 성적 & 포인트</span></div>
-        <div class="table-wrap">
-          <table><thead><tr><th>날짜</th><th>골프장</th><th>스코어</th><th>핸디대비</th><th>포인트</th><th>벌금</th></tr></thead>
-          <tbody id="personal-monthly-tbody"><tr><td colspan="6">회원을 선택하세요.</td></tr></tbody></table>
-        </div>
+        <div class="table-wrap"><table><thead><tr><th>날짜</th><th>골프장</th><th>스코어</th><th>핸디대비</th><th>포인트</th><th>벌금</th></tr></thead><tbody id="personal-monthly-tbody"><tr><td colspan="6">회원을 선택하세요.</td></tr></tbody></table></div>
       </div>
-
       <div class="card">
         <div class="card-title"><span>⭐ 개별 포인트 지급/차감 내역</span></div>
-        <div class="table-wrap">
-          <table><thead><tr><th>날짜</th><th>사유</th><th>포인트</th></tr></thead>
-          <tbody id="personal-points-tbody"><tr><td colspan="3">회원을 선택하세요.</td></tr></tbody></table>
-        </div>
+        <div class="table-wrap"><table><thead><tr><th>날짜</th><th>사유</th><th>포인트</th></tr></thead><tbody id="personal-points-tbody"><tr><td colspan="3">회원을 선택하세요.</td></tr></tbody></table></div>
       </div>
     </div>
 
-    <!-- 7. 회원 명단 -->
     <div id="t-members" class="tab-pane">
       <div class="card">
         <div class="card-title"><span>👥 등록 회원 명단</span><span style="font-size:11px; color:var(--text-muted);" id="member-count">총 0명</span></div>
-        <div class="table-wrap">
-          <table><thead><tr><th>이름</th><th>라운드</th><th>베스트</th><th>등록 핸디</th><th>누적 포인트</th><th class="admin-only">관리</th></tr></thead>
-          <tbody id="members-tbody"><tr><td colspan="6">등록된 회원이 없습니다.</td></tr></tbody></table>
-        </div>
+        <div class="table-wrap"><table><thead><tr><th>이름</th><th>라운드</th><th>베스트</th><th>등록 핸디</th><th>누적 포인트</th><th class="admin-only">관리</th></tr></thead><tbody id="members-tbody"><tr><td colspan="6">등록된 회원이 없습니다.</td></tr></tbody></table></div>
       </div>
     </div>
 
-    <!-- 8. 회비 내역 -->
     <div id="t-finance" class="tab-pane">
       <div class="card" style="background: linear-gradient(135deg, #163329, #0e221b);">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-          <div>
-            <div style="font-size:12px; color:var(--gold);">한울모임 총 잔액</div>
-            <div style="font-size:26px; font-weight:800; margin-top:4px;"><span id="fin-balance">0</span> 동</div>
-          </div>
+          <div><div style="font-size:12px; color:var(--gold);">한울모임 총 잔액</div><div style="font-size:26px; font-weight:800; margin-top:4px;"><span id="fin-balance">0</span> 동</div></div>
           <button class="btn-sm admin-only" onclick="syncAllRoundFines()">🔄 전체 벌금 자동정산 동기화</button>
         </div>
       </div>
-
       <div class="card">
-        <div class="card-title">
-          <span>💳 개인별 년회비 납부 현황</span>
-          <select id="fee-year-select" onchange="renderFinance()" style="background:#0b1914;color:#fff;border:1px solid var(--card-border);border-radius:6px;padding:4px 8px;font-size:12px;"></select>
-        </div>
-        <div class="table-wrap">
-          <table><thead><tr><th>회원명</th><th>납부 상태</th><th>납부 금액</th><th class="admin-only">관리</th></tr></thead>
-          <tbody id="annual-fee-tbody"><tr><td colspan="4">등록된 회원이 없습니다.</td></tr></tbody></table>
-        </div>
+        <div class="card-title"><span>💳 개인별 년회비 납부 현황</span><select id="fee-year-select" onchange="renderFinance()" style="background:#0b1914;color:#fff;border:1px solid var(--card-border);border-radius:6px;padding:4px 8px;font-size:12px;"></select></div>
+        <div class="table-wrap"><table><thead><tr><th>회원명</th><th>납부 상태</th><th>납부 금액</th><th class="admin-only">관리</th></tr></thead><tbody id="annual-fee-tbody"><tr><td colspan="4">등록된 회원이 없습니다.</td></tr></tbody></table></div>
       </div>
-
       <div class="card">
-        <div class="card-title">
-          <span>💰 입출금 & 벌금 내역</span>
-          <span style="font-size:11px; color:var(--text-muted);">핸디 초과 타당 10만동 (최대 50만동)</span>
-        </div>
-        <div class="table-wrap">
-          <table><thead><tr><th>날짜</th><th>구분</th><th>내역</th><th>금액</th><th class="admin-only">관리</th></tr></thead>
-          <tbody id="fin-tbody"><tr><td colspan="5">회비 내역이 없습니다.</td></tr></tbody></table>
-        </div>
+        <div class="card-title"><span>💰 입출금 & 벌금 내역</span><span style="font-size:11px; color:var(--text-muted);">핸디 초과 타당 10만동 (최대 50만동)</span></div>
+        <div class="table-wrap"><table><thead><tr><th>날짜</th><th>구분</th><th>내역</th><th>금액</th><th class="admin-only">관리</th></tr></thead><tbody id="fin-tbody"><tr><td colspan="5">회비 내역이 없습니다.</td></tr></tbody></table></div>
       </div>
     </div>
 
-    <!-- 9. 대회 모드 -->
     <div id="t-tourney" class="tab-pane">
       <div class="card">
         <div class="card-title">
-          <div>
-            <span>🏆 대회 순위</span>
-            <span id="tourney-title-meta" style="font-size:12px; color:var(--gold); margin-left:6px;"></span>
-          </div>
-          <select id="tourney-date-select" onchange="renderTourney()" style="background:#0b1914;color:#fff;border:1px solid var(--card-border);border-radius:6px;padding:5px 8px;font-size:12px;">
-            <option value="">날짜 없음</option>
-          </select>
+          <div><span>🏆 대회 순위</span><span id="tourney-title-meta" style="font-size:12px; color:var(--gold); margin-left:6px;"></span></div>
+          <select id="tourney-date-select" onchange="renderTourney()" style="background:#0b1914;color:#fff;border:1px solid var(--card-border);border-radius:6px;padding:5px 8px;font-size:12px;"><option value="">날짜 없음</option></select>
         </div>
         <div class="seg-tabs">
           <button class="seg-btn active" id="btn-tmode-peoria" onclick="setTourneyMode('peoria')">신페리오 (18홀 기준)</button>
@@ -521,23 +480,15 @@
         <div id="peoria-admin-bar" class="admin-block admin-only" style="background:#0b1914;border:1px solid var(--card-border);border-radius:10px;padding:10px;margin-bottom:12px;">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
             <span style="font-size:12px;color:var(--gold-light);" id="peoria-hidden-label">히든 12홀: 자동 배정</span>
-            <div style="display:flex;gap:6px;">
-              <button class="btn-sm" onclick="randomizeHiddenHoles()">🎲 12홀 랜덤추첨</button>
-              <button class="btn-sm" onclick="openHiddenHolesModal()">⚙ 12홀 직접선택</button>
-            </div>
+            <div style="display:flex;gap:6px;"><button class="btn-sm" onclick="randomizeHiddenHoles()">🎲 12홀 랜덤추첨</button><button class="btn-sm" onclick="openHiddenHolesModal()">⚙ 12홀 직접선택</button></div>
           </div>
         </div>
-        <div class="table-wrap">
-          <table><thead><tr><th>순위</th><th>이름</th><th>그로스</th><th>핸디</th><th>네트(최종)</th><th class="admin-only">18홀</th></tr></thead>
-          <tbody id="tourney-tbody"><tr><td colspan="6">대회 데이터가 없습니다.</td></tr></tbody></table>
-        </div>
+        <div class="table-wrap"><table><thead><tr><th>순위</th><th>이름</th><th>그로스</th><th>핸디</th><th>네트(최종)</th><th class="admin-only">18홀</th></tr></thead><tbody id="tourney-tbody"><tr><td colspan="6">대회 데이터가 없습니다.</td></tr></tbody></table></div>
       </div>
     </div>
 
-    <!-- 10. 소식 -->
     <div id="t-news" class="tab-pane"><div id="news-container"><div class="card">등록된 동호회 소식이 없습니다.</div></div></div>
 
-    <!-- 11. 관리자 전용: 세분화된 관리/입력 탭 -->
     <div id="t-input" class="tab-pane">
       <div class="admin-sub-nav">
         <button class="admin-sub-btn active" onclick="switchAdminSub('sub-score', this)">✏ 스코어</button>
@@ -555,10 +506,7 @@
             <div class="form-row"><label>날짜</label><input type="date" id="in-date"></div>
             <div class="form-row"><label>골프장명</label>
               <select id="in-course-select" onchange="onInCourseSelectChange()" style="margin-bottom:6px;"><option value="">-- 등록된 골프장 선택 --</option></select>
-              <div id="in-subcourse-wrap" class="form-row-2" style="display:none; margin-bottom:6px;">
-                <select id="in-front-course" onchange="syncInCourseText()"></select>
-                <select id="in-back-course" onchange="syncInCourseText()"></select>
-              </div>
+              <div id="in-subcourse-wrap" class="form-row-2" style="display:none; margin-bottom:6px;"><select id="in-front-course" onchange="syncInCourseText()"></select><select id="in-back-course" onchange="syncInCourseText()"></select></div>
               <input type="text" id="in-course" placeholder="예: 엠버힐 CC (직접 입력 가능)">
             </div>
             <div class="form-row"><label>회원 선택 (또는 직접 입력)</label>
@@ -576,9 +524,7 @@
           <div class="card" style="border-color: var(--gold);">
             <div class="card-title"><span>👥 신규 회원 등록</span></div>
             <div class="form-row"><label>회원 이름</label><input type="text" id="m-name" placeholder="예: 김한울"></div>
-            <div class="form-row"><label>직책</label>
-              <select id="m-role"><option value="회원">일반 회원</option><option value="회장">회장</option><option value="총무">총무</option><option value="경기이사">경기이사</option></select>
-            </div>
+            <div class="form-row"><label>직책</label><select id="m-role"><option value="회원">일반 회원</option><option value="회장">회장</option><option value="총무">총무</option><option value="경기이사">경기이사</option></select></div>
             <div class="form-row"><label>등록 핸디 (모든 게임 핸디대비 기준)</label><input type="number" id="m-handi" placeholder="예: 15" value="18"></div>
             <button class="btn-primary" onclick="saveMember()">회원 등록하기</button>
           </div>
@@ -595,29 +541,19 @@
             <div class="form-row"><label>사유</label><input type="text" id="pt-reason" placeholder="예: 버디상, 니어리스트, 이월 포인트 등"></div>
             <button class="btn-primary" onclick="saveManualPoint()">포인트 저장</button>
           </div>
-          <div class="card">
-            <div class="card-title"><span>📋 최근 개별 포인트 내역</span></div>
-            <div id="admin-points-list" style="max-height:360px; overflow-y:auto; font-size:12px;"></div>
-          </div>
+          <div class="card"><div class="card-title"><span>📋 최근 개별 포인트 내역</span></div><div id="admin-points-list" style="max-height:360px; overflow-y:auto; font-size:12px;"></div></div>
         </div>
       </div>
 
       <div id="sub-course" class="admin-sub-pane">
         <div class="admin-split-2">
           <div class="card" style="border-color: var(--gold);">
-            <div class="card-title">
-              <span>⛳ 골프장 등록 (최대 54홀)</span>
-              <span id="course-par-sum" style="font-size:12px; color:var(--gold);">총 18홀 · Par 72</span>
-            </div>
+            <div class="card-title"><span>⛳ 골프장 등록 (최대 54홀)</span><span id="course-par-sum" style="font-size:12px; color:var(--gold);">총 18홀 · Par 72</span></div>
             <div class="form-row-2">
               <div class="form-row"><label>골프장 이름</label><input type="text" id="c-name" placeholder="예: 엠버힐 CC"></div>
               <div class="form-row"><label>총 홀 수 (9홀 코스 단위)</label>
                 <select id="c-hole-count" onchange="renderCourseBuilder('c-courses-container', Number(this.value)/9, null, 'course-par-sum')">
-                  <option value="18">18홀 (2개 코스)</option>
-                  <option value="27">27홀 (3개 코스)</option>
-                  <option value="36">36홀 (4개 코스)</option>
-                  <option value="45">45홀 (5개 코스)</option>
-                  <option value="54">54홀 (6개 코스)</option>
+                  <option value="18">18홀 (2개 코스)</option><option value="27">27홀 (3개 코스)</option><option value="36">36홀 (4개 코스)</option><option value="45">45홀 (5개 코스)</option><option value="54">54홀 (6개 코스)</option>
                 </select>
               </div>
             </div>
@@ -628,10 +564,7 @@
             <div id="c-courses-container"></div>
             <button class="btn-primary" style="margin-top:6px;" onclick="saveCourse()">골프장 저장하기</button>
           </div>
-          <div class="card">
-            <div class="card-title"><span>📋 등록된 골프장 목록</span></div>
-            <div id="courses-list"></div>
-          </div>
+          <div class="card"><div class="card-title"><span>📋 등록된 골프장 목록</span></div><div id="courses-list"></div></div>
         </div>
       </div>
 
@@ -641,12 +574,7 @@
             <div class="card-title"><span>💰 회비 / 년회비 입출금 등록</span></div>
             <div class="form-row"><label>날짜</label><input type="date" id="f-date"></div>
             <div class="form-row-2">
-              <div class="form-row"><label>항목 구분</label>
-                <select id="f-category" onchange="toggleFinFields()">
-                  <option value="월회비">월회비 입금 (+)</option><option value="년회비">개인 년회비 입금 (+)</option>
-                  <option value="벌금">벌금 입금 (+)</option><option value="일반입금">기타 입금 (+)</option><option value="출금">지출 / 출금 (-)</option>
-                </select>
-              </div>
+              <div class="form-row"><label>항목 구분</label><select id="f-category" onchange="toggleFinFields()"><option value="월회비">월회비 입금 (+)</option><option value="년회비">개인 년회비 입금 (+)</option><option value="벌금">벌금 입금 (+)</option><option value="일반입금">기타 입금 (+)</option><option value="출금">지출 / 출금 (-)</option></select></div>
               <div class="form-row" id="f-player-wrap"><label>회원 (년회비/벌금 시)</label><select id="f-player"><option value="">-- 선택 --</option></select></div>
             </div>
             <div class="form-row"><label>내용</label><input type="text" id="f-desc" placeholder="예: 2026년 년회비 / 11월 월례회 식대"></div>
@@ -668,89 +596,173 @@
       </div>
     </div>
 
-    <!-- 12. 설정 -->
     <div id="t-settings" class="tab-pane">
-      <div class="card">
-        <div class="card-title"><span>⚙ 데이터 관리</span></div>
-        <button class="btn-primary" style="background:var(--red-accent); color:#fff;" onclick="clearLive()">라이브 스코어보드 전체 초기화</button>
-      </div>
+      <div class="card"><div class="card-title"><span>⚙ 데이터 관리</span></div><button class="btn-primary" style="background:var(--red-accent); color:#fff;" onclick="clearLive()">라이브 스코어보드 전체 초기화</button></div>
     </div>
   </div>
 
-  <!-- 오른쪽 하단 PWA 앱 설치 버튼 -->
   <button id="pwa-install-btn" onclick="triggerPwaInstall()">+ 앱 설치</button>
 
-  <!-- PWA 수동 설치 안내 모달 -->
-  <div id="pwa-guide-modal" onclick="if(event.target===this) this.style.display='none'">
+  <div id="pwa-guide-modal" onclick="if(event.target===this) closePwaGuide()">
     <div class="pwa-guide-box">
-      <div class="edit-card-title">
-        <span>📱 앱으로 설치하기</span>
-        <button onclick="document.getElementById('pwa-guide-modal').style.display='none'" style="background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;">✕</button>
-      </div>
+      <div class="edit-card-title"><span>📱 앱으로 설치하기</span><button onclick="closePwaGuide()" style="background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;">✕</button></div>
       <div class="pwa-guide-step"><b>🍎 아이폰 / 아이패드 (Safari)</b>화면 하단(또는 상단)의 <b>공유(□↑)</b> 버튼을 누른 뒤, <b>'홈 화면에 추가'</b>를 선택하세요.</div>
       <div class="pwa-guide-step"><b>🤖 안드로이드 (Chrome / 삼성인터넷)</b>브라우저 우측 상단 <b>⋮ 메뉴</b> → <b>'앱 설치'</b> 또는 <b>'홈 화면에 추가'</b>를 누르세요.</div>
       <div class="pwa-guide-step"><b>💻 PC (Chrome / Edge)</b>주소창 오른쪽 끝의 <b>설치(⊕)</b> 아이콘 또는 우측 상단 <b>⋮ → 전송, 저장 및 공유 → 페이지 앱으로 설치</b>를 누르세요.</div>
-      <button class="btn-primary" onclick="document.getElementById('pwa-guide-modal').style.display='none'">확인</button>
+      <button class="btn-primary" onclick="closePwaGuide()">확인</button>
     </div>
   </div>
 
-  <!-- 싱글 달성 모달 -->
   <div id="achievement-modal">
     <div class="achieve-card">
       <div style="font-size:36px; margin-bottom:8px;">🏆</div>
       <div style="font-size:12px; color:var(--gold); letter-spacing:2px; font-weight:800;">ACHIEVEMENT UNLOCKED</div>
       <h3 id="achieve-text" style="margin:12px 0; font-size:18px;">싱글 플레이어 달성!</h3>
-      <button class="btn-primary" onclick="document.getElementById('achievement-modal').style.display='none'">확인</button>
+      <button class="btn-primary" onclick="closeAchieveModal()">확인</button>
     </div>
   </div>
 
-  <!-- 공용 수정 / 상세 모달 -->
   <div id="edit-modal" onclick="if(event.target===this) closeEditModal()">
     <div class="edit-card">
-      <div class="edit-card-title">
-        <span id="edit-modal-title">수정하기</span>
-        <button onclick="closeEditModal()" style="background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;">✕</button>
-      </div>
+      <div class="edit-card-title"><span id="edit-modal-title">수정하기</span><button onclick="closeEditModal()" style="background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;">✕</button></div>
       <div id="edit-modal-body"></div>
-      <div class="edit-actions" id="edit-modal-actions">
-        <button class="btn-secondary" onclick="closeEditModal()">취소</button>
-        <button class="btn-primary" onclick="submitEdit()">저장</button>
-      </div>
+      <div class="edit-actions" id="edit-modal-actions"><button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button></div>
     </div>
   </div>
 
-  <!-- 홀 사진 확대 라이트박스 -->
-  <div id="img-lightbox" onclick="this.style.display='none'">
+  <div id="img-lightbox" onclick="closeLightbox()">
+    <button type="button" class="lightbox-close-btn" onclick="event.stopPropagation(); closeLightbox()">✕ 닫기</button>
     <img id="img-lightbox-pic" src="" alt="홀 사진">
     <div id="img-lightbox-caption"></div>
-    <div style="font-size:11px; color:var(--text-muted); margin-top:6px;">화면을 터치하면 닫힙니다</div>
+    <div style="font-size:11px; color:var(--text-muted); margin-top:6px;">사진을 터치하거나 뒤로가기를 누르면 닫힙니다</div>
   </div>
+
+  <div id="back-exit-toast">뒤로가기를 한 번 더 누르면 종료됩니다</div>
 
   <script>
     window.isAdmin = false;
     let deferredPrompt = null;
 
+    // ==========================================
+    // 뒤로가기(Back) 방어 및 오버레이 히스토리 관리
+    // ==========================================
+    let baseGuardArmed = false;
+    let overlayStack = [];
+    let ignoreNextPop = false;
+    let lastBackToastAt = 0;
+    let backToastTimer = null;
+
+    function armBaseHistoryGuard() {
+      if (baseGuardArmed) return;
+      const loginScreen = document.getElementById('login-screen');
+      if (loginScreen && loginScreen.style.display !== 'none') return;
+      try {
+        history.replaceState({ hanulRoot: true }, '');
+        history.pushState({ hanulGuard: true }, '');
+        baseGuardArmed = true;
+      } catch(e) {}
+    }
+
+    // 사용자 첫 터치/클릭 시 기본 화면 뒤로가기 방어막 활성화
+    document.addEventListener('pointerdown', armBaseHistoryGuard, { capture: true, passive: true });
+    document.addEventListener('click', armBaseHistoryGuard, { capture: true, passive: true });
+
+    window.pushOverlayState = function(name) {
+      armBaseHistoryGuard();
+      if (overlayStack[overlayStack.length - 1] === name) return;
+      overlayStack.push(name);
+      try { history.pushState({ hanulOverlay: name }, ''); } catch(e) {}
+    };
+
+    window.popOverlayState = function(name) {
+      const idx = overlayStack.lastIndexOf(name);
+      if (idx === -1) return;
+      overlayStack.splice(idx, 1);
+      ignoreNextPop = true;
+      try { history.back(); } catch(e) { ignoreNextPop = false; }
+      setTimeout(() => { ignoreNextPop = false; }, 250);
+    };
+
+    function hideOverlayByName(name) {
+      if (name === 'lightbox') {
+        document.getElementById('img-lightbox').style.display = 'none';
+      } else if (name === 'edit') {
+        document.getElementById('edit-modal').style.display = 'none';
+        document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`;
+        if (window._clearCurrentEdit) window._clearCurrentEdit();
+      } else if (name === 'pwaGuide') {
+        document.getElementById('pwa-guide-modal').style.display = 'none';
+      } else if (name === 'achieve') {
+        document.getElementById('achievement-modal').style.display = 'none';
+      }
+    }
+
+    function showBackExitToast() {
+      const toast = document.getElementById('back-exit-toast');
+      if (!toast) return;
+      toast.classList.add('show');
+      clearTimeout(backToastTimer);
+      backToastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    window.addEventListener('popstate', () => {
+      if (ignoreNextPop) {
+        ignoreNextPop = false;
+        return;
+      }
+      // 1) 열려있는 사진 또는 팝업이 있으면 그것만 닫기
+      if (overlayStack.length > 0) {
+        const top = overlayStack.pop();
+        hideOverlayByName(top);
+        return;
+      }
+      // 2) 로그인 화면이 떠 있으면 그냥 동작
+      const loginScreen = document.getElementById('login-screen');
+      if (loginScreen && loginScreen.style.display !== 'none') return;
+
+      // 3) 기본 화면에서 뒤로가기: 2초 내 재입력 시 종료, 첫 번째는 안내 토스트
+      const now = Date.now();
+      if (now - lastBackToastAt < 2000) {
+        const toast = document.getElementById('back-exit-toast');
+        if (toast) toast.classList.remove('show');
+        baseGuardArmed = false;
+        try { history.back(); } catch(e) {}
+      } else {
+        lastBackToastAt = now;
+        showBackExitToast();
+        try { history.pushState({ hanulGuard: true }, ''); } catch(e) {}
+      }
+    });
+
+    window.closeLightbox = function() {
+      document.getElementById('img-lightbox').style.display = 'none';
+      window.popOverlayState('lightbox');
+    };
+    window.closePwaGuide = function() {
+      document.getElementById('pwa-guide-modal').style.display = 'none';
+      window.popOverlayState('pwaGuide');
+    };
+    window.closeAchieveModal = function() {
+      document.getElementById('achievement-modal').style.display = 'none';
+      window.popOverlayState('achieve');
+    };
+
     (function setupPWA() {
       const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
       const btn = document.getElementById('pwa-install-btn');
       if (isStandalone && btn) btn.style.display = 'none';
-
       try {
-        const cvs = document.createElement('canvas');
-        cvs.width = 192; cvs.height = 192;
+        const cvs = document.createElement('canvas'); cvs.width = 192; cvs.height = 192;
         const ctx = cvs.getContext('2d');
         ctx.fillStyle = '#0b1914'; ctx.fillRect(0, 0, 192, 192);
         ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 8; ctx.strokeRect(12, 12, 168, 168);
         ctx.fillStyle = '#d4af37'; ctx.font = 'bold 46px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('HANUL', 96, 94);
         ctx.fillStyle = '#f3e5ab'; ctx.font = 'bold 26px sans-serif'; ctx.fillText('GOLF', 96, 134);
-        const iconLink = document.getElementById('apple-touch-icon-link');
-        if (iconLink) iconLink.href = cvs.toDataURL('image/png');
+        const iconLink = document.getElementById('apple-touch-icon-link'); if (iconLink) iconLink.href = cvs.toDataURL('image/png');
       } catch(e) {}
-
       if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
       }
-
       window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; if (btn) btn.style.display = 'inline-flex'; });
       window.addEventListener('appinstalled', () => { deferredPrompt = null; if (btn) btn.style.display = 'none'; });
     })();
@@ -764,12 +776,12 @@
         });
       } else {
         document.getElementById('pwa-guide-modal').style.display = 'flex';
+        window.pushOverlayState('pwaGuide');
       }
     }
 
     window.addEventListener('DOMContentLoaded', function() {
-      const today = new Date().toISOString().slice(0, 10);
-      const mf = document.getElementById('month-filter');
+      const today = new Date().toISOString().slice(0, 10), mf = document.getElementById('month-filter');
       if (mf) mf.value = today.slice(0, 7);
       ['in-date', 'f-date', 'pt-date', 'live-date-input'].forEach(id => { const el = document.getElementById(id); if (el && !el.value) el.value = today; });
       const pwInput = document.getElementById('pw-input');
@@ -825,6 +837,8 @@
     let livePhotoOpen = true, selectedGuideSubIdx = -1;
     let unsubscribes = [], dbListenersActive = false;
 
+    window._clearCurrentEdit = () => { currentEdit = null; };
+
     const authErrorMsg = (err) => {
       const c = err?.code || '';
       if (c === 'auth/wrong-password' || c === 'auth/invalid-credential' || c === 'auth/user-not-found') return '비밀번호가 일치하지 않습니다.';
@@ -868,21 +882,12 @@
       unsubscribes.push(onValue(ref(db, 'courses'), (snap) => {
         const data = snap.val();
         allCourses = data ? Object.entries(data).map(([key, val]) => ({ key, ...val })) : [];
-        renderCoursesList();
-        renderLiveCourseSelector();
-        renderLiveHolePhoto();
-        window.renderCourseGuide();
+        renderCoursesList(); renderLiveCourseSelector(); renderLiveHolePhoto(); window.renderCourseGuide();
       }));
 
       unsubscribes.push(onValue(ref(db, 'liveConfig'), (snap) => {
         const val = snap.val();
-        if (val) {
-          liveConfig = {
-            date: val.date || new Date().toISOString().slice(0, 10),
-            courseKey: val.courseKey || '', courseName: val.courseName || '기본 코스',
-            frontIdx: Number(val.frontIdx ?? 0), backIdx: Number(val.backIdx ?? 1), pars: val.pars || [...DEFAULT_PARS]
-          };
-        }
+        if (val) liveConfig = { date: val.date || new Date().toISOString().slice(0, 10), courseKey: val.courseKey || '', courseName: val.courseName || '기본 코스', frontIdx: Number(val.frontIdx ?? 0), backIdx: Number(val.backIdx ?? 1), pars: val.pars || [...DEFAULT_PARS] };
         renderLiveCourseSelector(); renderLiveParStrip(); renderLiveInputUI();
       }));
 
@@ -979,23 +984,21 @@
       document.getElementById('img-lightbox-pic').src = safe;
       document.getElementById('img-lightbox-caption').innerText = caption || '';
       document.getElementById('img-lightbox').style.display = 'flex';
+      window.pushOverlayState('lightbox');
     };
 
-    // 연속 URL 번호 자동 증가 (예: .../1.png -> .../2.png, .../01.jpg -> .../02.jpg)
     const incrementUrlNumber = (url, offset) => {
       const trimmed = (url || '').trim();
       if (!trimmed) return '';
       const m = trimmed.match(/^(.*?)(\d+)(\.[a-zA-Z0-9]+(?:[?#].*)?)$/);
       if (m) {
-        const [, prefix, numStr, suffix] = m;
-        const nextNum = Number(numStr) + offset;
+        const [, prefix, numStr, suffix] = m, nextNum = Number(numStr) + offset;
         const padded = numStr.length > 1 && numStr.startsWith('0') ? String(nextNum).padStart(numStr.length, '0') : String(nextNum);
         return `${prefix}${padded}${suffix}`;
       }
       const m2 = trimmed.match(/^(.*?)(\d+)([^0-9]*)$/);
       if (m2) {
-        const [, prefix, numStr, suffix] = m2;
-        const nextNum = Number(numStr) + offset;
+        const [, prefix, numStr, suffix] = m2, nextNum = Number(numStr) + offset;
         const padded = numStr.length > 1 && numStr.startsWith('0') ? String(nextNum).padStart(numStr.length, '0') : String(nextNum);
         return `${prefix}${padded}${suffix}`;
       }
@@ -1028,26 +1031,14 @@
       return { text: `+${diff}`, cls: 'term-double' };
     };
 
-    const getRegisteredHandi = (playerName) => {
-      const mEntry = Object.values(registeredMembers).find(m => m.name === playerName);
-      return mEntry ? Number(mEntry.initHandi ?? 18) : 18;
-    };
-
+    const getRegisteredHandi = (playerName) => { const m = Object.values(registeredMembers).find(x => x.name === playerName); return m ? Number(m.initHandi ?? 18) : 18; };
     const getEffectiveRoundHandi = (r) => (r.appliedHandi !== undefined && r.appliedHandi !== null && r.appliedHandi !== '') ? Number(r.appliedHandi) : getRegisteredHandi(r.player);
-
-    const calcFineAmount = (r) => {
-      const actualScore = Number(r.score), handi = getEffectiveRoundHandi(r), over = actualScore - (72 + handi);
-      return over <= 0 ? { over: 0, amount: 0, handi } : { over, amount: Math.min(over * 100000, 500000), handi };
-    };
+    const calcFineAmount = (r) => { const actualScore = Number(r.score), handi = getEffectiveRoundHandi(r), over = actualScore - (72 + handi); return over <= 0 ? { over: 0, amount: 0, handi } : { over, amount: Math.min(over * 100000, 500000), handi }; };
 
     const syncRoundFine = (roundKey, roundObj) => {
-      const { over, amount } = calcFineAmount({ ...roundObj, key: roundKey });
-      const fineKey = 'fine_' + roundKey, fineRef = ref(db, 'finance/' + fineKey);
-      if (amount > 0) {
-        return set(fineRef, { date: roundObj.date, desc: `[벌금] ${roundObj.player} (핸디대비 +${over}타)`, type: 'in', amount, category: '벌금', player: roundObj.player, roundKey });
-      } else if (allFinance.some(f => f.key === fineKey)) {
-        return remove(fineRef);
-      }
+      const { over, amount } = calcFineAmount({ ...roundObj, key: roundKey }), fineKey = 'fine_' + roundKey, fineRef = ref(db, 'finance/' + fineKey);
+      if (amount > 0) return set(fineRef, { date: roundObj.date, desc: `[벌금] ${roundObj.player} (핸디대비 +${over}타)`, type: 'in', amount, category: '벌금', player: roundObj.player, roundKey });
+      if (allFinance.some(f => f.key === fineKey)) return remove(fineRef);
       return Promise.resolve();
     };
 
@@ -1062,8 +1053,7 @@
       if (!targets.length) return alert("해당 월에 라운딩 기록이 없습니다.");
       if (!confirm(`${selMonth}월 기록 ${targets.length}건의 적용 핸디를\n현재 회원 '등록 핸디' 기준으로 재계산(벌금 포함) 할까요?`)) return;
       Promise.all(targets.map(r => {
-        const regHandi = getRegisteredHandi(r.player), updatedObj = { ...r, appliedHandi: regHandi };
-        delete updatedObj.key;
+        const regHandi = getRegisteredHandi(r.player), updatedObj = { ...r, appliedHandi: regHandi }; delete updatedObj.key;
         return update(ref(db, 'rounds/' + r.key), { appliedHandi: regHandi }).then(() => syncRoundFine(r.key, updatedObj));
       })).then(() => alert(`${selMonth}월 성적 및 벌금이 등록 핸디 기준으로 재계산되었습니다.`)).catch(err => alert("재계산 실패: " + err.message));
     };
@@ -1074,12 +1064,7 @@
         return { ...r, actualScore, handi, vsHandi };
       }).sort((a, b) => (a.vsHandi - b.vsHandi) || (a.actualScore - b.actualScore));
       const bonusPrizes = [300, 200, 100], rankedPlayers = [], playerAutoPoints = {};
-      enriched.forEach(r => {
-        if (!playerAutoPoints[r.player]) {
-          const rankIdx = rankedPlayers.length; rankedPlayers.push(r.player);
-          playerAutoPoints[r.player] = { base: 300, bonus: rankIdx < 3 ? bonusPrizes[rankIdx] : 0, rank: rankIdx + 1 };
-        }
-      });
+      enriched.forEach(r => { if (!playerAutoPoints[r.player]) { const idx = rankedPlayers.length; rankedPlayers.push(r.player); playerAutoPoints[r.player] = { base: 300, bonus: idx < 3 ? bonusPrizes[idx] : 0, rank: idx + 1 }; } });
       const playerManualPoints = {};
       allPoints.filter(p => p.date && p.date.startsWith(monthStr)).forEach(p => { playerManualPoints[p.player] = (playerManualPoints[p.player] || 0) + Number(p.amount); });
       return { enriched, playerAutoPoints, playerManualPoints };
@@ -1093,9 +1078,6 @@
       return totals;
     };
 
-    // ==========================================
-    // 골프장 빌더 (18~54홀, 코스명, 파, 홀별 사진 URL + 자동채우기)
-    // ==========================================
     const readBuilderSubCourses = (containerId) => {
       const container = document.getElementById(containerId);
       if (!container) return [];
@@ -1107,57 +1089,42 @@
     };
 
     window.toggleCourseImgWrap = (btn) => {
-      const box = btn.closest('.sub-course-box');
-      const wrap = box.querySelector('.sc-imgs-wrap');
+      const wrap = btn.closest('.sub-course-box').querySelector('.sc-imgs-wrap');
       const isOpen = wrap.classList.toggle('open');
       btn.innerText = isOpen ? '📷 홀 사진 URL ▲' : '📷 홀 사진 URL ▼';
     };
 
     window.autoFillSubCourseUrls = (btn) => {
-      const box = btn.closest('.sub-course-box');
-      const wrap = box.querySelector('.sc-imgs-wrap');
+      const box = btn.closest('.sub-course-box'), wrap = box.querySelector('.sc-imgs-wrap');
       wrap.classList.add('open');
-      const toggleBtn = box.querySelector('.sc-img-toggle-btn');
-      if (toggleBtn) toggleBtn.innerText = '📷 홀 사진 URL ▲';
-      const inputs = Array.from(box.querySelectorAll('.sc-img-inp'));
-      const firstUrl = inputs[0]?.value.trim();
+      const toggleBtn = box.querySelector('.sc-img-toggle-btn'); if (toggleBtn) toggleBtn.innerText = '📷 홀 사진 URL ▲';
+      const inputs = Array.from(box.querySelectorAll('.sc-img-inp')), firstUrl = inputs[0]?.value.trim();
       if (!firstUrl) return alert("이 코스의 1H 칸에 첫 번째 사진 주소를 먼저 붙여넣으세요.");
       inputs.forEach((inp, idx) => { inp.value = incrementUrlNumber(firstUrl, idx); });
     };
 
     window.autoFillAllCourseUrls = (containerId) => {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      const boxes = Array.from(container.querySelectorAll('.sub-course-box'));
-      if (!boxes.length) return;
+      const container = document.getElementById(containerId); if (!container) return;
+      const boxes = Array.from(container.querySelectorAll('.sub-course-box')); if (!boxes.length) return;
       const firstUrl = boxes[0].querySelector('.sc-img-inp')?.value.trim();
       if (!firstUrl) return alert("1번 코스 '1H 사진 URL' 칸에 첫 번째 홀 이미지 주소를 먼저 붙여넣으세요.");
-
       let globalIdx = 0;
       boxes.forEach(box => {
         box.querySelector('.sc-imgs-wrap').classList.add('open');
-        const toggleBtn = box.querySelector('.sc-img-toggle-btn');
-        if (toggleBtn) toggleBtn.innerText = '📷 홀 사진 URL ▲';
-        box.querySelectorAll('.sc-img-inp').forEach(inp => {
-          inp.value = incrementUrlNumber(firstUrl, globalIdx++);
-        });
+        const toggleBtn = box.querySelector('.sc-img-toggle-btn'); if (toggleBtn) toggleBtn.innerText = '📷 홀 사진 URL ▲';
+        box.querySelectorAll('.sc-img-inp').forEach(inp => { inp.value = incrementUrlNumber(firstUrl, globalIdx++); });
       });
       alert(`총 ${globalIdx}개 홀의 사진 주소가 순서대로 자동 입력되었습니다!`);
     };
 
     window.renderCourseBuilder = (containerId, numCourses, existingSubCourses = null, sumId = 'course-par-sum') => {
-      const container = document.getElementById(containerId);
-      if (!container) return;
+      const container = document.getElementById(containerId); if (!container) return;
       const currentSnapshot = existingSubCourses || readBuilderSubCourses(containerId);
-
       container.innerHTML = Array.from({length: numCourses}, (_, cIdx) => {
-        const prev = currentSnapshot[cIdx];
-        const cName = prev ? prev.name : (DEFAULT_COURSE_LABELS[cIdx] || `${cIdx + 1}코스`);
+        const prev = currentSnapshot[cIdx], cName = prev ? prev.name : (DEFAULT_COURSE_LABELS[cIdx] || `${cIdx + 1}코스`);
         const cPars = prev && Array.isArray(prev.pars) && prev.pars.length === 9 ? prev.pars : [...DEFAULT_9_PARS];
         const cImgs = prev && Array.isArray(prev.images) && prev.images.length === 9 ? prev.images : [...DEFAULT_9_IMGS];
-        const cSum = cPars.reduce((a, b) => a + Number(b), 0);
-        const imgCount = cImgs.filter(u => u && u.trim()).length;
-
+        const cSum = cPars.reduce((a, b) => a + Number(b), 0), imgCount = cImgs.filter(u => u && u.trim()).length;
         return `
           <div class="sub-course-box" data-cidx="${cIdx}">
             <div class="sub-course-header">
@@ -1166,125 +1133,66 @@
               <span class="sub-course-par-badge">Par ${cSum}</span>
             </div>
             <div class="hole-par-grid">
-              ${Array.from({length: 9}, (_, hIdx) => `
-                <div class="hole-par-cell">
-                  <span>${hIdx + 1}H</span>
-                  <select class="sc-par-sel">
-                    <option value="3" ${cPars[hIdx]===3?'selected':''}>3</option>
-                    <option value="4" ${cPars[hIdx]===4?'selected':''}>4</option>
-                    <option value="5" ${cPars[hIdx]===5?'selected':''}>5</option>
-                  </select>
-                </div>`).join('')}
+              ${Array.from({length: 9}, (_, hIdx) => `<div class="hole-par-cell"><span>${hIdx + 1}H</span><select class="sc-par-sel"><option value="3" ${cPars[hIdx]===3?'selected':''}>3</option><option value="4" ${cPars[hIdx]===4?'selected':''}>4</option><option value="5" ${cPars[hIdx]===5?'selected':''}>5</option></select></div>`).join('')}
             </div>
             <div class="sc-img-toggle-row">
-              <button type="button" class="btn-sm sc-img-toggle-btn" onclick="toggleCourseImgWrap(this)">
-                📷 홀 사진 URL (${imgCount}/9) ▼
-              </button>
+              <button type="button" class="btn-sm sc-img-toggle-btn" onclick="toggleCourseImgWrap(this)">📷 홀 사진 URL (${imgCount}/9) ▼</button>
               <button type="button" class="btn-sm" onclick="autoFillSubCourseUrls(this)">⚡ 이 코스 9홀 자동채우기</button>
             </div>
             <div class="sc-imgs-wrap">
-              ${Array.from({length: 9}, (_, hIdx) => `
-                <div class="hole-img-row">
-                  <span>${hIdx + 1}H</span>
-                  <input type="url" class="sc-img-inp" value="${esc(cImgs[hIdx] || '')}" placeholder="https://.../hole${hIdx + 1}.png">
-                </div>`).join('')}
+              ${Array.from({length: 9}, (_, hIdx) => `<div class="hole-img-row"><span>${hIdx + 1}H</span><input type="url" class="sc-img-inp" value="${esc(cImgs[hIdx] || '')}" placeholder="https://.../hole${hIdx + 1}.png"></div>`).join('')}
             </div>
           </div>`;
       }).join('');
-
       const updateSums = () => {
         let totalHoles = 0, totalPar = 0;
         container.querySelectorAll('.sub-course-box').forEach(box => {
           const sum = Array.from(box.querySelectorAll('.sc-par-sel')).reduce((a, s) => a + Number(s.value), 0);
-          box.querySelector('.sub-course-par-badge').innerText = `Par ${sum}`;
-          totalHoles += 9; totalPar += sum;
+          box.querySelector('.sub-course-par-badge').innerText = `Par ${sum}`; totalHoles += 9; totalPar += sum;
         });
-        const sumEl = document.getElementById(sumId);
-        if (sumEl) sumEl.innerText = `총 ${totalHoles}홀 · Par ${totalPar}`;
+        const sumEl = document.getElementById(sumId); if (sumEl) sumEl.innerText = `총 ${totalHoles}홀 · Par ${totalPar}`;
       };
       container.querySelectorAll('.sc-par-sel').forEach(s => s.addEventListener('change', updateSums));
       updateSums();
     };
 
-    window.renderCourseBuilder('c-courses-container', 2, [
-      { name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] },
-      { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }
-    ], 'course-par-sum');
+    window.renderCourseBuilder('c-courses-container', 2, [{ name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }, { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }], 'course-par-sum');
 
     window.saveCourse = () => {
-      const name = document.getElementById('c-name').value.trim();
-      if (!name) return alert("골프장 이름을 입력하세요.");
-      const subCourses = readBuilderSubCourses('c-courses-container');
-      if (subCourses.length < 2) return alert("최소 2개 코스(18홀) 이상 필요합니다.");
+      const name = document.getElementById('c-name').value.trim(); if (!name) return alert("골프장 이름을 입력하세요.");
+      const subCourses = readBuilderSubCourses('c-courses-container'); if (subCourses.length < 2) return alert("최소 2개 코스(18홀) 이상 필요합니다.");
       const holeCount = subCourses.length * 9, pars = subCourses.flatMap(sc => sc.pars);
-
-      push(ref(db, 'courses'), { name, holeCount, subCourses, pars })
-        .then(() => {
-          alert(`'${name}' (${holeCount}홀) 골프장 정보가 저장되었습니다!`);
-          document.getElementById('c-name').value = "";
-          document.getElementById('c-hole-count').value = "18";
-          window.renderCourseBuilder('c-courses-container', 2, [
-            { name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] },
-            { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }
-          ], 'course-par-sum');
-        })
-        .catch(err => alert("골프장 저장 실패: " + err.message));
+      push(ref(db, 'courses'), { name, holeCount, subCourses, pars }).then(() => {
+        alert(`'${name}' (${holeCount}홀) 골프장 정보가 저장되었습니다!`);
+        document.getElementById('c-name').value = ""; document.getElementById('c-hole-count').value = "18";
+        window.renderCourseBuilder('c-courses-container', 2, [{ name: 'A코스 (OUT)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }, { name: 'B코스 (IN)', pars: [...DEFAULT_9_PARS], images: [...DEFAULT_9_IMGS] }], 'course-par-sum');
+      }).catch(err => alert("골프장 저장 실패: " + err.message));
     };
 
-    window.deleteCourse = (key) => {
-      if (!window.isAdmin) return alert("관리자 권한이 필요합니다.");
-      const c = allCourses.find(x => x.key === key);
-      if (c && confirm(`'${c.name}' 골프장을 삭제할까요?`)) remove(ref(db, 'courses/' + key)).catch(err => alert("삭제 실패: " + err.message));
-    };
+    window.deleteCourse = (key) => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); const c = allCourses.find(x => x.key === key); if (c && confirm(`'${c.name}' 골프장을 삭제할까요?`)) remove(ref(db, 'courses/' + key)).catch(err => alert("삭제 실패: " + err.message)); };
 
     const renderCoursesList = () => {
       const listEl = document.getElementById('courses-list');
       if (listEl) {
         listEl.innerHTML = allCourses.length ? allCourses.map(c => {
-          const subs = normalizeSubCourses(c), holes = subs.length * 9;
-          const totalPar = subs.reduce((a, sc) => a + sc.pars.reduce((x, y) => x + Number(y), 0), 0);
-          const photoCnt = subs.reduce((a, sc) => a + sc.images.filter(u => u && u.trim()).length, 0);
-          const namesStr = subs.map(sc => `${sc.name}(P${sc.pars.reduce((x,y)=>x+Number(y),0)})`).join(' · ');
-          return `
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(30,63,51,0.5);gap:8px;">
-              <div>
-                <b>⛳ ${esc(c.name)}</b>
-                <span style="font-size:11px;color:var(--gold);margin-left:4px;">${holes}홀 · Par ${totalPar} · 사진 ${photoCnt}장</span>
-                <span class="sub-note">${esc(namesStr)}</span>
-              </div>
-              <div class="action-btns"><button class="btn-edit" onclick="openEdit('course','${c.key}')">수정</button><button class="btn-del" onclick="deleteCourse('${c.key}')">삭제</button></div>
-            </div>`;
+          const subs = normalizeSubCourses(c), holes = subs.length * 9, totalPar = subs.reduce((a, sc) => a + sc.pars.reduce((x, y) => x + Number(y), 0), 0), photoCnt = subs.reduce((a, sc) => a + sc.images.filter(u => u && u.trim()).length, 0);
+          return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(30,63,51,0.5);gap:8px;"><div><b>⛳ ${esc(c.name)}</b> <span style="font-size:11px;color:var(--gold);margin-left:4px;">${holes}홀 · Par ${totalPar} · 사진 ${photoCnt}장</span><span class="sub-note">${esc(subs.map(sc => `${sc.name}(P${sc.pars.reduce((x,y)=>x+Number(y),0)})`).join(' · '))}</span></div><div class="action-btns"><button class="btn-edit" onclick="openEdit('course','${c.key}')">수정</button><button class="btn-del" onclick="deleteCourse('${c.key}')">삭제</button></div></div>`;
         }).join('') : '<div style="font-size:12px;color:var(--text-muted);">등록된 골프장이 없습니다.</div>';
       }
-
       const inCSel = document.getElementById('in-course-select');
-      if (inCSel) {
-        const cur = inCSel.value;
-        inCSel.innerHTML = '<option value="">-- 등록된 골프장 선택 --</option>' + allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
-        inCSel.value = cur;
-      }
-
+      if (inCSel) { const cur = inCSel.value; inCSel.innerHTML = '<option value="">-- 등록된 골프장 선택 --</option>' + allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join(''); inCSel.value = cur; }
       const gSel = document.getElementById('guide-course-select');
-      if (gSel) {
-        const curG = gSel.value;
-        gSel.innerHTML = '<option value="">-- 골프장을 선택하세요 --</option>' + allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
-        gSel.value = allCourses.some(c => c.key === curG) ? curG : (allCourses[0]?.key || '');
-      }
+      if (gSel) { const curG = gSel.value; gSel.innerHTML = '<option value="">-- 골프장을 선택하세요 --</option>' + allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join(''); gSel.value = allCourses.some(c => c.key === curG) ? curG : (allCourses[0]?.key || ''); }
     };
 
     window.onInCourseSelectChange = () => {
-      const key = document.getElementById('in-course-select').value, wrap = document.getElementById('in-subcourse-wrap'), found = allCourses.find(c => c.key === key);
+      const found = allCourses.find(c => c.key === document.getElementById('in-course-select').value), wrap = document.getElementById('in-subcourse-wrap');
       if (!found) { wrap.style.display = 'none'; return; }
-      const subs = normalizeSubCourses(found), fSel = document.getElementById('in-front-course'), bSel = document.getElementById('in-back-course');
-      const opts = subs.map((sc, i) => `<option value="${i}">${esc(sc.name)}</option>`).join('');
-      fSel.innerHTML = opts; bSel.innerHTML = opts; fSel.value = '0'; bSel.value = subs.length > 1 ? '1' : '0';
-      wrap.style.display = 'grid';
-      window.syncInCourseText();
+      const subs = normalizeSubCourses(found), fSel = document.getElementById('in-front-course'), bSel = document.getElementById('in-back-course'), opts = subs.map((sc, i) => `<option value="${i}">${esc(sc.name)}</option>`).join('');
+      fSel.innerHTML = opts; bSel.innerHTML = opts; fSel.value = '0'; bSel.value = subs.length > 1 ? '1' : '0'; wrap.style.display = 'grid'; window.syncInCourseText();
     };
-
     window.syncInCourseText = () => {
-      const found = allCourses.find(c => c.key === document.getElementById('in-course-select').value);
-      if (!found) return;
+      const found = allCourses.find(c => c.key === document.getElementById('in-course-select').value); if (!found) return;
       const subs = normalizeSubCourses(found), fIdx = Number(document.getElementById('in-front-course').value || 0), bIdx = Number(document.getElementById('in-back-course').value || 0);
       document.getElementById('in-course').value = `${found.name} (${subs[fIdx]?.name || ''}→${subs[bIdx]?.name || ''})`;
     };
@@ -1292,129 +1200,52 @@
     const findCourseParsByName = (courseStr) => {
       if (!courseStr) return DEFAULT_PARS;
       const match = courseStr.match(/^(.+?)\s*\((.+?)→(.+?)\)$/);
-      if (match) {
-        const [, clubName, fName, bName] = match, found = allCourses.find(c => c.name === clubName.trim());
-        if (found) {
-          const subs = normalizeSubCourses(found), fSub = subs.find(s => s.name === fName.trim()) || subs[0], bSub = subs.find(s => s.name === bName.trim()) || subs[1] || subs[0];
-          return [...fSub.pars, ...bSub.pars];
-        }
-      }
+      if (match) { const [, clubName, fName, bName] = match, found = allCourses.find(c => c.name === clubName.trim()); if (found) { const subs = normalizeSubCourses(found), fSub = subs.find(s => s.name === fName.trim()) || subs[0], bSub = subs.find(s => s.name === bName.trim()) || subs[1] || subs[0]; return [...fSub.pars, ...bSub.pars]; } }
       const foundExact = allCourses.find(c => c.name === courseStr.trim());
       if (foundExact) { const subs = normalizeSubCourses(foundExact); return [...subs[0].pars, ...(subs[1] || subs[0]).pars]; }
       return DEFAULT_PARS;
     };
 
-    // ==========================================
-    // 🗺 코스 안내 탭 렌더링
-    // ==========================================
     window.selectGuideSub = (idx) => { selectedGuideSubIdx = idx; window.renderCourseGuide(); };
-
     window.renderCourseGuide = () => {
-      const key = document.getElementById('guide-course-select')?.value;
-      const tabsEl = document.getElementById('guide-subcourse-tabs');
-      const boxEl = document.getElementById('guide-holes-container');
+      const key = document.getElementById('guide-course-select')?.value, tabsEl = document.getElementById('guide-subcourse-tabs'), boxEl = document.getElementById('guide-holes-container');
       if (!tabsEl || !boxEl) return;
-
       const found = allCourses.find(c => c.key === key);
-      if (!found) {
-        tabsEl.innerHTML = '';
-        boxEl.innerHTML = '<div style="font-size:13px; color:var(--text-muted);">등록된 골프장을 선택하면 홀별 파와 사진을 볼 수 있습니다.</div>';
-        return;
-      }
-
+      if (!found) { tabsEl.innerHTML = ''; boxEl.innerHTML = '<div style="font-size:13px; color:var(--text-muted);">등록된 골프장을 선택하면 홀별 파와 사진을 볼 수 있습니다.</div>'; return; }
       const subs = normalizeSubCourses(found);
       if (selectedGuideSubIdx >= subs.length) selectedGuideSubIdx = -1;
-
-      tabsEl.innerHTML = `<button class="btn-sm ${selectedGuideSubIdx === -1 ? 'active' : ''}" onclick="selectGuideSub(-1)">전체 (${subs.length * 9}홀)</button>` +
-        subs.map((sc, idx) => `<button class="btn-sm ${selectedGuideSubIdx === idx ? 'active' : ''}" onclick="selectGuideSub(${idx})">${esc(sc.name)} (P${sc.pars.reduce((a,b)=>a+Number(b),0)})</button>`).join('');
-
-      const targetSubs = selectedGuideSubIdx === -1 ? subs.map((sc, i) => ({ ...sc, cIdx: i })) : [{ ...subs[selectedGuideSubIdx], cIdx: selectedGuideSubIdx }];
-
+      tabsEl.innerHTML = `<button class="btn-sm ${selectedGuideSubIdx === -1 ? 'active' : ''}" onclick="selectGuideSub(-1)">전체 (${subs.length * 9}홀)</button>` + subs.map((sc, idx) => `<button class="btn-sm ${selectedGuideSubIdx === idx ? 'active' : ''}" onclick="selectGuideSub(${idx})">${esc(sc.name)} (P${sc.pars.reduce((a,b)=>a+Number(b),0)})</button>`).join('');
+      const targetSubs = selectedGuideSubIdx === -1 ? subs : [subs[selectedGuideSubIdx]];
       boxEl.innerHTML = targetSubs.flatMap(sc => sc.pars.map((p, hIdx) => {
         const holeNum = hIdx + 1, imgUrl = safeImgUrl(sc.images[hIdx]), cap = `${found.name} · ${sc.name} ${holeNum}홀 (Par ${p})`;
-        return `
-          <div class="guide-hole-card">
-            <div class="guide-hole-head">
-              <span>⛳ ${esc(sc.name)} ${holeNum}홀</span>
-              <span style="color:var(--gold);">Par ${p}</span>
-            </div>
-            ${imgUrl
-              ? `<img src="${esc(imgUrl)}" class="guide-hole-img" alt="${esc(cap)}" loading="lazy"
-                   onclick="openLightbox('${esc(imgUrl)}','${esc(cap)}')"
-                   onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                 <div class="guide-img-fallback" style="display:none;">
-                   이미지를 직접 불러올 수 없습니다.<br>
-                   <a href="${esc(imgUrl)}" target="_blank" rel="noopener noreferrer">🔗 새 탭에서 사진 열기</a>
-                 </div>`
-              : `<div class="guide-img-fallback">등록된 홀 사진이 없습니다.</div>`
-            }
-          </div>`;
+        return `<div class="guide-hole-card"><div class="guide-hole-head"><span>⛳ ${esc(sc.name)} ${holeNum}홀</span><span style="color:var(--gold);">Par ${p}</span></div>${imgUrl ? `<img src="${esc(imgUrl)}" class="guide-hole-img" alt="${esc(cap)}" loading="lazy" onclick="openLightbox('${esc(imgUrl)}','${esc(cap)}')" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="guide-img-fallback" style="display:none;">이미지를 직접 불러올 수 없습니다.<br><a href="${esc(imgUrl)}" target="_blank" rel="noopener noreferrer">🔗 새 탭에서 사진 열기</a></div>` : `<div class="guide-img-fallback">등록된 홀 사진이 없습니다.</div>`}</div>`;
       })).join('');
     };
 
-    // ==========================================
-    // 라이브 스코어 + 현재 홀 사진 표시
-    // ==========================================
-    window.toggleLivePhoto = () => {
-      livePhotoOpen = !livePhotoOpen;
-      document.getElementById('live-photo-toggle-btn').innerText = livePhotoOpen ? '접기' : '펼치기';
-      renderLiveHolePhoto();
-    };
-
+    window.toggleLivePhoto = () => { livePhotoOpen = !livePhotoOpen; document.getElementById('live-photo-toggle-btn').innerText = livePhotoOpen ? '접기' : '펼치기'; renderLiveHolePhoto(); };
     const renderLiveHolePhoto = () => {
-      const box = document.getElementById('live-hole-photo-box');
-      const titleEl = document.getElementById('live-photo-title');
-      const contentEl = document.getElementById('live-photo-content');
+      const box = document.getElementById('live-hole-photo-box'), titleEl = document.getElementById('live-photo-title'), contentEl = document.getElementById('live-photo-content');
       if (!box || !titleEl || !contentEl) return;
-
-      const found = allCourses.find(c => c.key === liveConfig.courseKey);
-      if (!found) { box.style.display = 'none'; return; }
-
-      const subs = normalizeSubCourses(found);
-      const isFront = currentLiveHole <= 9;
-      const sc = isFront ? subs[liveConfig.frontIdx ?? 0] : subs[liveConfig.backIdx ?? 0];
+      const found = allCourses.find(c => c.key === liveConfig.courseKey); if (!found) { box.style.display = 'none'; return; }
+      const subs = normalizeSubCourses(found), sc = currentLiveHole <= 9 ? subs[liveConfig.frontIdx ?? 0] : subs[liveConfig.backIdx ?? 0];
       if (!sc) { box.style.display = 'none'; return; }
-
-      const holeIdx = (currentLiveHole - 1) % 9;
-      const imgUrl = safeImgUrl(sc.images[holeIdx]);
+      const holeIdx = (currentLiveHole - 1) % 9, imgUrl = safeImgUrl(sc.images[holeIdx]);
       if (!imgUrl) { box.style.display = 'none'; return; }
-
-      const par = Number(sc.pars[holeIdx] || 4);
-      const cap = `${found.name} · ${sc.name} ${holeIdx + 1}홀 (${currentLiveHole}H · Par ${par})`;
-      titleEl.innerText = `📷 ${sc.name} ${holeIdx + 1}홀 (Par ${par}) 사진`;
-      box.style.display = 'block';
-
-      if (!livePhotoOpen) {
-        contentEl.innerHTML = '';
-        return;
-      }
-      contentEl.innerHTML = `
-        <img src="${esc(imgUrl)}" class="live-photo-img" alt="${esc(cap)}"
-          onclick="openLightbox('${esc(imgUrl)}','${esc(cap)}')"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <div class="guide-img-fallback" style="display:none; padding:8px;">
-          <a href="${esc(imgUrl)}" target="_blank" rel="noopener noreferrer">🔗 새 탭에서 홀 사진 열기</a>
-        </div>`;
+      const par = Number(sc.pars[holeIdx] || 4), cap = `${found.name} · ${sc.name} ${holeIdx + 1}홀 (${currentLiveHole}H · Par ${par})`;
+      titleEl.innerText = `📷 ${sc.name} ${holeIdx + 1}홀 (Par ${par}) 사진`; box.style.display = 'block';
+      contentEl.innerHTML = livePhotoOpen ? `<img src="${esc(imgUrl)}" class="live-photo-img" alt="${esc(cap)}" onclick="openLightbox('${esc(imgUrl)}','${esc(cap)}')" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="guide-img-fallback" style="display:none; padding:8px;"><a href="${esc(imgUrl)}" target="_blank" rel="noopener noreferrer">🔗 새 탭에서 홀 사진 열기</a></div>` : '';
     };
 
     const renderLiveCourseSelector = () => {
       const dateEl = document.getElementById('live-date-input'), selEl = document.getElementById('live-course-select'), subWrap = document.getElementById('live-subcourse-wrap'), fSel = document.getElementById('live-front-course'), bSel = document.getElementById('live-back-course');
       if (dateEl && liveConfig.date) dateEl.value = liveConfig.date;
-      if (selEl) {
-        selEl.innerHTML = '<option value="">기본 코스 (Par 72)</option>' + allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join('');
-        selEl.value = liveConfig.courseKey || '';
-      }
+      if (selEl) { selEl.innerHTML = '<option value="">기본 코스 (Par 72)</option>' + allCourses.map(c => `<option value="${c.key}">${esc(c.name)} (${normalizeSubCourses(c).length * 9}홀)</option>`).join(''); selEl.value = liveConfig.courseKey || ''; }
       const found = allCourses.find(c => c.key === liveConfig.courseKey);
       if (found && subWrap && fSel && bSel) {
         const subs = normalizeSubCourses(found), opts = subs.map((sc, idx) => `<option value="${idx}">${esc(sc.name)} (Par ${sc.pars.reduce((a,b)=>a+Number(b),0)})</option>`).join('');
-        fSel.innerHTML = opts; bSel.innerHTML = opts;
-        fSel.value = String(Math.min(liveConfig.frontIdx ?? 0, subs.length - 1));
-        bSel.value = String(Math.min(liveConfig.backIdx ?? (subs.length > 1 ? 1 : 0), subs.length - 1));
-        subWrap.style.display = 'grid';
+        fSel.innerHTML = opts; bSel.innerHTML = opts; fSel.value = String(Math.min(liveConfig.frontIdx ?? 0, subs.length - 1)); bSel.value = String(Math.min(liveConfig.backIdx ?? (subs.length > 1 ? 1 : 0), subs.length - 1)); subWrap.style.display = 'grid';
       } else if (subWrap) subWrap.style.display = 'none';
-
-      const pars = liveConfig.pars || DEFAULT_PARS, f = pars.slice(0, 9).reduce((a, b) => a + Number(b), 0), b = pars.slice(9, 18).reduce((a, b) => a + Number(b), 0);
-      const infoEl = document.getElementById('live-course-par-info');
+      const pars = liveConfig.pars || DEFAULT_PARS, f = pars.slice(0, 9).reduce((a, b) => a + Number(b), 0), b = pars.slice(9, 18).reduce((a, b) => a + Number(b), 0), infoEl = document.getElementById('live-course-par-info');
       if (infoEl) infoEl.innerText = `선택 코스: ${liveConfig.courseName} · 총 Par ${f + b} (전반 ${f} / 후반 ${b})`;
     };
 
@@ -1423,46 +1254,18 @@
       let courseName = '기본 코스', frontIdx = 0, backIdx = 1, pars = [...DEFAULT_PARS];
       if (found) {
         const subs = normalizeSubCourses(found);
-        if (resetSubIdx) { frontIdx = 0; backIdx = subs.length > 1 ? 1 : 0; }
-        else { frontIdx = Math.min(Number(document.getElementById('live-front-course').value || 0), subs.length - 1); backIdx = Math.min(Number(document.getElementById('live-back-course').value || 0), subs.length - 1); }
-        courseName = `${found.name} (${subs[frontIdx].name}→${subs[backIdx].name})`;
-        pars = [...subs[frontIdx].pars, ...subs[backIdx].pars];
+        if (resetSubIdx) { frontIdx = 0; backIdx = subs.length > 1 ? 1 : 0; } else { frontIdx = Math.min(Number(document.getElementById('live-front-course').value || 0), subs.length - 1); backIdx = Math.min(Number(document.getElementById('live-back-course').value || 0), subs.length - 1); }
+        courseName = `${found.name} (${subs[frontIdx].name}→${subs[backIdx].name})`; pars = [...subs[frontIdx].pars, ...subs[backIdx].pars];
       }
       set(ref(db, 'liveConfig'), { date, courseKey, courseName, frontIdx, backIdx, pars }).catch(err => alert("코스 설정 실패: " + err.message));
     };
 
-    const renderLiveParStrip = () => {
-      const strip = document.getElementById('live-par-strip');
-      if (!strip) return;
-      strip.innerHTML = (liveConfig.pars || DEFAULT_PARS).map((p, idx) => `<div class="hole-pill ${idx + 1 === currentLiveHole ? 'active' : ''}" onclick="selectLiveHole(${idx + 1})"><b>${idx + 1}H</b><small>P${p}</small></div>`).join('');
-    };
-
+    const renderLiveParStrip = () => { const strip = document.getElementById('live-par-strip'); if (!strip) return; strip.innerHTML = (liveConfig.pars || DEFAULT_PARS).map((p, idx) => `<div class="hole-pill ${idx + 1 === currentLiveHole ? 'active' : ''}" onclick="selectLiveHole(${idx + 1})"><b>${idx + 1}H</b><small>P${p}</small></div>`).join(''); };
     window.selectLiveHole = (h) => { currentLiveHole = Math.max(1, Math.min(18, h)); renderLiveParStrip(); renderLiveInputUI(); renderLiveHolePhoto(); };
     window.stepLiveHole = (delta) => { let n = currentLiveHole + delta; if (n < 1) n = 18; if (n > 18) n = 1; window.selectLiveHole(n); };
-
-    window.setLiveMode = (mode) => {
-      liveMode = mode;
-      document.getElementById('btn-mode-single').classList.toggle('active', mode === 'single');
-      document.getElementById('btn-mode-group').classList.toggle('active', mode === 'group');
-      document.getElementById('live-single-panel').style.display = mode === 'single' ? 'block' : 'none';
-      document.getElementById('live-group-panel').style.display = mode === 'group' ? 'block' : 'none';
-      renderLiveInputUI();
-    };
-
-    window.saveGroupSetup = () => {
-      localStorage.setItem('hanul_live_group', JSON.stringify({ group: document.getElementById('live-group-name').value, players: [1,2,3,4].map(i => document.getElementById('gp-' + i).value) }));
-      renderLiveInputUI();
-    };
-
-    const loadGroupSetup = () => {
-      try {
-        const raw = localStorage.getItem('hanul_live_group');
-        if (!raw) return;
-        const setup = JSON.parse(raw);
-        if (setup.group) document.getElementById('live-group-name').value = setup.group;
-        if (Array.isArray(setup.players)) setup.players.forEach((p, idx) => { const el = document.getElementById('gp-' + (idx + 1)); if (el) el.value = p || ''; });
-      } catch(e) {}
-    };
+    window.setLiveMode = (mode) => { liveMode = mode; document.getElementById('btn-mode-single').classList.toggle('active', mode === 'single'); document.getElementById('btn-mode-group').classList.toggle('active', mode === 'group'); document.getElementById('live-single-panel').style.display = mode === 'single' ? 'block' : 'none'; document.getElementById('live-group-panel').style.display = mode === 'group' ? 'block' : 'none'; renderLiveInputUI(); };
+    window.saveGroupSetup = () => { localStorage.setItem('hanul_live_group', JSON.stringify({ group: document.getElementById('live-group-name').value, players: [1,2,3,4].map(i => document.getElementById('gp-' + i).value) })); renderLiveInputUI(); };
+    const loadGroupSetup = () => { try { const raw = localStorage.getItem('hanul_live_group'); if (!raw) return; const s = JSON.parse(raw); if (s.group) document.getElementById('live-group-name').value = s.group; if (Array.isArray(s.players)) s.players.forEach((p, idx) => { const el = document.getElementById('gp-' + (idx + 1)); if (el) el.value = p || ''; }); } catch(e) {} };
 
     const syncLiveToRoundIfComplete = (pKey, payload) => {
       const holes = payload.holes || {}, filledCount = Array.from({length: 18}, (_, i) => Number(holes[String(i+1)] || 0)).filter(v => v > 0).length;
@@ -1483,16 +1286,9 @@
       set(ref(db, 'live/' + pKey), payload).then(() => syncLiveToRoundIfComplete(pKey, payload)).catch(err => alert("라이브 저장 실패: " + err.message));
     };
 
-    const getCurrentSubCourseLabel = (holeNum) => {
-      const found = allCourses.find(c => c.key === liveConfig.courseKey);
-      if (!found) return holeNum <= 9 ? '전반' : '후반';
-      const subs = normalizeSubCourses(found);
-      return holeNum <= 9 ? (subs[liveConfig.frontIdx]?.name || '전반') : (subs[liveConfig.backIdx]?.name || '후반');
-    };
-
+    const getCurrentSubCourseLabel = (holeNum) => { const found = allCourses.find(c => c.key === liveConfig.courseKey); if (!found) return holeNum <= 9 ? '전반' : '후반'; const subs = normalizeSubCourses(found); return holeNum <= 9 ? (subs[liveConfig.frontIdx]?.name || '전반') : (subs[liveConfig.backIdx]?.name || '후반'); };
     const getLiveSummary = (l) => {
-      const pars = l.pars || liveConfig.pars || DEFAULT_PARS, holes = l.holes || {};
-      let played = 0, totalStrokes = 0, totalParPlayed = 0;
+      const pars = l.pars || liveConfig.pars || DEFAULT_PARS, holes = l.holes || {}; let played = 0, totalStrokes = 0, totalParPlayed = 0;
       for (let h = 1; h <= 18; h++) { const sc = Number(holes[String(h)] || 0); if (sc > 0) { played++; totalStrokes += sc; totalParPlayed += Number(pars[h - 1] || 4); } }
       const diff = totalStrokes - totalParPlayed;
       return { played, totalStrokes, diff, diffStr: played === 0 ? '-' : (diff === 0 ? 'E' : (diff > 0 ? `+${diff}` : `${diff}`)) };
@@ -1500,22 +1296,14 @@
 
     window.renderLiveInputUI = () => {
       const pars = liveConfig.pars || DEFAULT_PARS, par = Number(pars[currentLiveHole - 1] || 4), subLabel = getCurrentSubCourseLabel(currentLiveHole);
-      const singleName = document.getElementById('live-single-player')?.value || '', singleRec = allLive.find(l => l.key === safeKey(singleName));
-      const curSingleScore = singleRec && singleRec.holes ? Number(singleRec.holes[String(currentLiveHole)] || 0) : 0;
-
+      const singleName = document.getElementById('live-single-player')?.value || '', singleRec = allLive.find(l => l.key === safeKey(singleName)), curSingleScore = singleRec && singleRec.holes ? Number(singleRec.holes[String(currentLiveHole)] || 0) : 0;
       const sLabel = document.getElementById('live-single-hole-label'); if (sLabel) sLabel.innerText = `${subLabel} ${currentLiveHole}홀 · Par ${par}`;
-      const sCur = document.getElementById('live-single-cur-score');
-      if (sCur) {
-        if (curSingleScore > 0) { const t = getGolfTerm(curSingleScore, par); sCur.innerHTML = `현재 입력: <b class="${t.cls}">${curSingleScore}타 (${t.text})</b>`; }
-        else sCur.innerText = singleName ? '아직 미입력' : '회원을 선택하세요';
-      }
-
+      const sCur = document.getElementById('live-single-cur-score'); if (sCur) { if (curSingleScore > 0) { const t = getGolfTerm(curSingleScore, par); sCur.innerHTML = `현재 입력: <b class="${t.cls}">${curSingleScore}타 (${t.text})</b>`; } else sCur.innerText = singleName ? '아직 미입력' : '회원을 선택하세요'; }
       const qBox = document.getElementById('live-single-quick-btns');
       if (qBox) {
         const candidates = []; for (let s = Math.max(1, par - 2); s <= par + 4; s++) candidates.push(s);
         qBox.innerHTML = candidates.map(s => { const t = getGolfTerm(s, par); return `<button class="q-btn" style="${curSingleScore === s ? 'border-color:var(--gold);background:rgba(212,175,55,0.22);' : ''}" onclick="onSingleQuickTap(${s})"><span>${s}타</span><small class="${t.cls}">${t.text}</small></button>`; }).join('') + `<button class="q-btn" onclick="onSingleCustomTap()"><span>직접입력</span><small style="color:var(--text-muted);">기타 타수</small></button>`;
       }
-
       const gLabel = document.getElementById('live-group-hole-label'); if (gLabel) gLabel.innerText = `${subLabel} ${currentLiveHole}홀 · Par ${par}`;
       const gList = document.getElementById('live-group-players-list');
       if (gList) {
@@ -1534,9 +1322,6 @@
     window.deleteLive = (key) => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); const l = allLive.find(x => x.key === key); if (l && confirm(`'${l.name}'님의 라이브 기록을 삭제할까요?`)) remove(ref(db, 'live/' + key)).catch(err => alert("삭제 실패: " + err.message)); };
     window.clearLive = () => { if (!window.isAdmin) return alert("관리자 권한이 필요합니다."); if (confirm("라이브 스코어보드를 전체 초기화할까요? (이미 18홀 완료되어 저장된 정식 기록은 유지됩니다)")) remove(ref(db, 'live')).then(() => alert("라이브 보드가 초기화되었습니다.")).catch(err => alert("초기화 실패: " + err.message)); };
 
-    // ==========================================
-    // 스코어카드 & 공용 수정 모달
-    // ==========================================
     window.openScorecardModal = (sourceType, key) => {
       let record, pars, holes, title;
       if (sourceType === 'live') { record = allLive.find(x => x.key === key); if (!record) return; pars = record.pars || liveConfig.pars || DEFAULT_PARS; holes = record.holes || {}; title = `⛳ ${record.name} 실시간 스코어카드`; }
@@ -1563,10 +1348,22 @@
       updateTotalPreview();
       document.getElementById('edit-modal-actions').innerHTML = readOnly ? `<button class="btn-primary" onclick="closeEditModal()">닫기</button>` : `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">18홀 스코어 저장</button>`;
       document.getElementById('edit-modal').style.display = 'flex';
+      window.pushOverlayState('edit');
     };
 
-    window.closeEditModal = () => { document.getElementById('edit-modal').style.display = 'none'; document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`; currentEdit = null; };
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (currentEdit) window.closeEditModal(); document.getElementById('img-lightbox').style.display = 'none'; } });
+    window.closeEditModal = () => {
+      document.getElementById('edit-modal').style.display = 'none';
+      document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">저장</button>`;
+      currentEdit = null;
+      window.popOverlayState('edit');
+    };
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (document.getElementById('img-lightbox').style.display === 'flex') window.closeLightbox();
+        else if (currentEdit) window.closeEditModal();
+      }
+    });
 
     window.openEdit = (type, key) => {
       if (!window.isAdmin) return alert("관리자 로그인 후 이용하세요.");
@@ -1598,20 +1395,7 @@
         const c = allCourses.find(x => x.key === key); if (!c) return;
         const subs = normalizeSubCourses(c);
         titleEl.innerText = "⛳ 골프장 정보 수정 (최대 54홀)";
-        bodyEl.innerHTML = `
-          <div class="form-row-2">
-            <div class="form-row"><label>골프장 이름</label><input type="text" id="ed-c-name"></div>
-            <div class="form-row"><label>총 홀 수</label>
-              <select id="ed-c-hole-count" onchange="renderCourseBuilder('ed-c-container', Number(this.value)/9, null, 'ed-c-sum')">
-                <option value="18">18홀 (2개 코스)</option><option value="27">27홀 (3개 코스)</option><option value="36">36홀 (4개 코스)</option><option value="45">45홀 (5개 코스)</option><option value="54">54홀 (6개 코스)</option>
-              </select>
-            </div>
-          </div>
-          <div style="display:flex; justify-content:flex-end; margin-bottom:8px;">
-            <button type="button" class="btn-sm" onclick="autoFillAllCourseUrls('ed-c-container')">⚡ 1번 홀 주소로 전체 홀 자동채우기</button>
-          </div>
-          <div id="ed-c-container"></div>
-          <div id="ed-c-sum" style="font-size:12px;color:var(--gold-light);margin-top:6px;text-align:right;font-weight:700;"></div>`;
+        bodyEl.innerHTML = `<div class="form-row-2"><div class="form-row"><label>골프장 이름</label><input type="text" id="ed-c-name"></div><div class="form-row"><label>총 홀 수</label><select id="ed-c-hole-count" onchange="renderCourseBuilder('ed-c-container', Number(this.value)/9, null, 'ed-c-sum')"><option value="18">18홀 (2개 코스)</option><option value="27">27홀 (3개 코스)</option><option value="36">36홀 (4개 코스)</option><option value="45">45홀 (5개 코스)</option><option value="54">54홀 (6개 코스)</option></select></div></div><div style="display:flex; justify-content:flex-end; margin-bottom:8px;"><button type="button" class="btn-sm" onclick="autoFillAllCourseUrls('ed-c-container')">⚡ 1번 홀 주소로 전체 홀 자동채우기</button></div><div id="ed-c-container"></div><div id="ed-c-sum" style="font-size:12px;color:var(--gold-light);margin-top:6px;text-align:right;font-weight:700;"></div>`;
         document.getElementById('ed-c-name').value = c.name || '';
         document.getElementById('ed-c-hole-count').value = String(subs.length * 9);
         window.renderCourseBuilder('ed-c-container', subs.length, subs, 'ed-c-sum');
@@ -1622,6 +1406,7 @@
         document.getElementById('ed-n-date').value = n.date || new Date().toISOString().slice(0, 10); document.getElementById('ed-n-title').value = n.title || ''; document.getElementById('ed-n-body').value = n.body || '';
       }
       document.getElementById('edit-modal').style.display = 'flex';
+      window.pushOverlayState('edit');
     };
 
     window.submitEdit = () => {
@@ -1680,8 +1465,11 @@
       if (!date || !course || !player || !score) return alert("모두 입력하세요.");
       const roundObj = { date, course, player, score, appliedHandi: getRegisteredHandi(player), pars: findCourseParsByName(course) };
       push(ref(db, 'rounds'), roundObj).then((newRef) => syncRoundFine(newRef.key, roundObj)).then(() => {
-        if (score <= 79) { document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`; document.getElementById('achievement-modal').style.display = 'flex'; }
-        else alert("저장 완료! (등록 핸디 기준 벌금 자동 반영)");
+        if (score <= 79) {
+          document.getElementById('achieve-text').innerText = `${player}님 ${score}타! 싱글 스코어 달성!`;
+          document.getElementById('achievement-modal').style.display = 'flex';
+          window.pushOverlayState('achieve');
+        } else alert("저장 완료! (등록 핸디 기준 벌금 자동 반영)");
         document.getElementById('in-player').value = ""; document.getElementById('in-score').value = "";
       }).catch(err => alert("스코어 저장 실패: " + err.message));
     };
@@ -1811,6 +1599,7 @@
       document.getElementById('edit-modal-body').innerHTML = `<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">신페리오 핸디 계산에 사용할 <b>숨김 홀 12개</b>를 선택하세요.</div><div id="hh-count" style="font-size:13px;font-weight:800;color:var(--gold);margin-bottom:6px;">선택됨: ${cur.length} / 12홀</div><div class="hidden-hole-grid">${Array.from({length: 18}, (_, i) => `<button type="button" class="hh-btn ${cur.includes(i+1)?'selected':''}" data-hole="${i+1}" onclick="toggleHiddenHoleBtn(this)">${i+1}H</button>`).join('')}</div>`;
       document.getElementById('edit-modal-actions').innerHTML = `<button class="btn-secondary" onclick="closeEditModal()">취소</button><button class="btn-primary" onclick="submitEdit()">12홀 저장</button>`;
       document.getElementById('edit-modal').style.display = 'flex';
+      window.pushOverlayState('edit');
     };
     window.toggleHiddenHoleBtn = (btn) => { btn.classList.toggle('selected'); document.getElementById('hh-count').innerText = `선택됨: ${document.querySelectorAll('.hh-btn.selected').length} / 12홀`; };
 
